@@ -1,0 +1,88 @@
+{
+  "api": {
+    "AdminQueries": {
+      "authorizationType": "AMAZON_COGNITO_USER_POOLS",
+      "dependsOn": [
+        {
+          "attributes": [
+            "UserPoolId"
+          ],
+          "category": "auth",
+          "resourceName": "ofsresources"
+        },
+        {
+          "attributes": [
+            "Arn",
+            "Name"
+          ],
+          "category": "function",
+          "resourceName": "AdminQueries67401e77"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "API Gateway"
+    }
+  },
+  "auth": {
+    "ofsresources": {
+      "customAuth": false,
+      "dependsOn": [],
+      "frontendAuthConfig": {
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyCharacters": [],
+          "passwordPolicyMinLength": 8
+        },
+        "signupAttributes": [
+          "EMAIL",
+          "NAME",
+          "PHONE_NUMBER"
+        ],
+        "socialProviders": [],
+        "usernameAttributes": [
+          "EMAIL"
+        ],
+        "verificationMechanisms": [
+          "EMAIL"
+        ]
+      },
+      "providerPlugin": "awscloudformation",
+      "service": "Cognito"
+    },
+    "userPoolGroups": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "UserPoolId",
+            "AppClientIDWeb",
+            "AppClientID",
+            "IdentityPoolId"
+          ],
+          "category": "auth",
+          "resourceName": "ofsresources"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Cognito-UserPool-Groups"
+    }
+  },
+  "function": {
+    "AdminQueries67401e77": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "UserPoolId"
+          ],
+          "category": "auth",
+          "resourceName": "ofsresources"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  }
+}

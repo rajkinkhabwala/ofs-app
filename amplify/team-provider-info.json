@@ -1,0 +1,20 @@
+{
+  "staging": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-oneforestschool-staging-64746-authRole",
+      "UnauthRoleArn": "arn:aws:iam::223681902151:role/amplify-oneforestschool-staging-64746-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::223681902151:role/amplify-oneforestschool-staging-64746-authRole",
+      "Region": "us-west-2",
+      "DeploymentBucketName": "amplify-oneforestschool-staging-64746-deployment",
+      "UnauthRoleName": "amplify-oneforestschool-staging-64746-unauthRole",
+      "StackName": "amplify-oneforestschool-staging-64746",
+      "StackId": "arn:aws:cloudformation:us-west-2:223681902151:stack/amplify-oneforestschool-staging-64746/77546e30-bf0f-11ed-8a3b-027b6147b93f",
+      "AmplifyAppId": "dzjjssp9pw6vp"
+    },
+    "categories": {
+      "auth": {
+        "ofsresources": {}
+      }
+    }
+  }
+}
