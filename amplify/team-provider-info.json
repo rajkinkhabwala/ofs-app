@@ -21,9 +21,6 @@
           "deploymentBucketName": "amplify-ofsapp-dev-171226-deployment",
           "s3Key": "amplify-builds/AdminQueriesc70cc6d6-77556e515a6d33315161-build.zip"
         }
-      },
-      "api": {
-        "AdminQueries": {}
       }
     }
   }
