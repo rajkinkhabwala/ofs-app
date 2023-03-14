@@ -1,19 +1,29 @@
 {
-  "staging": {
+  "dev": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-oneforestschool-staging-64746-authRole",
-      "UnauthRoleArn": "arn:aws:iam::223681902151:role/amplify-oneforestschool-staging-64746-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::223681902151:role/amplify-oneforestschool-staging-64746-authRole",
+      "AuthRoleName": "amplify-ofsapp-dev-171226-authRole",
+      "UnauthRoleArn": "arn:aws:iam::223681902151:role/amplify-ofsapp-dev-171226-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::223681902151:role/amplify-ofsapp-dev-171226-authRole",
       "Region": "us-west-2",
-      "DeploymentBucketName": "amplify-oneforestschool-staging-64746-deployment",
-      "UnauthRoleName": "amplify-oneforestschool-staging-64746-unauthRole",
-      "StackName": "amplify-oneforestschool-staging-64746",
-      "StackId": "arn:aws:cloudformation:us-west-2:223681902151:stack/amplify-oneforestschool-staging-64746/77546e30-bf0f-11ed-8a3b-027b6147b93f",
-      "AmplifyAppId": "dzjjssp9pw6vp"
+      "DeploymentBucketName": "amplify-ofsapp-dev-171226-deployment",
+      "UnauthRoleName": "amplify-ofsapp-dev-171226-unauthRole",
+      "StackName": "amplify-ofsapp-dev-171226",
+      "StackId": "arn:aws:cloudformation:us-west-2:223681902151:stack/amplify-ofsapp-dev-171226/e7532a60-c1fc-11ed-b939-06fe86829aa9",
+      "AmplifyAppId": "d6msmizvpmdu0"
     },
     "categories": {
       "auth": {
-        "ofsresources": {}
+        "ofsapp34d3690a34d3690a": {},
+        "userPoolGroups": {}
+      },
+      "function": {
+        "AdminQueriesc70cc6d6": {
+          "deploymentBucketName": "amplify-ofsapp-dev-171226-deployment",
+          "s3Key": "amplify-builds/AdminQueriesc70cc6d6-77556e515a6d33315161-build.zip"
+        }
+      },
+      "api": {
+        "AdminQueries": {}
       }
     }
   }

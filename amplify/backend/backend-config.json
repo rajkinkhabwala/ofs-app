@@ -8,7 +8,7 @@
             "UserPoolId"
           ],
           "category": "auth",
-          "resourceName": "ofsresources"
+          "resourceName": "ofsapp34d3690a34d3690a"
         },
         {
           "attributes": [
@@ -16,7 +16,7 @@
             "Name"
           ],
           "category": "function",
-          "resourceName": "AdminQueries67401e77"
+          "resourceName": "AdminQueriesc70cc6d6"
         }
       ],
       "providerPlugin": "awscloudformation",
@@ -24,7 +24,7 @@
     }
   },
   "auth": {
-    "ofsresources": {
+    "ofsapp34d3690a34d3690a": {
       "customAuth": false,
       "dependsOn": [],
       "frontendAuthConfig": {
@@ -62,7 +62,7 @@
             "IdentityPoolId"
           ],
           "category": "auth",
-          "resourceName": "ofsresources"
+          "resourceName": "ofsapp34d3690a34d3690a"
         }
       ],
       "providerPlugin": "awscloudformation",
@@ -70,7 +70,7 @@
     }
   },
   "function": {
-    "AdminQueries67401e77": {
+    "AdminQueriesc70cc6d6": {
       "build": true,
       "dependsOn": [
         {
@@ -78,11 +78,29 @@
             "UserPoolId"
           ],
           "category": "auth",
-          "resourceName": "ofsresources"
+          "resourceName": "ofsapp34d3690a34d3690a"
         }
       ],
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_AdminQueriesc70cc6d6_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "AdminQueriesc70cc6d6"
+        }
+      ]
+    },
+    "AMPLIFY_function_AdminQueriesc70cc6d6_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "AdminQueriesc70cc6d6"
+        }
+      ]
     }
   }
 }
