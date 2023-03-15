@@ -1,0 +1,17 @@
+enum CourseFormat {
+  WEEKY
+}
+
+type Courses @model @auth(rules: [{allow: public, operations: [read]}, {allow: groups, groups: ["Admins"], operations: [read, create, update, delete]}, {allow: groups, groups: ["Owners"], operations: [read, create, update, delete]}, {allow: groups, groups: ["Teachers"], operations: [read, create, update, delete]}, {allow: groups, groups: ["Students"], operations: [read]}]) {
+  id: ID!
+  course_name: String!
+  course_code: String!
+  course_visibility: Boolean!
+  course_start_date: AWSDateTime
+  course_end_date: AWSDateTime
+  course_description: String
+  course_image: String
+  course_format: CourseFormat
+  course_credit: Int
+}
+ 
