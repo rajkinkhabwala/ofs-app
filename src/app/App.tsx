@@ -3,6 +3,8 @@ import { Amplify } from 'aws-amplify';
 import React from 'react';
 import './App.css';
 import awsmobile from '../aws-exports';
+import { CoursesCreateForm } from '../ui-components';
+
 
 function App() {
   Amplify.configure(awsmobile)
@@ -15,6 +17,7 @@ function App() {
           <p>
             Hello {user?.username}
           </p>
+          <CoursesCreateForm />
           <a
             className="App-link"
             href="https://reactjs.org"
