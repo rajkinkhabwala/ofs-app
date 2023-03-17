@@ -65,3 +65,252 @@ export const deleteCourses = /* GraphQL */ `
     }
   }
 `;
+export const createDepartments = /* GraphQL */ `
+  mutation CreateDepartments(
+    $input: CreateDepartmentsInput!
+    $condition: ModelDepartmentsConditionInput
+  ) {
+    createDepartments(input: $input, condition: $condition) {
+      id
+      deparment_name
+      department_id
+      department_description
+      Users {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateDepartments = /* GraphQL */ `
+  mutation UpdateDepartments(
+    $input: UpdateDepartmentsInput!
+    $condition: ModelDepartmentsConditionInput
+  ) {
+    updateDepartments(input: $input, condition: $condition) {
+      id
+      deparment_name
+      department_id
+      department_description
+      Users {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteDepartments = /* GraphQL */ `
+  mutation DeleteDepartments(
+    $input: DeleteDepartmentsInput!
+    $condition: ModelDepartmentsConditionInput
+  ) {
+    deleteDepartments(input: $input, condition: $condition) {
+      id
+      deparment_name
+      department_id
+      department_description
+      Users {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createUsers = /* GraphQL */ `
+  mutation CreateUsers(
+    $input: CreateUsersInput!
+    $condition: ModelUsersConditionInput
+  ) {
+    createUsers(input: $input, condition: $condition) {
+      id
+      name
+      email
+      phone
+      address
+      picture
+      description
+      departmentsID
+      role
+      AssignmentSubmissions {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateUsers = /* GraphQL */ `
+  mutation UpdateUsers(
+    $input: UpdateUsersInput!
+    $condition: ModelUsersConditionInput
+  ) {
+    updateUsers(input: $input, condition: $condition) {
+      id
+      name
+      email
+      phone
+      address
+      picture
+      description
+      departmentsID
+      role
+      AssignmentSubmissions {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteUsers = /* GraphQL */ `
+  mutation DeleteUsers(
+    $input: DeleteUsersInput!
+    $condition: ModelUsersConditionInput
+  ) {
+    deleteUsers(input: $input, condition: $condition) {
+      id
+      name
+      email
+      phone
+      address
+      picture
+      description
+      departmentsID
+      role
+      AssignmentSubmissions {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createAssignmentSubmissions = /* GraphQL */ `
+  mutation CreateAssignmentSubmissions(
+    $input: CreateAssignmentSubmissionsInput!
+    $condition: ModelAssignmentSubmissionsConditionInput
+  ) {
+    createAssignmentSubmissions(input: $input, condition: $condition) {
+      id
+      assignmentsID
+      usersID
+      number_of_files
+      grade
+      submission_comment
+      checker
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateAssignmentSubmissions = /* GraphQL */ `
+  mutation UpdateAssignmentSubmissions(
+    $input: UpdateAssignmentSubmissionsInput!
+    $condition: ModelAssignmentSubmissionsConditionInput
+  ) {
+    updateAssignmentSubmissions(input: $input, condition: $condition) {
+      id
+      assignmentsID
+      usersID
+      number_of_files
+      grade
+      submission_comment
+      checker
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteAssignmentSubmissions = /* GraphQL */ `
+  mutation DeleteAssignmentSubmissions(
+    $input: DeleteAssignmentSubmissionsInput!
+    $condition: ModelAssignmentSubmissionsConditionInput
+  ) {
+    deleteAssignmentSubmissions(input: $input, condition: $condition) {
+      id
+      assignmentsID
+      usersID
+      number_of_files
+      grade
+      submission_comment
+      checker
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createAssignments = /* GraphQL */ `
+  mutation CreateAssignments(
+    $input: CreateAssignmentsInput!
+    $condition: ModelAssignmentsConditionInput
+  ) {
+    createAssignments(input: $input, condition: $condition) {
+      id
+      assignment_name
+      assignment_desc
+      resubmit
+      teacher
+      max_bytes
+      time_due
+      time_available
+      grade
+      extra_data
+      AssignmentSubmissions {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateAssignments = /* GraphQL */ `
+  mutation UpdateAssignments(
+    $input: UpdateAssignmentsInput!
+    $condition: ModelAssignmentsConditionInput
+  ) {
+    updateAssignments(input: $input, condition: $condition) {
+      id
+      assignment_name
+      assignment_desc
+      resubmit
+      teacher
+      max_bytes
+      time_due
+      time_available
+      grade
+      extra_data
+      AssignmentSubmissions {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteAssignments = /* GraphQL */ `
+  mutation DeleteAssignments(
+    $input: DeleteAssignmentsInput!
+    $condition: ModelAssignmentsConditionInput
+  ) {
+    deleteAssignments(input: $input, condition: $condition) {
+      id
+      assignment_name
+      assignment_desc
+      resubmit
+      teacher
+      max_bytes
+      time_due
+      time_available
+      grade
+      extra_data
+      AssignmentSubmissions {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;

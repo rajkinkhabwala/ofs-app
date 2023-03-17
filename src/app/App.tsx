@@ -8,6 +8,7 @@ import { CoursesCreateForm } from '../ui-components';
 
 function App() {
   Amplify.configure(awsmobile)
+
   return (
     <Authenticator signUpAttributes={['email', 'name', 'phone_number']} loginMechanisms={['email']}>
       {({ signOut, user }) => (
@@ -17,7 +18,7 @@ function App() {
           <p>
             Hello {user?.username}
           </p>
-          <CoursesCreateForm />
+          {/* <CoursesCreateForm /> */}
           <a
             className="App-link"
             href="https://reactjs.org"

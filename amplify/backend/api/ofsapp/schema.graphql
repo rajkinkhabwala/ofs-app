@@ -15,3 +15,47 @@ type Courses @model @auth(rules: [{allow: public, operations: [read]}, {allow: g
   course_credit: Int
 }
  
+type Departments @model @auth(rules: [{allow: public, operations: [read]}, {allow: groups, groups: ["Admins"], operations: [read, create, update, delete]}, {allow: groups, groups: ["Owners"], operations: [read, create, update, delete]}]) {
+  id: ID!
+  deparment_name: String
+  department_id: String
+  department_description: String
+  Users: [Users] @hasMany(indexName: "byDepartments", fields: ["id"])
+}
+
+type Users @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  name: String
+  email: String
+  phone: String
+  address: String
+  picture: String
+  description: String
+  departmentsID: ID! @index(name: "byDepartments")
+  role: String
+  AssignmentSubmissions: [AssignmentSubmissions] @hasMany(indexName: "byUsers", fields: ["id"])
+}
+
+type AssignmentSubmissions @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  assignmentsID: ID! @index(name: "byAssignments")
+  usersID: ID! @index(name: "byUsers")
+  number_of_files: Int
+  grade: Int
+  submission_comment: String
+  checker: ID!
+}
+
+type Assignments @model @auth(rules: [{allow: public}, {allow: private, operations: [read]}, {allow: groups, groups: ["Admins"], operations: [read, create, update, delete]}, {allow: groups, groups: ["Teachers"], operations: [read, create, update, delete]}, {allow: groups, groups: ["Owners"], operations: [read, update, delete]}, {allow: groups, groups: ["Students"], operations: [read]}]) {
+  id: ID!
+  assignment_name: String!
+  assignment_desc: String!
+  resubmit: Int!
+  teacher: ID!
+  max_bytes: Int
+  time_due: AWSDateTime
+  time_available: AWSDateTime
+  grade: Int!
+  extra_data: AWSJSON
+  AssignmentSubmissions: [AssignmentSubmissions] @hasMany(indexName: "byAssignments", fields: ["id"])
+}

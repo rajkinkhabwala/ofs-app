@@ -2,7 +2,7 @@ import { API } from "aws-amplify";
 import * as mutations from '../../../../graphql/mutations';
 import * as queries from '../../../../graphql/queries';
 import { GraphQLQuery, graphqlOperation } from '@aws-amplify/api';
-import { CreateCoursesInput, CreateCoursesMutation, DeleteCoursesInput, GetCoursesQuery, GetCoursesQueryVariables, ListCoursesQuery, ModelCoursesFilterInput, UpdateCoursesInput, UpdateCoursesMutation } from "../../../../API";
+import { CreateCoursesInput, CreateCoursesMutation, DeleteCoursesInput, GetCoursesQuery, ListCoursesQuery, ModelCoursesFilterInput, UpdateCoursesInput, UpdateCoursesMutation } from "../../../../API";
 
 
 export async function createCourse(course: CreateCoursesInput) {
@@ -20,7 +20,7 @@ export async function deleteCourse(course: DeleteCoursesInput) {
 export async function listCourse(
     filter?: ModelCoursesFilterInput,
     limit?: number,
-    nextToken?: string 
+    nextToken?: string
 ) {
     return await API.graphql<GraphQLQuery<ListCoursesQuery>>(graphqlOperation(queries.listCourses, {
         filter: filter,
@@ -29,6 +29,6 @@ export async function listCourse(
     }))
 }
 
-export async function getCourse(course: GetCoursesQueryVariables) {
+export async function getCourse(course: string) {
     return await API.graphql<GraphQLQuery<GetCoursesQuery>>(graphqlOperation(queries.getCourses, { id: course }))
 }
