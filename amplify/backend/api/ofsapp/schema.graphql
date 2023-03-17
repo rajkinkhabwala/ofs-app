@@ -1,3 +1,10 @@
+type Announcements @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  title: String
+  announcement: String
+  coursesID: ID! @index(name: "byCourses")
+}
+
 enum CourseFormat {
   WEEKY
 }
@@ -13,8 +20,9 @@ type Courses @model @auth(rules: [{allow: public, operations: [read]}, {allow: g
   course_image: String
   course_format: CourseFormat
   course_credit: Int
+  Announcements: [Announcements] @hasMany(indexName: "byCourses", fields: ["id"])
 }
- 
+
 type Departments @model @auth(rules: [{allow: public, operations: [read]}, {allow: groups, groups: ["Admins"], operations: [read, create, update, delete]}, {allow: groups, groups: ["Owners"], operations: [read, create, update, delete]}]) {
   id: ID!
   deparment_name: String
@@ -59,3 +67,4 @@ type Assignments @model @auth(rules: [{allow: public}, {allow: private, operatio
   extra_data: AWSJSON
   AssignmentSubmissions: [AssignmentSubmissions] @hasMany(indexName: "byAssignments", fields: ["id"])
 }
+ 

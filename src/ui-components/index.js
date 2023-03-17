@@ -7,3 +7,7 @@
 export { default as studioTheme } from "./studioTheme";
 export { default as CoursesCreateForm } from "./CoursesCreateForm";
 export { default as CoursesUpdateForm } from "./CoursesUpdateForm";
+export { default as DepartmentsCreateForm } from "./DepartmentsCreateForm";
+export { default as DepartmentsUpdateForm } from "./DepartmentsUpdateForm";
+export { default as AssignmentsCreateForm } from "./AssignmentsCreateForm";
+export { default as AssignmentsUpdateForm } from "./AssignmentsUpdateForm";
