@@ -4,7 +4,7 @@ import React from 'react';
 import awsmobile from '../aws-exports';
 import { CoursesCreateForm } from '../ui-components';
 import '../styles/_login.scss'
-import { Table } from '../common-components/Table.component';
+import { Courses } from './courses.component';
 
 
 function Login() {
@@ -16,7 +16,7 @@ function Login() {
         
         return(
             <div>
-                <Table />
+                <Courses />
 
                 <a className="App-link"  rel="noopener noreferrer" onClick={signOut}>
                     Sign Out
