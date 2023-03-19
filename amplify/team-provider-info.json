@@ -25,6 +25,9 @@
       "api": {
         "AdminQueries": {},
         "ofsapp": {}
+      },
+      "storage": {
+        "s3d829bb75": {}
       }
     }
   }
