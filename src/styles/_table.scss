@@ -1,0 +1,47 @@
+.table-template{
+    overflow: scroll;
+
+    .table-header{
+        background: white;
+        border: 1px solid #dee2e6;
+        border-bottom: none;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .title{
+            margin-left: 2rem;
+        }
+
+        .add-course{
+            margin-right: 2rem;
+        }
+    } 
+
+    .crud-btn-container{
+        span{
+            margin: 10px;
+            border: 1px solid black;
+            border-radius: 1rem;
+            padding: 5px;
+            cursor: pointer;
+        }
+    }
+}
+
+.modal-wrapper{
+
+    .description-label{
+        display: inline-block;
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: #212529;
+        word-break: break-word;
+        cursor: default;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .course-submit{
+        margin-top: 1rem;
+    }
+}
