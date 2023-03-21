@@ -1,4 +1,6 @@
 .table-template{
+    overflow: scroll;
+
     .table-header{
         background: white;
         border: 1px solid #dee2e6;
@@ -15,6 +17,16 @@
             margin-right: 2rem;
         }
     } 
+
+    .crud-btn-container{
+        span{
+            margin: 10px;
+            border: 1px solid black;
+            border-radius: 1rem;
+            padding: 5px;
+            cursor: pointer;
+        }
+    }
 }
 
 .modal-wrapper{
