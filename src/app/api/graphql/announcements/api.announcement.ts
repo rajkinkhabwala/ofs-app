@@ -1,12 +1,12 @@
 import { API } from "aws-amplify";
 import * as mutations from '../../../../graphql/mutations';
 import * as queries from '../../../../graphql/queries';
-import { GraphQLQuery, graphqlOperation } from '@aws-amplify/api';
-import { CreateAnnouncementsInput, CreateAnnouncementsMutation, DeleteAnnouncementsInput, GetAnnouncementsQuery, ListAnnouncementsQuery, ModelAnnouncementsFilterInput, UpdateAnnouncementsInput, UpdateAnnouncementsMutation } from "../../../../API";
+import { GraphQLQuery, graphqlOperation, GRAPHQL_AUTH_MODE } from '@aws-amplify/api';
+import { AnnouncementsByCoursesIDQuery, AnnouncementsByCoursesIDQueryVariables, CreateAnnouncementsInput, CreateAnnouncementsMutation, DeleteAnnouncementsInput, GetAnnouncementsQuery, ListAnnouncementsQuery, ModelAnnouncementsFilterInput, ModelSortDirection, UpdateAnnouncementsInput, UpdateAnnouncementsMutation } from "../../../../API";
 
 
 export async function createAnnouncement(announcement: CreateAnnouncementsInput) {
-    return await API.graphql<GraphQLQuery<CreateAnnouncementsMutation>>(graphqlOperation(mutations.createAnnouncements, { input: announcement }))
+    return await API.graphql<GraphQLQuery<CreateAnnouncementsMutation>>({...graphqlOperation(mutations.createAnnouncements, { input: announcement }), authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS})
 }
 
 export async function updateAnnouncement(announcement: UpdateAnnouncementsInput) {
@@ -31,4 +31,12 @@ export async function listAnnouncement(
 
 export async function getAnnouncement(announcement: string) {
     return await API.graphql<GraphQLQuery<GetAnnouncementsQuery>>(graphqlOperation(queries.getAnnouncements, { id: announcement }))
+}
+
+export async function listAnnouncementsByCourseID(
+    course: AnnouncementsByCoursesIDQueryVariables) {
+    return await API.graphql<GraphQLQuery<AnnouncementsByCoursesIDQuery>>({
+        query: queries.announcementsByCoursesID,
+        variables: course
+    })
 }
