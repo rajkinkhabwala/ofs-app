@@ -16,14 +16,30 @@ import Superscript from "@tiptap/extension-superscript";
 import SubScript from "@tiptap/extension-subscript";
 import { createCourse } from "../app/api/graphql/courses/api.course";
 import "../styles/_table.scss";
-import { CourseFormat } from "../models";
+import { CreateCoursesInput } from '../API';
+import { useForm } from '@mantine/form';
 
 export const Table = ({ list }: any) => {
+
+
   const [opened, { open, close }] = useDisclosure(false);
+  
+  // Form
+  const form = useForm<CreateCoursesInput>({
+    initialValues: {
+      course_name: '',
+      course_code: '',
+      course_visibility: false,
+      course_description: '',
+      course_start_date: undefined,
+      course_end_date: undefined,
+      course_format: undefined,
+      course_credit: 0,
+      course_image:''
+    },
+  })
 
-  const content =
-    '<h2 style="text-align: center;">Welcome to Mantine rich text editor</h2><p><code>RichTextEditor</code> component focuses on usability and is designed to be as simple as possible to bring a familiar editing experience to regular users. <code>RichTextEditor</code> is based on <a href="https://tiptap.dev/" rel="noopener noreferrer" target="_blank">Tiptap.dev</a> and supports all of its features:</p><ul><li>General text formatting: <strong>bold</strong>, <em>italic</em>, <u>underline</u>, <s>strike-through</s> </li><li>Headings (h1-h6)</li><li>Sub and super scripts (<sup>&lt;sup /&gt;</sup> and <sub>&lt;sub /&gt;</sub> tags)</li><li>Ordered and bullet lists</li><li>Text align&nbsp;</li><li>And all <a href="https://tiptap.dev/extensions" target="_blank" rel="noopener noreferrer">other extensions</a></li></ul>';
-
+  // Editor
   const editor = useEditor({
     extensions: [
       StarterKit,
@@ -34,13 +50,17 @@ export const Table = ({ list }: any) => {
       Highlight,
       TextAlign.configure({ types: ["heading", "paragraph"] }),
     ],
-    content,
+    content: form.getInputProps('course_description'),
+    onUpdate: (props) => {
+        form.setFieldValue('course_description', props.editor.getHTML())
+    },
+    editable: true,
   });
 
   const list_courses = list.items;
 
   const [sortStatus, setSortStatus] = useState<DataTableSortStatus>({
-    columnAccessor: "name",
+    columnAccessor: "course_name",
     direction: "asc",
   });
   const [records, setRecords] = useState(sortBy(list_courses, "name"));
@@ -48,43 +68,8 @@ export const Table = ({ list }: any) => {
   useEffect(() => {
     const data = sortBy(list_courses, sortStatus.columnAccessor);
     setRecords(sortStatus.direction === "desc" ? data.reverse() : data);
-  }, [sortStatus]);
+  }, [list_courses, sortStatus]);
 
-  useEffect(() => {
-    console.log(startDate);
-    console.log(formData.course_start_date);
-  })
-
-  const DateFormatter = (date: any) => {
-    let formattedDate = new Date(date).toLocaleString().split("-")[0];
-    return formattedDate;
-  };
-
-  // CRUD Operation handlers
-
-  const [formData, setFormData] = useState({
-    course_name: '',
-    course_code: '',
-    course_visibility: false,
-    course_start_date: '',
-    course_end_date: '',
-    course_description: content,
-    course_image: '',
-    course_format: CourseFormat.WEEKY,
-    course_credit: 10
-  })
-
-  const [startDate, setStartDate] = useState<Date | null>(null);
-  const [endDate, setEndDate] = useState<Date | null>(null);
-
-  const handleChange = (e:any, name: any) => {
-    setFormData({...formData, [name]: e.target.value})
-  }
-
-  const handleSubmit = () => {
-    console.log(formData);
-    createCourse(formData)
-  }
 
   return (
     <div className="table-template">
@@ -139,18 +124,16 @@ export const Table = ({ list }: any) => {
       />
 
       <Modal opened={opened} onClose={close} withCloseButton={false} size="xl">
+      <form onSubmit={form.onSubmit((values) => console.log(values))}>
         <div className="modal-wrapper">
           <h2>Course Details</h2>
           <TextInput placeholder="Course Name" 
             label="Course Name" 
-            name="course_name" 
-            value={formData.course_name}
-            onChange={(e) => handleChange(e , e.target.name)}
+            {...form.getInputProps('course_name')}
           />
           <TextInput placeholder="Course Code" 
             label="Course Code" 
-            name="course_code"
-            onChange={(e) => handleChange(e , e.target.name)}
+            {...form.getInputProps('course_code')}
           />
           <label
             className="mantine-InputWrapper-label mantine-TextInput-label mantine-1fzet7j"
@@ -200,38 +183,43 @@ export const Table = ({ list }: any) => {
             </RichTextEditor.Toolbar>
 
             <RichTextEditor.Content />
+            
           </RichTextEditor>
 
           {/* add visibility toggle switch here (YES/NO)*/}
 
           {/* Start Date */}
-          <DatePicker  placeholder="Pick date and time"           
-            value={startDate} onChange={(val) =>{
-              setStartDate(val)
-              startDate && setFormData({...formData, course_start_date: startDate?.toISOString()})
+          <DatePicker  placeholder="Pick date and time"
+            {...form.getInputProps('course_start_date')}
+            onChange={(value) => {
+              form.setFieldValue('course_start_date', value?.toISOString())
             }}
           />
 
           {/* End Date */}
-          <DatePicker placeholder="Pick date and time" 
-            value={endDate} onChange={(val) =>{
-              setEndDate(val)
-              endDate && setFormData({...formData, course_end_date: endDate?.toISOString()})
+          <DatePicker placeholder="Pick date and time"
+            {...form.getInputProps('course_end_date')}
+            onChange={(value) => {
+              form.setFieldValue('course_end_date', value?.toISOString())
             }}
           />
 
           {/* Image , file input here */}
 
           <TextInput placeholder="Course Format" label="Course Format" 
-            onChange={(e) => handleChange(e , e.target.name)}
+            // onChange={(e) => handleChange(e , e.target.name)}
+            {...form.getInputProps('course_format')}
           />
           <NumberInput placeholder="Course Credit" label="Course Credit" 
             // onChange={(e) => handleChange(e , e.valueOf(e))}
+            {...form.getInputProps('course_credit')}
           />
 
-          <Button className="course-submit" onClick={handleSubmit}>Submit</Button>
+          <Button className="course-submit" type='submit'>Submit</Button>
         </div>
+        </form>
       </Modal>
     </div>
   );
 };
+
