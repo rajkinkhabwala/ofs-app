@@ -10,11 +10,11 @@ export async function createDepartment(department: CreateDepartmentsInput) {
 }
 
 export async function updateDepartment(department: UpdateDepartmentsInput) {
-    return await API.graphql<GraphQLQuery<UpdateDepartmentsMutation>>(graphqlOperation(mutations.updateDepartments, { input: department }))
+    return await API.graphql<GraphQLQuery<UpdateDepartmentsMutation>>({...graphqlOperation(mutations.updateDepartments, { input: department }), authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS})
 }
 
 export async function deleteDepartment(department: DeleteDepartmentsInput) {
-    return await API.graphql<GraphQLQuery<DeleteDepartmentsInput>>(graphqlOperation(mutations.deleteDepartments, { input: department }))
+    return await API.graphql<GraphQLQuery<DeleteDepartmentsInput>>({...graphqlOperation(mutations.deleteDepartments, { input: department }), authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS})
 }
 
 export async function listDepartment(

@@ -10,11 +10,11 @@ export async function createCourse(course: CreateCoursesInput) {
 }
 
 export async function updateCourse(course: UpdateCoursesInput) {
-    return await API.graphql<GraphQLQuery<UpdateCoursesMutation>>(graphqlOperation(mutations.updateCourses, { input: course }))
+    return await API.graphql<GraphQLQuery<UpdateCoursesMutation>>({...graphqlOperation(mutations.updateCourses, { input: course }), authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS})
 }
 
 export async function deleteCourse(course: DeleteCoursesInput) {
-    return await API.graphql<GraphQLQuery<DeleteCoursesInput>>(graphqlOperation(mutations.deleteCourses, { input: course }))
+    return await API.graphql<GraphQLQuery<DeleteCoursesInput>>({...graphqlOperation(mutations.deleteCourses, { input: course }), authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS})
 }
 
 export async function listCourse(

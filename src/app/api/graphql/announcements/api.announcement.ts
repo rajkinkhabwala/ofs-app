@@ -10,11 +10,11 @@ export async function createAnnouncement(announcement: CreateAnnouncementsInput)
 }
 
 export async function updateAnnouncement(announcement: UpdateAnnouncementsInput) {
-    return await API.graphql<GraphQLQuery<UpdateAnnouncementsMutation>>(graphqlOperation(mutations.updateAnnouncements, { input: announcement }))
+    return await API.graphql<GraphQLQuery<UpdateAnnouncementsMutation>>({...graphqlOperation(mutations.updateAnnouncements, { input: announcement }), authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS})
 }
 
 export async function deleteAnnouncement(announcement: DeleteAnnouncementsInput) {
-    return await API.graphql<GraphQLQuery<DeleteAnnouncementsInput>>(graphqlOperation(mutations.deleteAnnouncements, { input: announcement }))
+    return await API.graphql<GraphQLQuery<DeleteAnnouncementsInput>>({...graphqlOperation(mutations.deleteAnnouncements, { input: announcement }), authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS})
 }
 
 export async function listAnnouncement(

@@ -10,11 +10,11 @@ export async function createAssignmentSubmission(assignmentSubmission: CreateAss
 }
 
 export async function updateAssignmentSubmission(assignmentSubmission: UpdateAssignmentSubmissionsInput) {
-    return await API.graphql<GraphQLQuery<UpdateAssignmentSubmissionsMutation>>(graphqlOperation(mutations.updateAssignmentSubmissions, { input: assignmentSubmission }))
+    return await API.graphql<GraphQLQuery<UpdateAssignmentSubmissionsMutation>>({...graphqlOperation(mutations.updateAssignmentSubmissions, { input: assignmentSubmission }), authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS})
 }
 
 export async function deleteAssignmentSubmission(assignmentSubmission: DeleteAssignmentSubmissionsInput) {
-    return await API.graphql<GraphQLQuery<DeleteAssignmentSubmissionsInput>>(graphqlOperation(mutations.deleteAssignmentSubmissions, { input: assignmentSubmission }))
+    return await API.graphql<GraphQLQuery<DeleteAssignmentSubmissionsInput>>({...graphqlOperation(mutations.deleteAssignmentSubmissions, { input: assignmentSubmission }), authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS})
 }
 
 export async function listAssignmentSubmission(
