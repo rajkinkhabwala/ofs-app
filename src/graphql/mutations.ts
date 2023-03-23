@@ -2,6 +2,51 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const createAnnouncements = /* GraphQL */ `
+  mutation CreateAnnouncements(
+    $input: CreateAnnouncementsInput!
+    $condition: ModelAnnouncementsConditionInput
+  ) {
+    createAnnouncements(input: $input, condition: $condition) {
+      id
+      title
+      announcement
+      coursesID
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateAnnouncements = /* GraphQL */ `
+  mutation UpdateAnnouncements(
+    $input: UpdateAnnouncementsInput!
+    $condition: ModelAnnouncementsConditionInput
+  ) {
+    updateAnnouncements(input: $input, condition: $condition) {
+      id
+      title
+      announcement
+      coursesID
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteAnnouncements = /* GraphQL */ `
+  mutation DeleteAnnouncements(
+    $input: DeleteAnnouncementsInput!
+    $condition: ModelAnnouncementsConditionInput
+  ) {
+    deleteAnnouncements(input: $input, condition: $condition) {
+      id
+      title
+      announcement
+      coursesID
+      createdAt
+      updatedAt
+    }
+  }
+`;
 export const createCourses = /* GraphQL */ `
   mutation CreateCourses(
     $input: CreateCoursesInput!
@@ -18,6 +63,9 @@ export const createCourses = /* GraphQL */ `
       course_image
       course_format
       course_credit
+      Announcements {
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -39,6 +87,9 @@ export const updateCourses = /* GraphQL */ `
       course_image
       course_format
       course_credit
+      Announcements {
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -60,6 +111,9 @@ export const deleteCourses = /* GraphQL */ `
       course_image
       course_format
       course_credit
+      Announcements {
+        nextToken
+      }
       createdAt
       updatedAt
     }

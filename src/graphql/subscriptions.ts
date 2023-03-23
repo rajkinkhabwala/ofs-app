@@ -2,6 +2,48 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const onCreateAnnouncements = /* GraphQL */ `
+  subscription OnCreateAnnouncements(
+    $filter: ModelSubscriptionAnnouncementsFilterInput
+  ) {
+    onCreateAnnouncements(filter: $filter) {
+      id
+      title
+      announcement
+      coursesID
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateAnnouncements = /* GraphQL */ `
+  subscription OnUpdateAnnouncements(
+    $filter: ModelSubscriptionAnnouncementsFilterInput
+  ) {
+    onUpdateAnnouncements(filter: $filter) {
+      id
+      title
+      announcement
+      coursesID
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteAnnouncements = /* GraphQL */ `
+  subscription OnDeleteAnnouncements(
+    $filter: ModelSubscriptionAnnouncementsFilterInput
+  ) {
+    onDeleteAnnouncements(filter: $filter) {
+      id
+      title
+      announcement
+      coursesID
+      createdAt
+      updatedAt
+    }
+  }
+`;
 export const onCreateCourses = /* GraphQL */ `
   subscription OnCreateCourses($filter: ModelSubscriptionCoursesFilterInput) {
     onCreateCourses(filter: $filter) {
@@ -15,6 +57,9 @@ export const onCreateCourses = /* GraphQL */ `
       course_image
       course_format
       course_credit
+      Announcements {
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -33,6 +78,9 @@ export const onUpdateCourses = /* GraphQL */ `
       course_image
       course_format
       course_credit
+      Announcements {
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -51,6 +99,9 @@ export const onDeleteCourses = /* GraphQL */ `
       course_image
       course_format
       course_credit
+      Announcements {
+        nextToken
+      }
       createdAt
       updatedAt
     }

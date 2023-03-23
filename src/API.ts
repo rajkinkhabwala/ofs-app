@@ -2,37 +2,20 @@
 /* eslint-disable */
 //  This file was automatically generated and should not be edited.
 
-export type CreateCoursesInput = {
+export type CreateAnnouncementsInput = {
   id?: string | null,
-  course_name: string,
-  course_code: string,
-  course_visibility: boolean,
-  course_start_date?: string | null,
-  course_end_date?: string | null,
-  course_description?: string | null,
-  course_image?: string | null,
-  course_format?: CourseFormat | null,
-  course_credit?: number | null,
+  title?: string | null,
+  announcement?: string | null,
+  coursesID: string,
 };
 
-export enum CourseFormat {
-  WEEKY = "WEEKY",
-}
-
-
-export type ModelCoursesConditionInput = {
-  course_name?: ModelStringInput | null,
-  course_code?: ModelStringInput | null,
-  course_visibility?: ModelBooleanInput | null,
-  course_start_date?: ModelStringInput | null,
-  course_end_date?: ModelStringInput | null,
-  course_description?: ModelStringInput | null,
-  course_image?: ModelStringInput | null,
-  course_format?: ModelCourseFormatInput | null,
-  course_credit?: ModelIntInput | null,
-  and?: Array< ModelCoursesConditionInput | null > | null,
-  or?: Array< ModelCoursesConditionInput | null > | null,
-  not?: ModelCoursesConditionInput | null,
+export type ModelAnnouncementsConditionInput = {
+  title?: ModelStringInput | null,
+  announcement?: ModelStringInput | null,
+  coursesID?: ModelIDInput | null,
+  and?: Array< ModelAnnouncementsConditionInput | null > | null,
+  or?: Array< ModelAnnouncementsConditionInput | null > | null,
+  not?: ModelAnnouncementsConditionInput | null,
 };
 
 export type ModelStringInput = {
@@ -75,6 +58,76 @@ export type ModelSizeInput = {
   between?: Array< number | null > | null,
 };
 
+export type ModelIDInput = {
+  ne?: string | null,
+  eq?: string | null,
+  le?: string | null,
+  lt?: string | null,
+  ge?: string | null,
+  gt?: string | null,
+  contains?: string | null,
+  notContains?: string | null,
+  between?: Array< string | null > | null,
+  beginsWith?: string | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+  size?: ModelSizeInput | null,
+};
+
+export type Announcements = {
+  __typename: "Announcements",
+  id: string,
+  title?: string | null,
+  announcement?: string | null,
+  coursesID: string,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type UpdateAnnouncementsInput = {
+  id: string,
+  title?: string | null,
+  announcement?: string | null,
+  coursesID?: string | null,
+};
+
+export type DeleteAnnouncementsInput = {
+  id: string,
+};
+
+export type CreateCoursesInput = {
+  id?: string | null,
+  course_name: string,
+  course_code: string,
+  course_visibility: boolean,
+  course_start_date?: string | null,
+  course_end_date?: string | null,
+  course_description?: string | null,
+  course_image?: string | null,
+  course_format?: CourseFormat | null,
+  course_credit?: number | null,
+};
+
+export enum CourseFormat {
+  WEEKY = "WEEKY",
+}
+
+
+export type ModelCoursesConditionInput = {
+  course_name?: ModelStringInput | null,
+  course_code?: ModelStringInput | null,
+  course_visibility?: ModelBooleanInput | null,
+  course_start_date?: ModelStringInput | null,
+  course_end_date?: ModelStringInput | null,
+  course_description?: ModelStringInput | null,
+  course_image?: ModelStringInput | null,
+  course_format?: ModelCourseFormatInput | null,
+  course_credit?: ModelIntInput | null,
+  and?: Array< ModelCoursesConditionInput | null > | null,
+  or?: Array< ModelCoursesConditionInput | null > | null,
+  not?: ModelCoursesConditionInput | null,
+};
+
 export type ModelBooleanInput = {
   ne?: boolean | null,
   eq?: boolean | null,
@@ -111,8 +164,15 @@ export type Courses = {
   course_image?: string | null,
   course_format?: CourseFormat | null,
   course_credit?: number | null,
+  Announcements?: ModelAnnouncementsConnection | null,
   createdAt: string,
   updatedAt: string,
+};
+
+export type ModelAnnouncementsConnection = {
+  __typename: "ModelAnnouncementsConnection",
+  items:  Array<Announcements | null >,
+  nextToken?: string | null,
 };
 
 export type UpdateCoursesInput = {
@@ -237,22 +297,6 @@ export type ModelUsersConditionInput = {
   not?: ModelUsersConditionInput | null,
 };
 
-export type ModelIDInput = {
-  ne?: string | null,
-  eq?: string | null,
-  le?: string | null,
-  lt?: string | null,
-  ge?: string | null,
-  gt?: string | null,
-  contains?: string | null,
-  notContains?: string | null,
-  between?: Array< string | null > | null,
-  beginsWith?: string | null,
-  attributeExists?: boolean | null,
-  attributeType?: ModelAttributeTypes | null,
-  size?: ModelSizeInput | null,
-};
-
 export type UpdateUsersInput = {
   id: string,
   name?: string | null,
@@ -367,6 +411,22 @@ export type DeleteAssignmentsInput = {
   id: string,
 };
 
+export type ModelAnnouncementsFilterInput = {
+  id?: ModelIDInput | null,
+  title?: ModelStringInput | null,
+  announcement?: ModelStringInput | null,
+  coursesID?: ModelIDInput | null,
+  and?: Array< ModelAnnouncementsFilterInput | null > | null,
+  or?: Array< ModelAnnouncementsFilterInput | null > | null,
+  not?: ModelAnnouncementsFilterInput | null,
+};
+
+export enum ModelSortDirection {
+  ASC = "ASC",
+  DESC = "DESC",
+}
+
+
 export type ModelCoursesFilterInput = {
   id?: ModelIDInput | null,
   course_name?: ModelStringInput | null,
@@ -420,12 +480,6 @@ export type ModelUsersFilterInput = {
   not?: ModelUsersFilterInput | null,
 };
 
-export enum ModelSortDirection {
-  ASC = "ASC",
-  DESC = "DESC",
-}
-
-
 export type ModelAssignmentSubmissionsFilterInput = {
   id?: ModelIDInput | null,
   assignmentsID?: ModelIDInput | null,
@@ -461,19 +515,13 @@ export type ModelAssignmentsConnection = {
   nextToken?: string | null,
 };
 
-export type ModelSubscriptionCoursesFilterInput = {
+export type ModelSubscriptionAnnouncementsFilterInput = {
   id?: ModelSubscriptionIDInput | null,
-  course_name?: ModelSubscriptionStringInput | null,
-  course_code?: ModelSubscriptionStringInput | null,
-  course_visibility?: ModelSubscriptionBooleanInput | null,
-  course_start_date?: ModelSubscriptionStringInput | null,
-  course_end_date?: ModelSubscriptionStringInput | null,
-  course_description?: ModelSubscriptionStringInput | null,
-  course_image?: ModelSubscriptionStringInput | null,
-  course_format?: ModelSubscriptionStringInput | null,
-  course_credit?: ModelSubscriptionIntInput | null,
-  and?: Array< ModelSubscriptionCoursesFilterInput | null > | null,
-  or?: Array< ModelSubscriptionCoursesFilterInput | null > | null,
+  title?: ModelSubscriptionStringInput | null,
+  announcement?: ModelSubscriptionStringInput | null,
+  coursesID?: ModelSubscriptionIDInput | null,
+  and?: Array< ModelSubscriptionAnnouncementsFilterInput | null > | null,
+  or?: Array< ModelSubscriptionAnnouncementsFilterInput | null > | null,
 };
 
 export type ModelSubscriptionIDInput = {
@@ -504,6 +552,21 @@ export type ModelSubscriptionStringInput = {
   beginsWith?: string | null,
   in?: Array< string | null > | null,
   notIn?: Array< string | null > | null,
+};
+
+export type ModelSubscriptionCoursesFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  course_name?: ModelSubscriptionStringInput | null,
+  course_code?: ModelSubscriptionStringInput | null,
+  course_visibility?: ModelSubscriptionBooleanInput | null,
+  course_start_date?: ModelSubscriptionStringInput | null,
+  course_end_date?: ModelSubscriptionStringInput | null,
+  course_description?: ModelSubscriptionStringInput | null,
+  course_image?: ModelSubscriptionStringInput | null,
+  course_format?: ModelSubscriptionStringInput | null,
+  course_credit?: ModelSubscriptionIntInput | null,
+  and?: Array< ModelSubscriptionCoursesFilterInput | null > | null,
+  or?: Array< ModelSubscriptionCoursesFilterInput | null > | null,
 };
 
 export type ModelSubscriptionBooleanInput = {
@@ -573,6 +636,57 @@ export type ModelSubscriptionAssignmentsFilterInput = {
   or?: Array< ModelSubscriptionAssignmentsFilterInput | null > | null,
 };
 
+export type CreateAnnouncementsMutationVariables = {
+  input: CreateAnnouncementsInput,
+  condition?: ModelAnnouncementsConditionInput | null,
+};
+
+export type CreateAnnouncementsMutation = {
+  createAnnouncements?:  {
+    __typename: "Announcements",
+    id: string,
+    title?: string | null,
+    announcement?: string | null,
+    coursesID: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateAnnouncementsMutationVariables = {
+  input: UpdateAnnouncementsInput,
+  condition?: ModelAnnouncementsConditionInput | null,
+};
+
+export type UpdateAnnouncementsMutation = {
+  updateAnnouncements?:  {
+    __typename: "Announcements",
+    id: string,
+    title?: string | null,
+    announcement?: string | null,
+    coursesID: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteAnnouncementsMutationVariables = {
+  input: DeleteAnnouncementsInput,
+  condition?: ModelAnnouncementsConditionInput | null,
+};
+
+export type DeleteAnnouncementsMutation = {
+  deleteAnnouncements?:  {
+    __typename: "Announcements",
+    id: string,
+    title?: string | null,
+    announcement?: string | null,
+    coursesID: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
 export type CreateCoursesMutationVariables = {
   input: CreateCoursesInput,
   condition?: ModelCoursesConditionInput | null,
@@ -591,6 +705,10 @@ export type CreateCoursesMutation = {
     course_image?: string | null,
     course_format?: CourseFormat | null,
     course_credit?: number | null,
+    Announcements?:  {
+      __typename: "ModelAnnouncementsConnection",
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -614,6 +732,10 @@ export type UpdateCoursesMutation = {
     course_image?: string | null,
     course_format?: CourseFormat | null,
     course_credit?: number | null,
+    Announcements?:  {
+      __typename: "ModelAnnouncementsConnection",
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -637,6 +759,10 @@ export type DeleteCoursesMutation = {
     course_image?: string | null,
     course_format?: CourseFormat | null,
     course_credit?: number | null,
+    Announcements?:  {
+      __typename: "ModelAnnouncementsConnection",
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -924,6 +1050,68 @@ export type DeleteAssignmentsMutation = {
   } | null,
 };
 
+export type GetAnnouncementsQueryVariables = {
+  id: string,
+};
+
+export type GetAnnouncementsQuery = {
+  getAnnouncements?:  {
+    __typename: "Announcements",
+    id: string,
+    title?: string | null,
+    announcement?: string | null,
+    coursesID: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListAnnouncementsQueryVariables = {
+  filter?: ModelAnnouncementsFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListAnnouncementsQuery = {
+  listAnnouncements?:  {
+    __typename: "ModelAnnouncementsConnection",
+    items:  Array< {
+      __typename: "Announcements",
+      id: string,
+      title?: string | null,
+      announcement?: string | null,
+      coursesID: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type AnnouncementsByCoursesIDQueryVariables = {
+  coursesID: string,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelAnnouncementsFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type AnnouncementsByCoursesIDQuery = {
+  announcementsByCoursesID?:  {
+    __typename: "ModelAnnouncementsConnection",
+    items:  Array< {
+      __typename: "Announcements",
+      id: string,
+      title?: string | null,
+      announcement?: string | null,
+      coursesID: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
 export type GetCoursesQueryVariables = {
   id: string,
 };
@@ -941,6 +1129,10 @@ export type GetCoursesQuery = {
     course_image?: string | null,
     course_format?: CourseFormat | null,
     course_credit?: number | null,
+    Announcements?:  {
+      __typename: "ModelAnnouncementsConnection",
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1249,6 +1441,54 @@ export type ListAssignmentsQuery = {
   } | null,
 };
 
+export type OnCreateAnnouncementsSubscriptionVariables = {
+  filter?: ModelSubscriptionAnnouncementsFilterInput | null,
+};
+
+export type OnCreateAnnouncementsSubscription = {
+  onCreateAnnouncements?:  {
+    __typename: "Announcements",
+    id: string,
+    title?: string | null,
+    announcement?: string | null,
+    coursesID: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateAnnouncementsSubscriptionVariables = {
+  filter?: ModelSubscriptionAnnouncementsFilterInput | null,
+};
+
+export type OnUpdateAnnouncementsSubscription = {
+  onUpdateAnnouncements?:  {
+    __typename: "Announcements",
+    id: string,
+    title?: string | null,
+    announcement?: string | null,
+    coursesID: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteAnnouncementsSubscriptionVariables = {
+  filter?: ModelSubscriptionAnnouncementsFilterInput | null,
+};
+
+export type OnDeleteAnnouncementsSubscription = {
+  onDeleteAnnouncements?:  {
+    __typename: "Announcements",
+    id: string,
+    title?: string | null,
+    announcement?: string | null,
+    coursesID: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
 export type OnCreateCoursesSubscriptionVariables = {
   filter?: ModelSubscriptionCoursesFilterInput | null,
 };
@@ -1266,6 +1506,10 @@ export type OnCreateCoursesSubscription = {
     course_image?: string | null,
     course_format?: CourseFormat | null,
     course_credit?: number | null,
+    Announcements?:  {
+      __typename: "ModelAnnouncementsConnection",
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1288,6 +1532,10 @@ export type OnUpdateCoursesSubscription = {
     course_image?: string | null,
     course_format?: CourseFormat | null,
     course_credit?: number | null,
+    Announcements?:  {
+      __typename: "ModelAnnouncementsConnection",
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1310,6 +1558,10 @@ export type OnDeleteCoursesSubscription = {
     course_image?: string | null,
     course_format?: CourseFormat | null,
     course_credit?: number | null,
+    Announcements?:  {
+      __typename: "ModelAnnouncementsConnection",
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
