@@ -2,6 +2,64 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const getAnnouncements = /* GraphQL */ `
+  query GetAnnouncements($id: ID!) {
+    getAnnouncements(id: $id) {
+      id
+      title
+      announcement
+      coursesID
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listAnnouncements = /* GraphQL */ `
+  query ListAnnouncements(
+    $filter: ModelAnnouncementsFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listAnnouncements(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        title
+        announcement
+        coursesID
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const announcementsByCoursesID = /* GraphQL */ `
+  query AnnouncementsByCoursesID(
+    $coursesID: ID!
+    $sortDirection: ModelSortDirection
+    $filter: ModelAnnouncementsFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    announcementsByCoursesID(
+      coursesID: $coursesID
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        title
+        announcement
+        coursesID
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
 export const getCourses = /* GraphQL */ `
   query GetCourses($id: ID!) {
     getCourses(id: $id) {
@@ -15,6 +73,9 @@ export const getCourses = /* GraphQL */ `
       course_image
       course_format
       course_credit
+      Announcements {
+        nextToken
+      }
       createdAt
       updatedAt
     }
