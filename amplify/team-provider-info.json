@@ -9,7 +9,8 @@
       "UnauthRoleName": "amplify-ofsapp-dev-171226-unauthRole",
       "StackName": "amplify-ofsapp-dev-171226",
       "StackId": "arn:aws:cloudformation:us-west-2:223681902151:stack/amplify-ofsapp-dev-171226/e7532a60-c1fc-11ed-b939-06fe86829aa9",
-      "AmplifyAppId": "d6msmizvpmdu0"
+      "AmplifyAppId": "d6msmizvpmdu0",
+      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-ofsapp-dev-171226-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
     },
     "categories": {
       "auth": {
@@ -20,7 +21,8 @@
         "AdminQueriesc70cc6d6": {
           "deploymentBucketName": "amplify-ofsapp-dev-171226-deployment",
           "s3Key": "amplify-builds/AdminQueriesc70cc6d6-77556e515a6d33315161-build.zip"
-        }
+        },
+        "ofsapp34d3690a34d3690aPostConfirmation": {}
       },
       "api": {
         "AdminQueries": {},

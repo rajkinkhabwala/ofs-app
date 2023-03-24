@@ -22,11 +22,13 @@ export async function listDepartment(
     limit?: number,
     nextToken?: string
 ) {
-    return await API.graphql<GraphQLQuery<ListDepartmentsQuery>>(graphqlOperation(queries.listDepartments, {
+    return await API.graphql<GraphQLQuery<ListDepartmentsQuery>>({ ...graphqlOperation(queries.listDepartments, {
         filter: filter,
         limit: limit,
         nextToken: nextToken
-    }))
+    }),
+    authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS
+})
 }
 
 export async function getDepartment(department: string) {

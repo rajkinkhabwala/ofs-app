@@ -1,6 +1,6 @@
 import { Authenticator } from "@aws-amplify/ui-react";
 import { Amplify } from "aws-amplify";
-import awsmobile from "../aws-exports";
+import awsmobile from "../../aws-exports";
 import "../styles/_login.scss";
 import { Courses } from "./courses.component";
 import { AppShell, Navbar, Header } from "@mantine/core";

@@ -14,9 +14,9 @@ import Underline from "@tiptap/extension-underline";
 import TextAlign from "@tiptap/extension-text-align";
 import Superscript from "@tiptap/extension-superscript";
 import SubScript from "@tiptap/extension-subscript";
-import { createCourse } from "../app/api/graphql/courses/api.course";
+import { createCourse } from "../api/graphql/courses/api.course";
 import "../styles/_table.scss";
-import { CourseFormat } from "../models";
+import { CourseFormat } from "../../models";
 
 export const Table = ({ list }: any) => {
   const [opened, { open, close }] = useDisclosure(false);
