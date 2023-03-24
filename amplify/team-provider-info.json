@@ -22,7 +22,10 @@
           "deploymentBucketName": "amplify-ofsapp-dev-171226-deployment",
           "s3Key": "amplify-builds/AdminQueriesc70cc6d6-77556e515a6d33315161-build.zip"
         },
-        "ofsapp34d3690a34d3690aPostConfirmation": {}
+        "ofsapp34d3690a34d3690aPostConfirmation": {
+          "deploymentBucketName": "amplify-ofsapp-dev-171226-deployment",
+          "s3Key": "amplify-builds/ofsapp34d3690a34d3690aPostConfirmation-5741667249636564504a-build.zip"
+        }
       },
       "api": {
         "AdminQueries": {},
