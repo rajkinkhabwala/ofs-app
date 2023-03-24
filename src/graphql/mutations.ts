@@ -74,6 +74,17 @@ export const createCourses = /* GraphQL */ `
         }
         nextToken
       }
+      Assignments {
+        items {
+          id
+          title
+          announcement
+          coursesID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -96,6 +107,17 @@ export const updateCourses = /* GraphQL */ `
       course_format
       course_credit
       Announcements {
+        items {
+          id
+          title
+          announcement
+          coursesID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      Assignments {
         items {
           id
           title
@@ -138,6 +160,17 @@ export const deleteCourses = /* GraphQL */ `
         }
         nextToken
       }
+      Assignments {
+        items {
+          id
+          title
+          announcement
+          coursesID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -156,7 +189,6 @@ export const createDepartments = /* GraphQL */ `
       Users {
         items {
           id
-          name
           email
           phone
           address
@@ -188,7 +220,6 @@ export const updateDepartments = /* GraphQL */ `
       Users {
         items {
           id
-          name
           email
           phone
           address
@@ -220,7 +251,6 @@ export const deleteDepartments = /* GraphQL */ `
       Users {
         items {
           id
-          name
           email
           phone
           address
@@ -246,7 +276,6 @@ export const createUsers = /* GraphQL */ `
   ) {
     createUsers(input: $input, condition: $condition) {
       id
-      name
       email
       phone
       address
@@ -281,7 +310,6 @@ export const updateUsers = /* GraphQL */ `
   ) {
     updateUsers(input: $input, condition: $condition) {
       id
-      name
       email
       phone
       address
@@ -316,7 +344,6 @@ export const deleteUsers = /* GraphQL */ `
   ) {
     deleteUsers(input: $input, condition: $condition) {
       id
-      name
       email
       phone
       address
@@ -428,6 +455,7 @@ export const createAssignments = /* GraphQL */ `
         }
         nextToken
       }
+      coursesID
       createdAt
       updatedAt
     }
@@ -463,6 +491,7 @@ export const updateAssignments = /* GraphQL */ `
         }
         nextToken
       }
+      coursesID
       createdAt
       updatedAt
     }
@@ -498,6 +527,7 @@ export const deleteAssignments = /* GraphQL */ `
         }
         nextToken
       }
+      coursesID
       createdAt
       updatedAt
     }

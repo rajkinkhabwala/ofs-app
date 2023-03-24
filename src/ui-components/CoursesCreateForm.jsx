@@ -37,7 +37,7 @@ export default function CoursesCreateForm(props) {
     course_end_date: "",
     course_description: "",
     course_image: "",
-    course_format: undefined,
+    course_format: "",
     course_credit: "",
   };
   const [course_name, setCourse_name] = React.useState(

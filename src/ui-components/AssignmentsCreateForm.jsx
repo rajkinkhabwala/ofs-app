@@ -38,6 +38,7 @@ export default function AssignmentsCreateForm(props) {
     time_available: "",
     grade: "",
     extra_data: "",
+    coursesID: "",
   };
   const [assignment_name, setAssignment_name] = React.useState(
     initialValues.assignment_name
@@ -54,6 +55,7 @@ export default function AssignmentsCreateForm(props) {
   );
   const [grade, setGrade] = React.useState(initialValues.grade);
   const [extra_data, setExtra_data] = React.useState(initialValues.extra_data);
+  const [coursesID, setCoursesID] = React.useState(initialValues.coursesID);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     setAssignment_name(initialValues.assignment_name);
@@ -65,6 +67,7 @@ export default function AssignmentsCreateForm(props) {
     setTime_available(initialValues.time_available);
     setGrade(initialValues.grade);
     setExtra_data(initialValues.extra_data);
+    setCoursesID(initialValues.coursesID);
     setErrors({});
   };
   const validations = {
@@ -77,6 +80,7 @@ export default function AssignmentsCreateForm(props) {
     time_available: [],
     grade: [{ type: "Required" }],
     extra_data: [{ type: "JSON" }],
+    coursesID: [{ type: "Required" }],
   };
   const runValidationTasks = async (
     fieldName,
@@ -130,6 +134,7 @@ export default function AssignmentsCreateForm(props) {
           time_available,
           grade,
           extra_data,
+          coursesID,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -193,6 +198,7 @@ export default function AssignmentsCreateForm(props) {
               time_available,
               grade,
               extra_data,
+              coursesID,
             };
             const result = onChange(modelFields);
             value = result?.assignment_name ?? value;
@@ -225,6 +231,7 @@ export default function AssignmentsCreateForm(props) {
               time_available,
               grade,
               extra_data,
+              coursesID,
             };
             const result = onChange(modelFields);
             value = result?.assignment_desc ?? value;
@@ -261,6 +268,7 @@ export default function AssignmentsCreateForm(props) {
               time_available,
               grade,
               extra_data,
+              coursesID,
             };
             const result = onChange(modelFields);
             value = result?.resubmit ?? value;
@@ -293,6 +301,7 @@ export default function AssignmentsCreateForm(props) {
               time_available,
               grade,
               extra_data,
+              coursesID,
             };
             const result = onChange(modelFields);
             value = result?.teacher ?? value;
@@ -329,6 +338,7 @@ export default function AssignmentsCreateForm(props) {
               time_available,
               grade,
               extra_data,
+              coursesID,
             };
             const result = onChange(modelFields);
             value = result?.max_bytes ?? value;
@@ -363,6 +373,7 @@ export default function AssignmentsCreateForm(props) {
               time_available,
               grade,
               extra_data,
+              coursesID,
             };
             const result = onChange(modelFields);
             value = result?.time_due ?? value;
@@ -397,6 +408,7 @@ export default function AssignmentsCreateForm(props) {
               time_available: value,
               grade,
               extra_data,
+              coursesID,
             };
             const result = onChange(modelFields);
             value = result?.time_available ?? value;
@@ -433,6 +445,7 @@ export default function AssignmentsCreateForm(props) {
               time_available,
               grade: value,
               extra_data,
+              coursesID,
             };
             const result = onChange(modelFields);
             value = result?.grade ?? value;
@@ -464,6 +477,7 @@ export default function AssignmentsCreateForm(props) {
               time_available,
               grade,
               extra_data: value,
+              coursesID,
             };
             const result = onChange(modelFields);
             value = result?.extra_data ?? value;
@@ -478,6 +492,39 @@ export default function AssignmentsCreateForm(props) {
         hasError={errors.extra_data?.hasError}
         {...getOverrideProps(overrides, "extra_data")}
       ></TextAreaField>
+      <TextField
+        label="Courses id"
+        isRequired={true}
+        isReadOnly={false}
+        value={coursesID}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              assignment_name,
+              assignment_desc,
+              resubmit,
+              teacher,
+              max_bytes,
+              time_due,
+              time_available,
+              grade,
+              extra_data,
+              coursesID: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.coursesID ?? value;
+          }
+          if (errors.coursesID?.hasError) {
+            runValidationTasks("coursesID", value);
+          }
+          setCoursesID(value);
+        }}
+        onBlur={() => runValidationTasks("coursesID", coursesID)}
+        errorMessage={errors.coursesID?.errorMessage}
+        hasError={errors.coursesID?.hasError}
+        {...getOverrideProps(overrides, "coursesID")}
+      ></TextField>
       <Flex
         justifyContent="space-between"
         {...getOverrideProps(overrides, "CTAFlex")}

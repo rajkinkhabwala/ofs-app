@@ -68,6 +68,17 @@ export const onCreateCourses = /* GraphQL */ `
         }
         nextToken
       }
+      Assignments {
+        items {
+          id
+          title
+          announcement
+          coursesID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -87,6 +98,17 @@ export const onUpdateCourses = /* GraphQL */ `
       course_format
       course_credit
       Announcements {
+        items {
+          id
+          title
+          announcement
+          coursesID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      Assignments {
         items {
           id
           title
@@ -126,6 +148,17 @@ export const onDeleteCourses = /* GraphQL */ `
         }
         nextToken
       }
+      Assignments {
+        items {
+          id
+          title
+          announcement
+          coursesID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -143,7 +176,6 @@ export const onCreateDepartments = /* GraphQL */ `
       Users {
         items {
           id
-          name
           email
           phone
           address
@@ -174,7 +206,6 @@ export const onUpdateDepartments = /* GraphQL */ `
       Users {
         items {
           id
-          name
           email
           phone
           address
@@ -205,7 +236,6 @@ export const onDeleteDepartments = /* GraphQL */ `
       Users {
         items {
           id
-          name
           email
           phone
           address
@@ -231,7 +261,6 @@ export const onCreateUsers = /* GraphQL */ `
   ) {
     onCreateUsers(filter: $filter, owner: $owner) {
       id
-      name
       email
       phone
       address
@@ -266,7 +295,6 @@ export const onUpdateUsers = /* GraphQL */ `
   ) {
     onUpdateUsers(filter: $filter, owner: $owner) {
       id
-      name
       email
       phone
       address
@@ -301,7 +329,6 @@ export const onDeleteUsers = /* GraphQL */ `
   ) {
     onDeleteUsers(filter: $filter, owner: $owner) {
       id
-      name
       email
       phone
       address
@@ -409,6 +436,7 @@ export const onCreateAssignments = /* GraphQL */ `
         }
         nextToken
       }
+      coursesID
       createdAt
       updatedAt
     }
@@ -443,6 +471,7 @@ export const onUpdateAssignments = /* GraphQL */ `
         }
         nextToken
       }
+      coursesID
       createdAt
       updatedAt
     }
@@ -477,6 +506,7 @@ export const onDeleteAssignments = /* GraphQL */ `
         }
         nextToken
       }
+      coursesID
       createdAt
       updatedAt
     }
