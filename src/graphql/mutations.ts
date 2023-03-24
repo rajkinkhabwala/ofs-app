@@ -150,7 +150,7 @@ export const createDepartments = /* GraphQL */ `
   ) {
     createDepartments(input: $input, condition: $condition) {
       id
-      deparment_name
+      department_name
       department_id
       department_description
       Users {
@@ -166,6 +166,7 @@ export const createDepartments = /* GraphQL */ `
           role
           createdAt
           updatedAt
+          owner
         }
         nextToken
       }
@@ -181,7 +182,7 @@ export const updateDepartments = /* GraphQL */ `
   ) {
     updateDepartments(input: $input, condition: $condition) {
       id
-      deparment_name
+      department_name
       department_id
       department_description
       Users {
@@ -197,6 +198,7 @@ export const updateDepartments = /* GraphQL */ `
           role
           createdAt
           updatedAt
+          owner
         }
         nextToken
       }
@@ -212,7 +214,7 @@ export const deleteDepartments = /* GraphQL */ `
   ) {
     deleteDepartments(input: $input, condition: $condition) {
       id
-      deparment_name
+      department_name
       department_id
       department_description
       Users {
@@ -228,6 +230,7 @@ export const deleteDepartments = /* GraphQL */ `
           role
           createdAt
           updatedAt
+          owner
         }
         nextToken
       }
@@ -267,6 +270,7 @@ export const createUsers = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -301,6 +305,7 @@ export const updateUsers = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -335,6 +340,7 @@ export const deleteUsers = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      owner
     }
   }
 `;

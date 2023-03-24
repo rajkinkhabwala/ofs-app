@@ -8,8 +8,7 @@ import '../../styles/_table.scss';
 import CreateDepartmentModal from "./Department.Create.Modal";
 
 function DepartmentTable({items, errors, nextToken, extenstions} : PropsWithChildren<ListDepartmentResult>) {
-
-    console.log(items);
+  console.log(items)
 return(
     <div className="table-template">
       <div className="table-header">
@@ -30,7 +29,7 @@ return(
         records={items}
         columns={[
           { accessor: "department_id", width: "40%", title: "Department ID" },
-          { accessor: "deparment_name", width: "40%", title: "Department Name" },
+          { accessor: "department_name", width: "40%", title: "Department Name" },
         //   {
         //     accessor: "Modify",
         //     render: ({ id }) => (

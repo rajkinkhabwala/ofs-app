@@ -121,7 +121,7 @@ export const getDepartments = /* GraphQL */ `
   query GetDepartments($id: ID!) {
     getDepartments(id: $id) {
       id
-      deparment_name
+      department_name
       department_id
       department_description
       Users {
@@ -137,6 +137,7 @@ export const getDepartments = /* GraphQL */ `
           role
           createdAt
           updatedAt
+          owner
         }
         nextToken
       }
@@ -154,7 +155,7 @@ export const listDepartments = /* GraphQL */ `
     listDepartments(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        deparment_name
+        department_name
         department_id
         department_description
         Users {
@@ -195,6 +196,7 @@ export const getUsers = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -220,6 +222,7 @@ export const listUsers = /* GraphQL */ `
         }
         createdAt
         updatedAt
+        owner
       }
       nextToken
     }
@@ -255,6 +258,7 @@ export const usersByDepartmentsID = /* GraphQL */ `
         }
         createdAt
         updatedAt
+        owner
       }
       nextToken
     }

@@ -13,9 +13,10 @@ exports.handler = async (event, context) => {
       let params = {
         Item: {
             'id': {S: event.request.userAttributes.sub},
-            '__typename': {S: 'User'},
-            'username': {S: event.userName},
+            '__typename': {S: 'Users'},
             'email': {S: event.request.userAttributes.email},
+            'name': {S: event.request.userAttributes.name},
+            'phone': {S: event.request.userAttributes.phone_number},
             'createdAt': {S: date.toISOString()},
             'updatedAt': {S: date.toISOString()},
         },

@@ -1,22 +1,29 @@
 import { Button, Group, Textarea, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import { modals } from "@mantine/modals";
+import { notifications } from "@mantine/notifications";
 import { CreateDepartmentsInput } from "../../../API";
 import { createDepartment } from "../../api/graphql/departments/api.department";
 
 function CreateDepartmentModal() {
   const form = useForm<CreateDepartmentsInput>({
     initialValues: {
-      deparment_name: "",
+      department_name: "",
       department_description: "",
       department_id: "",
     },
-    //validate: needs to be done TODO
+    //validate: needs to be done TODO by Ish
   });
 
   function handleSubmit(values: CreateDepartmentsInput) {
-    console.log(values);
-    createDepartment(values);
+    createDepartment(values).then((values) => {
+      let d = values.data?.createDepartments?.department_name;
+      notifications.show({
+        title: 'Successful',
+        message: `Successfully added ${d}`,
+        color: 'green'
+      })
+      form.reset()
+    });
   }
 
   return (
@@ -26,7 +33,7 @@ function CreateDepartmentModal() {
         label="Department Name"
         placeholder="Enter the department name..."
         required
-        {...form.getInputProps("deparment_name")}
+        {...form.getInputProps("department_name")}
       />
       <TextInput
         withAsterisk

@@ -24,7 +24,7 @@
         },
         "ofsapp34d3690a34d3690aPostConfirmation": {
           "deploymentBucketName": "amplify-ofsapp-dev-171226-deployment",
-          "s3Key": "amplify-builds/ofsapp34d3690a34d3690aPostConfirmation-5741667249636564504a-build.zip"
+          "s3Key": "amplify-builds/ofsapp34d3690a34d3690aPostConfirmation-48375370755041344552-build.zip"
         }
       },
       "api": {
