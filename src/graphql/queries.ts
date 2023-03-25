@@ -74,6 +74,25 @@ export const getCourses = /* GraphQL */ `
       course_format
       course_credit
       Announcements {
+        items {
+          id
+          title
+          announcement
+          coursesID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      Assignments {
+        items {
+          id
+          title
+          announcement
+          coursesID
+          createdAt
+          updatedAt
+        }
         nextToken
       }
       createdAt
@@ -99,6 +118,12 @@ export const listCourses = /* GraphQL */ `
         course_image
         course_format
         course_credit
+        Announcements {
+          nextToken
+        }
+        Assignments {
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -110,10 +135,23 @@ export const getDepartments = /* GraphQL */ `
   query GetDepartments($id: ID!) {
     getDepartments(id: $id) {
       id
-      deparment_name
+      department_name
       department_id
       department_description
       Users {
+        items {
+          id
+          email
+          phone
+          address
+          picture
+          description
+          departmentsID
+          role
+          createdAt
+          updatedAt
+          owner
+        }
         nextToken
       }
       createdAt
@@ -130,9 +168,12 @@ export const listDepartments = /* GraphQL */ `
     listDepartments(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        deparment_name
+        department_name
         department_id
         department_description
+        Users {
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -144,7 +185,6 @@ export const getUsers = /* GraphQL */ `
   query GetUsers($id: ID!) {
     getUsers(id: $id) {
       id
-      name
       email
       phone
       address
@@ -153,10 +193,22 @@ export const getUsers = /* GraphQL */ `
       departmentsID
       role
       AssignmentSubmissions {
+        items {
+          id
+          assignmentsID
+          usersID
+          number_of_files
+          grade
+          submission_comment
+          checker
+          createdAt
+          updatedAt
+        }
         nextToken
       }
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -169,7 +221,6 @@ export const listUsers = /* GraphQL */ `
     listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        name
         email
         phone
         address
@@ -177,8 +228,12 @@ export const listUsers = /* GraphQL */ `
         description
         departmentsID
         role
+        AssignmentSubmissions {
+          nextToken
+        }
         createdAt
         updatedAt
+        owner
       }
       nextToken
     }
@@ -201,7 +256,6 @@ export const usersByDepartmentsID = /* GraphQL */ `
     ) {
       items {
         id
-        name
         email
         phone
         address
@@ -209,8 +263,12 @@ export const usersByDepartmentsID = /* GraphQL */ `
         description
         departmentsID
         role
+        AssignmentSubmissions {
+          nextToken
+        }
         createdAt
         updatedAt
+        owner
       }
       nextToken
     }
@@ -331,8 +389,20 @@ export const getAssignments = /* GraphQL */ `
       grade
       extra_data
       AssignmentSubmissions {
+        items {
+          id
+          assignmentsID
+          usersID
+          number_of_files
+          grade
+          submission_comment
+          checker
+          createdAt
+          updatedAt
+        }
         nextToken
       }
+      coursesID
       createdAt
       updatedAt
     }
@@ -356,6 +426,47 @@ export const listAssignments = /* GraphQL */ `
         time_available
         grade
         extra_data
+        AssignmentSubmissions {
+          nextToken
+        }
+        coursesID
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const assignmentsByCoursesID = /* GraphQL */ `
+  query AssignmentsByCoursesID(
+    $coursesID: ID!
+    $sortDirection: ModelSortDirection
+    $filter: ModelAssignmentsFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    assignmentsByCoursesID(
+      coursesID: $coursesID
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        assignment_name
+        assignment_desc
+        resubmit
+        teacher
+        max_bytes
+        time_due
+        time_available
+        grade
+        extra_data
+        AssignmentSubmissions {
+          nextToken
+        }
+        coursesID
         createdAt
         updatedAt
       }

@@ -58,6 +58,25 @@ export const onCreateCourses = /* GraphQL */ `
       course_format
       course_credit
       Announcements {
+        items {
+          id
+          title
+          announcement
+          coursesID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      Assignments {
+        items {
+          id
+          title
+          announcement
+          coursesID
+          createdAt
+          updatedAt
+        }
         nextToken
       }
       createdAt
@@ -79,6 +98,25 @@ export const onUpdateCourses = /* GraphQL */ `
       course_format
       course_credit
       Announcements {
+        items {
+          id
+          title
+          announcement
+          coursesID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      Assignments {
+        items {
+          id
+          title
+          announcement
+          coursesID
+          createdAt
+          updatedAt
+        }
         nextToken
       }
       createdAt
@@ -100,6 +138,25 @@ export const onDeleteCourses = /* GraphQL */ `
       course_format
       course_credit
       Announcements {
+        items {
+          id
+          title
+          announcement
+          coursesID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      Assignments {
+        items {
+          id
+          title
+          announcement
+          coursesID
+          createdAt
+          updatedAt
+        }
         nextToken
       }
       createdAt
@@ -113,10 +170,23 @@ export const onCreateDepartments = /* GraphQL */ `
   ) {
     onCreateDepartments(filter: $filter) {
       id
-      deparment_name
+      department_name
       department_id
       department_description
       Users {
+        items {
+          id
+          email
+          phone
+          address
+          picture
+          description
+          departmentsID
+          role
+          createdAt
+          updatedAt
+          owner
+        }
         nextToken
       }
       createdAt
@@ -130,10 +200,23 @@ export const onUpdateDepartments = /* GraphQL */ `
   ) {
     onUpdateDepartments(filter: $filter) {
       id
-      deparment_name
+      department_name
       department_id
       department_description
       Users {
+        items {
+          id
+          email
+          phone
+          address
+          picture
+          description
+          departmentsID
+          role
+          createdAt
+          updatedAt
+          owner
+        }
         nextToken
       }
       createdAt
@@ -147,10 +230,23 @@ export const onDeleteDepartments = /* GraphQL */ `
   ) {
     onDeleteDepartments(filter: $filter) {
       id
-      deparment_name
+      department_name
       department_id
       department_description
       Users {
+        items {
+          id
+          email
+          phone
+          address
+          picture
+          description
+          departmentsID
+          role
+          createdAt
+          updatedAt
+          owner
+        }
         nextToken
       }
       createdAt
@@ -159,10 +255,12 @@ export const onDeleteDepartments = /* GraphQL */ `
   }
 `;
 export const onCreateUsers = /* GraphQL */ `
-  subscription OnCreateUsers($filter: ModelSubscriptionUsersFilterInput) {
-    onCreateUsers(filter: $filter) {
+  subscription OnCreateUsers(
+    $filter: ModelSubscriptionUsersFilterInput
+    $owner: String
+  ) {
+    onCreateUsers(filter: $filter, owner: $owner) {
       id
-      name
       email
       phone
       address
@@ -171,18 +269,32 @@ export const onCreateUsers = /* GraphQL */ `
       departmentsID
       role
       AssignmentSubmissions {
+        items {
+          id
+          assignmentsID
+          usersID
+          number_of_files
+          grade
+          submission_comment
+          checker
+          createdAt
+          updatedAt
+        }
         nextToken
       }
       createdAt
       updatedAt
+      owner
     }
   }
 `;
 export const onUpdateUsers = /* GraphQL */ `
-  subscription OnUpdateUsers($filter: ModelSubscriptionUsersFilterInput) {
-    onUpdateUsers(filter: $filter) {
+  subscription OnUpdateUsers(
+    $filter: ModelSubscriptionUsersFilterInput
+    $owner: String
+  ) {
+    onUpdateUsers(filter: $filter, owner: $owner) {
       id
-      name
       email
       phone
       address
@@ -191,18 +303,32 @@ export const onUpdateUsers = /* GraphQL */ `
       departmentsID
       role
       AssignmentSubmissions {
+        items {
+          id
+          assignmentsID
+          usersID
+          number_of_files
+          grade
+          submission_comment
+          checker
+          createdAt
+          updatedAt
+        }
         nextToken
       }
       createdAt
       updatedAt
+      owner
     }
   }
 `;
 export const onDeleteUsers = /* GraphQL */ `
-  subscription OnDeleteUsers($filter: ModelSubscriptionUsersFilterInput) {
-    onDeleteUsers(filter: $filter) {
+  subscription OnDeleteUsers(
+    $filter: ModelSubscriptionUsersFilterInput
+    $owner: String
+  ) {
+    onDeleteUsers(filter: $filter, owner: $owner) {
       id
-      name
       email
       phone
       address
@@ -211,10 +337,22 @@ export const onDeleteUsers = /* GraphQL */ `
       departmentsID
       role
       AssignmentSubmissions {
+        items {
+          id
+          assignmentsID
+          usersID
+          number_of_files
+          grade
+          submission_comment
+          checker
+          createdAt
+          updatedAt
+        }
         nextToken
       }
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -285,8 +423,20 @@ export const onCreateAssignments = /* GraphQL */ `
       grade
       extra_data
       AssignmentSubmissions {
+        items {
+          id
+          assignmentsID
+          usersID
+          number_of_files
+          grade
+          submission_comment
+          checker
+          createdAt
+          updatedAt
+        }
         nextToken
       }
+      coursesID
       createdAt
       updatedAt
     }
@@ -308,8 +458,20 @@ export const onUpdateAssignments = /* GraphQL */ `
       grade
       extra_data
       AssignmentSubmissions {
+        items {
+          id
+          assignmentsID
+          usersID
+          number_of_files
+          grade
+          submission_comment
+          checker
+          createdAt
+          updatedAt
+        }
         nextToken
       }
+      coursesID
       createdAt
       updatedAt
     }
@@ -331,8 +493,20 @@ export const onDeleteAssignments = /* GraphQL */ `
       grade
       extra_data
       AssignmentSubmissions {
+        items {
+          id
+          assignmentsID
+          usersID
+          number_of_files
+          grade
+          submission_comment
+          checker
+          createdAt
+          updatedAt
+        }
         nextToken
       }
+      coursesID
       createdAt
       updatedAt
     }

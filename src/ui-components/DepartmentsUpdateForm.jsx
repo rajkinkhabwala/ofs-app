@@ -14,7 +14,7 @@ import { DataStore } from "aws-amplify";
 export default function DepartmentsUpdateForm(props) {
   const {
     id: idProp,
-    departments,
+    departments: departmentsModelProp,
     onSuccess,
     onError,
     onSubmit,
@@ -24,12 +24,12 @@ export default function DepartmentsUpdateForm(props) {
     ...rest
   } = props;
   const initialValues = {
-    deparment_name: "",
+    department_name: "",
     department_id: "",
     department_description: "",
   };
-  const [deparment_name, setDeparment_name] = React.useState(
-    initialValues.deparment_name
+  const [department_name, setDepartment_name] = React.useState(
+    initialValues.department_name
   );
   const [department_id, setDepartment_id] = React.useState(
     initialValues.department_id
@@ -42,24 +42,25 @@ export default function DepartmentsUpdateForm(props) {
     const cleanValues = departmentsRecord
       ? { ...initialValues, ...departmentsRecord }
       : initialValues;
-    setDeparment_name(cleanValues.deparment_name);
+    setDepartment_name(cleanValues.department_name);
     setDepartment_id(cleanValues.department_id);
     setDepartment_description(cleanValues.department_description);
     setErrors({});
   };
-  const [departmentsRecord, setDepartmentsRecord] = React.useState(departments);
+  const [departmentsRecord, setDepartmentsRecord] =
+    React.useState(departmentsModelProp);
   React.useEffect(() => {
     const queryData = async () => {
       const record = idProp
         ? await DataStore.query(Departments, idProp)
-        : departments;
+        : departmentsModelProp;
       setDepartmentsRecord(record);
     };
     queryData();
-  }, [idProp, departments]);
+  }, [idProp, departmentsModelProp]);
   React.useEffect(resetStateValues, [departmentsRecord]);
   const validations = {
-    deparment_name: [],
+    department_name: [],
     department_id: [],
     department_description: [],
   };
@@ -89,7 +90,7 @@ export default function DepartmentsUpdateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
-          deparment_name,
+          department_name,
           department_id,
           department_description,
         };
@@ -139,30 +140,30 @@ export default function DepartmentsUpdateForm(props) {
       {...rest}
     >
       <TextField
-        label="Deparment name"
+        label="Department name"
         isRequired={false}
         isReadOnly={false}
-        value={deparment_name}
+        value={department_name}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              deparment_name: value,
+              department_name: value,
               department_id,
               department_description,
             };
             const result = onChange(modelFields);
-            value = result?.deparment_name ?? value;
+            value = result?.department_name ?? value;
           }
-          if (errors.deparment_name?.hasError) {
-            runValidationTasks("deparment_name", value);
+          if (errors.department_name?.hasError) {
+            runValidationTasks("department_name", value);
           }
-          setDeparment_name(value);
+          setDepartment_name(value);
         }}
-        onBlur={() => runValidationTasks("deparment_name", deparment_name)}
-        errorMessage={errors.deparment_name?.errorMessage}
-        hasError={errors.deparment_name?.hasError}
-        {...getOverrideProps(overrides, "deparment_name")}
+        onBlur={() => runValidationTasks("department_name", department_name)}
+        errorMessage={errors.department_name?.errorMessage}
+        hasError={errors.department_name?.hasError}
+        {...getOverrideProps(overrides, "department_name")}
       ></TextField>
       <TextField
         label="Department id"
@@ -173,7 +174,7 @@ export default function DepartmentsUpdateForm(props) {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              deparment_name,
+              department_name,
               department_id: value,
               department_description,
             };
@@ -199,7 +200,7 @@ export default function DepartmentsUpdateForm(props) {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              deparment_name,
+              department_name,
               department_id,
               department_description: value,
             };
@@ -229,7 +230,7 @@ export default function DepartmentsUpdateForm(props) {
             event.preventDefault();
             resetStateValues();
           }}
-          isDisabled={!(idProp || departments)}
+          isDisabled={!(idProp || departmentsModelProp)}
           {...getOverrideProps(overrides, "ResetButton")}
         ></Button>
         <Flex
@@ -241,7 +242,7 @@ export default function DepartmentsUpdateForm(props) {
             type="submit"
             variation="primary"
             isDisabled={
-              !(idProp || departments) ||
+              !(idProp || departmentsModelProp) ||
               Object.values(errors).some((e) => e?.hasError)
             }
             {...getOverrideProps(overrides, "SubmitButton")}

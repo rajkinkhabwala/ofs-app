@@ -2,7 +2,7 @@ import { API } from "aws-amplify";
 import * as mutations from '../../../../graphql/mutations';
 import * as queries from '../../../../graphql/queries';
 import { GraphQLQuery, graphqlOperation, GRAPHQL_AUTH_MODE } from '@aws-amplify/api';
-import { CreateDepartmentsInput, CreateDepartmentsMutation, DeleteDepartmentsInput, GetDepartmentsQuery, GetUsersQuery, ListAnnouncementsQueryVariables, ListDepartmentsQuery, ModelDepartmentsFilterInput, UpdateDepartmentsInput, UpdateDepartmentsMutation } from "../../../../API";
+import { CreateDepartmentsInput, CreateDepartmentsMutation, DeleteDepartmentsInput, GetDepartmentsQuery, ListAnnouncementsQueryVariables, ListDepartmentsQuery, ModelDepartmentsFilterInput, UpdateDepartmentsInput, UpdateDepartmentsMutation } from "../../../../API";
 
 
 export async function createDepartment(department: CreateDepartmentsInput) {
@@ -22,11 +22,13 @@ export async function listDepartment(
     limit?: number,
     nextToken?: string
 ) {
-    return await API.graphql<GraphQLQuery<ListDepartmentsQuery>>(graphqlOperation(queries.listDepartments, {
+    return await API.graphql<GraphQLQuery<ListDepartmentsQuery>>({ ...graphqlOperation(queries.listDepartments, {
         filter: filter,
         limit: limit,
         nextToken: nextToken
-    }))
+    }),
+    authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS
+})
 }
 
 export async function getDepartment(department: string) {

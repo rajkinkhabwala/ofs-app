@@ -20,7 +20,7 @@ import { DataStore } from "aws-amplify";
 export default function AssignmentsUpdateForm(props) {
   const {
     id: idProp,
-    assignments,
+    assignments: assignmentsModelProp,
     onSuccess,
     onError,
     onSubmit,
@@ -39,6 +39,7 @@ export default function AssignmentsUpdateForm(props) {
     time_available: "",
     grade: "",
     extra_data: "",
+    coursesID: "",
   };
   const [assignment_name, setAssignment_name] = React.useState(
     initialValues.assignment_name
@@ -55,6 +56,7 @@ export default function AssignmentsUpdateForm(props) {
   );
   const [grade, setGrade] = React.useState(initialValues.grade);
   const [extra_data, setExtra_data] = React.useState(initialValues.extra_data);
+  const [coursesID, setCoursesID] = React.useState(initialValues.coursesID);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     const cleanValues = assignmentsRecord
@@ -73,18 +75,20 @@ export default function AssignmentsUpdateForm(props) {
         ? cleanValues.extra_data
         : JSON.stringify(cleanValues.extra_data)
     );
+    setCoursesID(cleanValues.coursesID);
     setErrors({});
   };
-  const [assignmentsRecord, setAssignmentsRecord] = React.useState(assignments);
+  const [assignmentsRecord, setAssignmentsRecord] =
+    React.useState(assignmentsModelProp);
   React.useEffect(() => {
     const queryData = async () => {
       const record = idProp
         ? await DataStore.query(Assignments, idProp)
-        : assignments;
+        : assignmentsModelProp;
       setAssignmentsRecord(record);
     };
     queryData();
-  }, [idProp, assignments]);
+  }, [idProp, assignmentsModelProp]);
   React.useEffect(resetStateValues, [assignmentsRecord]);
   const validations = {
     assignment_name: [{ type: "Required" }],
@@ -96,6 +100,7 @@ export default function AssignmentsUpdateForm(props) {
     time_available: [],
     grade: [{ type: "Required" }],
     extra_data: [{ type: "JSON" }],
+    coursesID: [{ type: "Required" }],
   };
   const runValidationTasks = async (
     fieldName,
@@ -149,6 +154,7 @@ export default function AssignmentsUpdateForm(props) {
           time_available,
           grade,
           extra_data,
+          coursesID,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -213,6 +219,7 @@ export default function AssignmentsUpdateForm(props) {
               time_available,
               grade,
               extra_data,
+              coursesID,
             };
             const result = onChange(modelFields);
             value = result?.assignment_name ?? value;
@@ -245,6 +252,7 @@ export default function AssignmentsUpdateForm(props) {
               time_available,
               grade,
               extra_data,
+              coursesID,
             };
             const result = onChange(modelFields);
             value = result?.assignment_desc ?? value;
@@ -281,6 +289,7 @@ export default function AssignmentsUpdateForm(props) {
               time_available,
               grade,
               extra_data,
+              coursesID,
             };
             const result = onChange(modelFields);
             value = result?.resubmit ?? value;
@@ -313,6 +322,7 @@ export default function AssignmentsUpdateForm(props) {
               time_available,
               grade,
               extra_data,
+              coursesID,
             };
             const result = onChange(modelFields);
             value = result?.teacher ?? value;
@@ -349,6 +359,7 @@ export default function AssignmentsUpdateForm(props) {
               time_available,
               grade,
               extra_data,
+              coursesID,
             };
             const result = onChange(modelFields);
             value = result?.max_bytes ?? value;
@@ -383,6 +394,7 @@ export default function AssignmentsUpdateForm(props) {
               time_available,
               grade,
               extra_data,
+              coursesID,
             };
             const result = onChange(modelFields);
             value = result?.time_due ?? value;
@@ -417,6 +429,7 @@ export default function AssignmentsUpdateForm(props) {
               time_available: value,
               grade,
               extra_data,
+              coursesID,
             };
             const result = onChange(modelFields);
             value = result?.time_available ?? value;
@@ -453,6 +466,7 @@ export default function AssignmentsUpdateForm(props) {
               time_available,
               grade: value,
               extra_data,
+              coursesID,
             };
             const result = onChange(modelFields);
             value = result?.grade ?? value;
@@ -485,6 +499,7 @@ export default function AssignmentsUpdateForm(props) {
               time_available,
               grade,
               extra_data: value,
+              coursesID,
             };
             const result = onChange(modelFields);
             value = result?.extra_data ?? value;
@@ -499,6 +514,39 @@ export default function AssignmentsUpdateForm(props) {
         hasError={errors.extra_data?.hasError}
         {...getOverrideProps(overrides, "extra_data")}
       ></TextAreaField>
+      <TextField
+        label="Courses id"
+        isRequired={true}
+        isReadOnly={false}
+        value={coursesID}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              assignment_name,
+              assignment_desc,
+              resubmit,
+              teacher,
+              max_bytes,
+              time_due,
+              time_available,
+              grade,
+              extra_data,
+              coursesID: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.coursesID ?? value;
+          }
+          if (errors.coursesID?.hasError) {
+            runValidationTasks("coursesID", value);
+          }
+          setCoursesID(value);
+        }}
+        onBlur={() => runValidationTasks("coursesID", coursesID)}
+        errorMessage={errors.coursesID?.errorMessage}
+        hasError={errors.coursesID?.hasError}
+        {...getOverrideProps(overrides, "coursesID")}
+      ></TextField>
       <Flex
         justifyContent="space-between"
         {...getOverrideProps(overrides, "CTAFlex")}
@@ -510,7 +558,7 @@ export default function AssignmentsUpdateForm(props) {
             event.preventDefault();
             resetStateValues();
           }}
-          isDisabled={!(idProp || assignments)}
+          isDisabled={!(idProp || assignmentsModelProp)}
           {...getOverrideProps(overrides, "ResetButton")}
         ></Button>
         <Flex
@@ -522,7 +570,7 @@ export default function AssignmentsUpdateForm(props) {
             type="submit"
             variation="primary"
             isDisabled={
-              !(idProp || assignments) ||
+              !(idProp || assignmentsModelProp) ||
               Object.values(errors).some((e) => e?.hasError)
             }
             {...getOverrideProps(overrides, "SubmitButton")}

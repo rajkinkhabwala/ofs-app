@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { listCourse } from "../app/api/graphql/courses/api.course"
+import { listCourse } from "../api/graphql/courses/api.course"
 import { Table } from "../common-components/Table.component";
 
 export const Courses = () => {

@@ -64,6 +64,25 @@ export const createCourses = /* GraphQL */ `
       course_format
       course_credit
       Announcements {
+        items {
+          id
+          title
+          announcement
+          coursesID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      Assignments {
+        items {
+          id
+          title
+          announcement
+          coursesID
+          createdAt
+          updatedAt
+        }
         nextToken
       }
       createdAt
@@ -88,6 +107,25 @@ export const updateCourses = /* GraphQL */ `
       course_format
       course_credit
       Announcements {
+        items {
+          id
+          title
+          announcement
+          coursesID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      Assignments {
+        items {
+          id
+          title
+          announcement
+          coursesID
+          createdAt
+          updatedAt
+        }
         nextToken
       }
       createdAt
@@ -112,6 +150,25 @@ export const deleteCourses = /* GraphQL */ `
       course_format
       course_credit
       Announcements {
+        items {
+          id
+          title
+          announcement
+          coursesID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      Assignments {
+        items {
+          id
+          title
+          announcement
+          coursesID
+          createdAt
+          updatedAt
+        }
         nextToken
       }
       createdAt
@@ -126,10 +183,23 @@ export const createDepartments = /* GraphQL */ `
   ) {
     createDepartments(input: $input, condition: $condition) {
       id
-      deparment_name
+      department_name
       department_id
       department_description
       Users {
+        items {
+          id
+          email
+          phone
+          address
+          picture
+          description
+          departmentsID
+          role
+          createdAt
+          updatedAt
+          owner
+        }
         nextToken
       }
       createdAt
@@ -144,10 +214,23 @@ export const updateDepartments = /* GraphQL */ `
   ) {
     updateDepartments(input: $input, condition: $condition) {
       id
-      deparment_name
+      department_name
       department_id
       department_description
       Users {
+        items {
+          id
+          email
+          phone
+          address
+          picture
+          description
+          departmentsID
+          role
+          createdAt
+          updatedAt
+          owner
+        }
         nextToken
       }
       createdAt
@@ -162,10 +245,23 @@ export const deleteDepartments = /* GraphQL */ `
   ) {
     deleteDepartments(input: $input, condition: $condition) {
       id
-      deparment_name
+      department_name
       department_id
       department_description
       Users {
+        items {
+          id
+          email
+          phone
+          address
+          picture
+          description
+          departmentsID
+          role
+          createdAt
+          updatedAt
+          owner
+        }
         nextToken
       }
       createdAt
@@ -180,7 +276,6 @@ export const createUsers = /* GraphQL */ `
   ) {
     createUsers(input: $input, condition: $condition) {
       id
-      name
       email
       phone
       address
@@ -189,10 +284,22 @@ export const createUsers = /* GraphQL */ `
       departmentsID
       role
       AssignmentSubmissions {
+        items {
+          id
+          assignmentsID
+          usersID
+          number_of_files
+          grade
+          submission_comment
+          checker
+          createdAt
+          updatedAt
+        }
         nextToken
       }
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -203,7 +310,6 @@ export const updateUsers = /* GraphQL */ `
   ) {
     updateUsers(input: $input, condition: $condition) {
       id
-      name
       email
       phone
       address
@@ -212,10 +318,22 @@ export const updateUsers = /* GraphQL */ `
       departmentsID
       role
       AssignmentSubmissions {
+        items {
+          id
+          assignmentsID
+          usersID
+          number_of_files
+          grade
+          submission_comment
+          checker
+          createdAt
+          updatedAt
+        }
         nextToken
       }
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -226,7 +344,6 @@ export const deleteUsers = /* GraphQL */ `
   ) {
     deleteUsers(input: $input, condition: $condition) {
       id
-      name
       email
       phone
       address
@@ -235,10 +352,22 @@ export const deleteUsers = /* GraphQL */ `
       departmentsID
       role
       AssignmentSubmissions {
+        items {
+          id
+          assignmentsID
+          usersID
+          number_of_files
+          grade
+          submission_comment
+          checker
+          createdAt
+          updatedAt
+        }
         nextToken
       }
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -313,8 +442,20 @@ export const createAssignments = /* GraphQL */ `
       grade
       extra_data
       AssignmentSubmissions {
+        items {
+          id
+          assignmentsID
+          usersID
+          number_of_files
+          grade
+          submission_comment
+          checker
+          createdAt
+          updatedAt
+        }
         nextToken
       }
+      coursesID
       createdAt
       updatedAt
     }
@@ -337,8 +478,20 @@ export const updateAssignments = /* GraphQL */ `
       grade
       extra_data
       AssignmentSubmissions {
+        items {
+          id
+          assignmentsID
+          usersID
+          number_of_files
+          grade
+          submission_comment
+          checker
+          createdAt
+          updatedAt
+        }
         nextToken
       }
+      coursesID
       createdAt
       updatedAt
     }
@@ -361,8 +514,20 @@ export const deleteAssignments = /* GraphQL */ `
       grade
       extra_data
       AssignmentSubmissions {
+        items {
+          id
+          assignmentsID
+          usersID
+          number_of_files
+          grade
+          submission_comment
+          checker
+          createdAt
+          updatedAt
+        }
         nextToken
       }
+      coursesID
       createdAt
       updatedAt
     }

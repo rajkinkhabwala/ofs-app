@@ -2,7 +2,7 @@
   "version": "1",
   "cognitoConfig": {
     "identityPoolName": "ofsapp34d3690a_identitypool_34d3690a",
-    "allowUnauthenticatedIdentities": true,
+    "allowUnauthenticatedIdentities": false,
     "resourceNameTruncated": "ofsapp34d3690a",
     "userPoolName": "ofsapp34d3690a_userpool_34d3690a",
     "autoVerifiedAttributes": [
@@ -43,9 +43,13 @@
     "usernameAttributes": [
       "email"
     ],
-    "userPoolGroups": true,
+    "userPoolGroups": false,
     "adminQueries": true,
-    "triggers": {},
+    "triggers": {
+      "PostConfirmation": [
+        "custom"
+      ]
+    },
     "hostedUI": false,
     "userPoolGroupList": [
       "Admins",
@@ -70,6 +74,22 @@
       ]
     },
     "breakCircularDependency": true,
-    "dependsOn": []
+    "dependsOn": [
+      {
+        "category": "function",
+        "resourceName": "ofsapp34d3690a34d3690aPostConfirmation",
+        "triggerProvider": "Cognito",
+        "attributes": [
+          "Arn",
+          "Name"
+        ]
+      }
+    ],
+    "authProviders": [],
+    "parentStack": {
+      "Ref": "AWS::StackId"
+    },
+    "authTriggerConnections": "[\n  {\n    \"triggerType\": \"PostConfirmation\",\n    \"lambdaFunctionName\": \"ofsapp34d3690a34d3690aPostConfirmation\"\n  }\n]",
+    "permissions": []
   }
 }

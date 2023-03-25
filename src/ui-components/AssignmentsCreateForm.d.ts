@@ -22,6 +22,7 @@ export declare type AssignmentsCreateFormInputValues = {
     time_available?: string;
     grade?: number;
     extra_data?: string;
+    coursesID?: string;
 };
 export declare type AssignmentsCreateFormValidationValues = {
     assignment_name?: ValidationFunction<string>;
@@ -33,6 +34,7 @@ export declare type AssignmentsCreateFormValidationValues = {
     time_available?: ValidationFunction<string>;
     grade?: ValidationFunction<number>;
     extra_data?: ValidationFunction<string>;
+    coursesID?: ValidationFunction<string>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type AssignmentsCreateFormOverridesProps = {
@@ -46,6 +48,7 @@ export declare type AssignmentsCreateFormOverridesProps = {
     time_available?: PrimitiveOverrideProps<TextFieldProps>;
     grade?: PrimitiveOverrideProps<TextFieldProps>;
     extra_data?: PrimitiveOverrideProps<TextAreaFieldProps>;
+    coursesID?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
 export declare type AssignmentsCreateFormProps = React.PropsWithChildren<{
     overrides?: AssignmentsCreateFormOverridesProps | undefined | null;
