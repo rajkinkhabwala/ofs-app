@@ -17,6 +17,8 @@ import SubScript from "@tiptap/extension-subscript";
 import { createCourse } from "../api/graphql/courses/api.course";
 import "../styles/_table.scss";
 import { CourseFormat } from "../../models";
+import { useForm } from "@mantine/form";
+import { CreateCoursesInput } from "../../API";
 
 export const Table = ({ list }: any) => {
 

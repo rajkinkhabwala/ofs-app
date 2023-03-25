@@ -1,28 +1,26 @@
 .table-template{
-    overflow: scroll;
 
     .table-header{
-        background: white;
-        border: 1px solid #dee2e6;
-        border-bottom: none;
+        border: none;
         display: flex;
         align-items: center;
-        justify-content: space-between;
+        justify-content: flex-end;
 
         .title{
             margin-left: 2rem;
         }
 
         .add-course{
-            margin-right: 2rem;
+            margin: 1rem 0;
         }
     } 
 
     .crud-btn-container{
+        display: flex;
+        justify-content: center;
+
         span{
             margin: 10px;
-            border: 1px solid black;
-            border-radius: 1rem;
             padding: 5px;
             cursor: pointer;
         }

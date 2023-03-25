@@ -1,0 +1,72 @@
+.navbar-template {
+
+    .active-link {
+        background-color: rgba(231, 245, 255, 1);
+        color: #228be6;
+    }
+
+    .link { 
+        -webkit-tap-highlight-color: transparent;
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        color: #495057;
+        padding: 0.625rem 0.75rem;
+        font-size: 20px;
+        border-radius: 0.25rem;
+        font-weight: 500;
+    
+        &:hover{
+            background-color: #f8f9fa;
+            color: #000;
+        }
+    }
+
+    .sidebar-bottom {
+        border-top: 0.0625rem solid #dee2e6;
+        padding-top: 1rem;
+
+        .logout-option {
+            display: flex;
+            -webkit-tap-highlight-color: transparent;
+            align-items: center;
+            text-decoration: none;
+            font-size: 0.875rem;
+            padding: 0.625rem 0.75rem;
+            border-radius: 0.25rem;
+            color: #495057;
+            font-weight: 500;
+
+            &:hover {
+                background-color: #f8f9fa;
+                color: #000;
+            }
+
+            span {
+                margin-left: 1rem;
+            }
+        }
+    }
+}
+
+// Header - css
+
+.header-icon {
+    margin-left: 2rem;
+}
+
+// Footer - css
+
+.footer-section{
+    background: #008ad8;
+    text-align: center;
+    color: #fff;
+    font-size: 0.875rem;
+    line-height: 1.55;
+    -webkit-tap-highlight-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 4.75rem;
+    max-height: 4.75rem;
+}
