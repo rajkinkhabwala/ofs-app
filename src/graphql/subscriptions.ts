@@ -177,6 +177,7 @@ export const onCreateDepartments = /* GraphQL */ `
         items {
           id
           email
+          name
           phone
           address
           picture
@@ -185,7 +186,6 @@ export const onCreateDepartments = /* GraphQL */ `
           role
           createdAt
           updatedAt
-          owner
         }
         nextToken
       }
@@ -207,6 +207,7 @@ export const onUpdateDepartments = /* GraphQL */ `
         items {
           id
           email
+          name
           phone
           address
           picture
@@ -215,7 +216,6 @@ export const onUpdateDepartments = /* GraphQL */ `
           role
           createdAt
           updatedAt
-          owner
         }
         nextToken
       }
@@ -237,6 +237,7 @@ export const onDeleteDepartments = /* GraphQL */ `
         items {
           id
           email
+          name
           phone
           address
           picture
@@ -245,7 +246,6 @@ export const onDeleteDepartments = /* GraphQL */ `
           role
           createdAt
           updatedAt
-          owner
         }
         nextToken
       }
@@ -255,13 +255,11 @@ export const onDeleteDepartments = /* GraphQL */ `
   }
 `;
 export const onCreateUsers = /* GraphQL */ `
-  subscription OnCreateUsers(
-    $filter: ModelSubscriptionUsersFilterInput
-    $owner: String
-  ) {
-    onCreateUsers(filter: $filter, owner: $owner) {
+  subscription OnCreateUsers($filter: ModelSubscriptionUsersFilterInput) {
+    onCreateUsers(filter: $filter) {
       id
       email
+      name
       phone
       address
       picture
@@ -284,18 +282,15 @@ export const onCreateUsers = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      owner
     }
   }
 `;
 export const onUpdateUsers = /* GraphQL */ `
-  subscription OnUpdateUsers(
-    $filter: ModelSubscriptionUsersFilterInput
-    $owner: String
-  ) {
-    onUpdateUsers(filter: $filter, owner: $owner) {
+  subscription OnUpdateUsers($filter: ModelSubscriptionUsersFilterInput) {
+    onUpdateUsers(filter: $filter) {
       id
       email
+      name
       phone
       address
       picture
@@ -318,18 +313,15 @@ export const onUpdateUsers = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      owner
     }
   }
 `;
 export const onDeleteUsers = /* GraphQL */ `
-  subscription OnDeleteUsers(
-    $filter: ModelSubscriptionUsersFilterInput
-    $owner: String
-  ) {
-    onDeleteUsers(filter: $filter, owner: $owner) {
+  subscription OnDeleteUsers($filter: ModelSubscriptionUsersFilterInput) {
+    onDeleteUsers(filter: $filter) {
       id
       email
+      name
       phone
       address
       picture
@@ -352,7 +344,6 @@ export const onDeleteUsers = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      owner
     }
   }
 `;

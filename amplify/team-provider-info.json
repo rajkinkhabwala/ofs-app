@@ -13,10 +13,6 @@
       "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-ofsapp-dev-171226-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
     },
     "categories": {
-      "auth": {
-        "ofsapp34d3690a34d3690a": {},
-        "userPoolGroups": {}
-      },
       "function": {
         "AdminQueriesc70cc6d6": {
           "deploymentBucketName": "amplify-ofsapp-dev-171226-deployment",
@@ -27,12 +23,16 @@
           "s3Key": "amplify-builds/ofsapp34d3690a34d3690aPostConfirmation-48375370755041344552-build.zip"
         }
       },
-      "api": {
-        "AdminQueries": {},
-        "ofsapp": {}
+      "auth": {
+        "ofsapp34d3690a34d3690a": {},
+        "userPoolGroups": {}
       },
       "storage": {
         "s3d829bb75": {}
+      },
+      "api": {
+        "AdminQueries": {},
+        "ofsapp": {}
       }
     }
   }

@@ -230,6 +230,7 @@ export type Users = {
   __typename: "Users",
   id: string,
   email?: string | null,
+  name?: string | null,
   phone?: string | null,
   address?: string | null,
   picture?: string | null,
@@ -239,7 +240,6 @@ export type Users = {
   AssignmentSubmissions?: ModelAssignmentSubmissionsConnection | null,
   createdAt: string,
   updatedAt: string,
-  owner?: string | null,
 };
 
 export type ModelAssignmentSubmissionsConnection = {
@@ -275,6 +275,7 @@ export type DeleteDepartmentsInput = {
 export type CreateUsersInput = {
   id?: string | null,
   email?: string | null,
+  name?: string | null,
   phone?: string | null,
   address?: string | null,
   picture?: string | null,
@@ -285,6 +286,7 @@ export type CreateUsersInput = {
 
 export type ModelUsersConditionInput = {
   email?: ModelStringInput | null,
+  name?: ModelStringInput | null,
   phone?: ModelStringInput | null,
   address?: ModelStringInput | null,
   picture?: ModelStringInput | null,
@@ -299,6 +301,7 @@ export type ModelUsersConditionInput = {
 export type UpdateUsersInput = {
   id: string,
   email?: string | null,
+  name?: string | null,
   phone?: string | null,
   address?: string | null,
   picture?: string | null,
@@ -470,6 +473,7 @@ export type ModelDepartmentsConnection = {
 export type ModelUsersFilterInput = {
   id?: ModelIDInput | null,
   email?: ModelStringInput | null,
+  name?: ModelStringInput | null,
   phone?: ModelStringInput | null,
   address?: ModelStringInput | null,
   picture?: ModelStringInput | null,
@@ -600,6 +604,7 @@ export type ModelSubscriptionDepartmentsFilterInput = {
 export type ModelSubscriptionUsersFilterInput = {
   id?: ModelSubscriptionIDInput | null,
   email?: ModelSubscriptionStringInput | null,
+  name?: ModelSubscriptionStringInput | null,
   phone?: ModelSubscriptionStringInput | null,
   address?: ModelSubscriptionStringInput | null,
   picture?: ModelSubscriptionStringInput | null,
@@ -854,6 +859,7 @@ export type CreateDepartmentsMutation = {
         __typename: "Users",
         id: string,
         email?: string | null,
+        name?: string | null,
         phone?: string | null,
         address?: string | null,
         picture?: string | null,
@@ -862,7 +868,6 @@ export type CreateDepartmentsMutation = {
         role?: string | null,
         createdAt: string,
         updatedAt: string,
-        owner?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -889,6 +894,7 @@ export type UpdateDepartmentsMutation = {
         __typename: "Users",
         id: string,
         email?: string | null,
+        name?: string | null,
         phone?: string | null,
         address?: string | null,
         picture?: string | null,
@@ -897,7 +903,6 @@ export type UpdateDepartmentsMutation = {
         role?: string | null,
         createdAt: string,
         updatedAt: string,
-        owner?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -924,6 +929,7 @@ export type DeleteDepartmentsMutation = {
         __typename: "Users",
         id: string,
         email?: string | null,
+        name?: string | null,
         phone?: string | null,
         address?: string | null,
         picture?: string | null,
@@ -932,7 +938,6 @@ export type DeleteDepartmentsMutation = {
         role?: string | null,
         createdAt: string,
         updatedAt: string,
-        owner?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -951,6 +956,7 @@ export type CreateUsersMutation = {
     __typename: "Users",
     id: string,
     email?: string | null,
+    name?: string | null,
     phone?: string | null,
     address?: string | null,
     picture?: string | null,
@@ -975,7 +981,6 @@ export type CreateUsersMutation = {
     } | null,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -989,6 +994,7 @@ export type UpdateUsersMutation = {
     __typename: "Users",
     id: string,
     email?: string | null,
+    name?: string | null,
     phone?: string | null,
     address?: string | null,
     picture?: string | null,
@@ -1013,7 +1019,6 @@ export type UpdateUsersMutation = {
     } | null,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -1027,6 +1032,7 @@ export type DeleteUsersMutation = {
     __typename: "Users",
     id: string,
     email?: string | null,
+    name?: string | null,
     phone?: string | null,
     address?: string | null,
     picture?: string | null,
@@ -1051,7 +1057,6 @@ export type DeleteUsersMutation = {
     } | null,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -1398,6 +1403,7 @@ export type GetDepartmentsQuery = {
         __typename: "Users",
         id: string,
         email?: string | null,
+        name?: string | null,
         phone?: string | null,
         address?: string | null,
         picture?: string | null,
@@ -1406,7 +1412,6 @@ export type GetDepartmentsQuery = {
         role?: string | null,
         createdAt: string,
         updatedAt: string,
-        owner?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -1450,6 +1455,7 @@ export type GetUsersQuery = {
     __typename: "Users",
     id: string,
     email?: string | null,
+    name?: string | null,
     phone?: string | null,
     address?: string | null,
     picture?: string | null,
@@ -1474,7 +1480,6 @@ export type GetUsersQuery = {
     } | null,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -1491,6 +1496,7 @@ export type ListUsersQuery = {
       __typename: "Users",
       id: string,
       email?: string | null,
+      name?: string | null,
       phone?: string | null,
       address?: string | null,
       picture?: string | null,
@@ -1503,7 +1509,6 @@ export type ListUsersQuery = {
       } | null,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null >,
     nextToken?: string | null,
   } | null,
@@ -1524,6 +1529,7 @@ export type UsersByDepartmentsIDQuery = {
       __typename: "Users",
       id: string,
       email?: string | null,
+      name?: string | null,
       phone?: string | null,
       address?: string | null,
       picture?: string | null,
@@ -1536,7 +1542,6 @@ export type UsersByDepartmentsIDQuery = {
       } | null,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null >,
     nextToken?: string | null,
   } | null,
@@ -1956,6 +1961,7 @@ export type OnCreateDepartmentsSubscription = {
         __typename: "Users",
         id: string,
         email?: string | null,
+        name?: string | null,
         phone?: string | null,
         address?: string | null,
         picture?: string | null,
@@ -1964,7 +1970,6 @@ export type OnCreateDepartmentsSubscription = {
         role?: string | null,
         createdAt: string,
         updatedAt: string,
-        owner?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -1990,6 +1995,7 @@ export type OnUpdateDepartmentsSubscription = {
         __typename: "Users",
         id: string,
         email?: string | null,
+        name?: string | null,
         phone?: string | null,
         address?: string | null,
         picture?: string | null,
@@ -1998,7 +2004,6 @@ export type OnUpdateDepartmentsSubscription = {
         role?: string | null,
         createdAt: string,
         updatedAt: string,
-        owner?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -2024,6 +2029,7 @@ export type OnDeleteDepartmentsSubscription = {
         __typename: "Users",
         id: string,
         email?: string | null,
+        name?: string | null,
         phone?: string | null,
         address?: string | null,
         picture?: string | null,
@@ -2032,7 +2038,6 @@ export type OnDeleteDepartmentsSubscription = {
         role?: string | null,
         createdAt: string,
         updatedAt: string,
-        owner?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -2043,7 +2048,6 @@ export type OnDeleteDepartmentsSubscription = {
 
 export type OnCreateUsersSubscriptionVariables = {
   filter?: ModelSubscriptionUsersFilterInput | null,
-  owner?: string | null,
 };
 
 export type OnCreateUsersSubscription = {
@@ -2051,6 +2055,7 @@ export type OnCreateUsersSubscription = {
     __typename: "Users",
     id: string,
     email?: string | null,
+    name?: string | null,
     phone?: string | null,
     address?: string | null,
     picture?: string | null,
@@ -2075,13 +2080,11 @@ export type OnCreateUsersSubscription = {
     } | null,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
 export type OnUpdateUsersSubscriptionVariables = {
   filter?: ModelSubscriptionUsersFilterInput | null,
-  owner?: string | null,
 };
 
 export type OnUpdateUsersSubscription = {
@@ -2089,6 +2092,7 @@ export type OnUpdateUsersSubscription = {
     __typename: "Users",
     id: string,
     email?: string | null,
+    name?: string | null,
     phone?: string | null,
     address?: string | null,
     picture?: string | null,
@@ -2113,13 +2117,11 @@ export type OnUpdateUsersSubscription = {
     } | null,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
 export type OnDeleteUsersSubscriptionVariables = {
   filter?: ModelSubscriptionUsersFilterInput | null,
-  owner?: string | null,
 };
 
 export type OnDeleteUsersSubscription = {
@@ -2127,6 +2129,7 @@ export type OnDeleteUsersSubscription = {
     __typename: "Users",
     id: string,
     email?: string | null,
+    name?: string | null,
     phone?: string | null,
     address?: string | null,
     picture?: string | null,
@@ -2151,7 +2154,6 @@ export type OnDeleteUsersSubscription = {
     } | null,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 

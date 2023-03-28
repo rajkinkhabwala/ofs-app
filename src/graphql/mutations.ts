@@ -190,6 +190,7 @@ export const createDepartments = /* GraphQL */ `
         items {
           id
           email
+          name
           phone
           address
           picture
@@ -198,7 +199,6 @@ export const createDepartments = /* GraphQL */ `
           role
           createdAt
           updatedAt
-          owner
         }
         nextToken
       }
@@ -221,6 +221,7 @@ export const updateDepartments = /* GraphQL */ `
         items {
           id
           email
+          name
           phone
           address
           picture
@@ -229,7 +230,6 @@ export const updateDepartments = /* GraphQL */ `
           role
           createdAt
           updatedAt
-          owner
         }
         nextToken
       }
@@ -252,6 +252,7 @@ export const deleteDepartments = /* GraphQL */ `
         items {
           id
           email
+          name
           phone
           address
           picture
@@ -260,7 +261,6 @@ export const deleteDepartments = /* GraphQL */ `
           role
           createdAt
           updatedAt
-          owner
         }
         nextToken
       }
@@ -277,6 +277,7 @@ export const createUsers = /* GraphQL */ `
     createUsers(input: $input, condition: $condition) {
       id
       email
+      name
       phone
       address
       picture
@@ -299,7 +300,6 @@ export const createUsers = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -311,6 +311,7 @@ export const updateUsers = /* GraphQL */ `
     updateUsers(input: $input, condition: $condition) {
       id
       email
+      name
       phone
       address
       picture
@@ -333,7 +334,6 @@ export const updateUsers = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -345,6 +345,7 @@ export const deleteUsers = /* GraphQL */ `
     deleteUsers(input: $input, condition: $condition) {
       id
       email
+      name
       phone
       address
       picture
@@ -367,7 +368,6 @@ export const deleteUsers = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      owner
     }
   }
 `;

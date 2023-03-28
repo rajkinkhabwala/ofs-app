@@ -142,6 +142,7 @@ export const getDepartments = /* GraphQL */ `
         items {
           id
           email
+          name
           phone
           address
           picture
@@ -150,7 +151,6 @@ export const getDepartments = /* GraphQL */ `
           role
           createdAt
           updatedAt
-          owner
         }
         nextToken
       }
@@ -186,6 +186,7 @@ export const getUsers = /* GraphQL */ `
     getUsers(id: $id) {
       id
       email
+      name
       phone
       address
       picture
@@ -208,7 +209,6 @@ export const getUsers = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -222,6 +222,7 @@ export const listUsers = /* GraphQL */ `
       items {
         id
         email
+        name
         phone
         address
         picture
@@ -233,7 +234,6 @@ export const listUsers = /* GraphQL */ `
         }
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -257,6 +257,7 @@ export const usersByDepartmentsID = /* GraphQL */ `
       items {
         id
         email
+        name
         phone
         address
         picture
@@ -268,7 +269,6 @@ export const usersByDepartmentsID = /* GraphQL */ `
         }
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
