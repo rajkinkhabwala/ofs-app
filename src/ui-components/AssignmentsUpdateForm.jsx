@@ -20,7 +20,7 @@ import { DataStore } from "aws-amplify";
 export default function AssignmentsUpdateForm(props) {
   const {
     id: idProp,
-    assignments: assignmentsModelProp,
+    assignments,
     onSuccess,
     onError,
     onSubmit,
@@ -78,17 +78,16 @@ export default function AssignmentsUpdateForm(props) {
     setCoursesID(cleanValues.coursesID);
     setErrors({});
   };
-  const [assignmentsRecord, setAssignmentsRecord] =
-    React.useState(assignmentsModelProp);
+  const [assignmentsRecord, setAssignmentsRecord] = React.useState(assignments);
   React.useEffect(() => {
     const queryData = async () => {
       const record = idProp
         ? await DataStore.query(Assignments, idProp)
-        : assignmentsModelProp;
+        : assignments;
       setAssignmentsRecord(record);
     };
     queryData();
-  }, [idProp, assignmentsModelProp]);
+  }, [idProp, assignments]);
   React.useEffect(resetStateValues, [assignmentsRecord]);
   const validations = {
     assignment_name: [{ type: "Required" }],
@@ -558,7 +557,7 @@ export default function AssignmentsUpdateForm(props) {
             event.preventDefault();
             resetStateValues();
           }}
-          isDisabled={!(idProp || assignmentsModelProp)}
+          isDisabled={!(idProp || assignments)}
           {...getOverrideProps(overrides, "ResetButton")}
         ></Button>
         <Flex
@@ -570,7 +569,7 @@ export default function AssignmentsUpdateForm(props) {
             type="submit"
             variation="primary"
             isDisabled={
-              !(idProp || assignmentsModelProp) ||
+              !(idProp || assignments) ||
               Object.values(errors).some((e) => e?.hasError)
             }
             {...getOverrideProps(overrides, "SubmitButton")}

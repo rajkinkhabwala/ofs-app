@@ -22,7 +22,7 @@ import { DataStore } from "aws-amplify";
 export default function CoursesUpdateForm(props) {
   const {
     id: idProp,
-    courses: coursesModelProp,
+    courses,
     onSuccess,
     onError,
     onSubmit,
@@ -39,7 +39,7 @@ export default function CoursesUpdateForm(props) {
     course_end_date: "",
     course_description: "",
     course_image: "",
-    course_format: "",
+    course_format: undefined,
     course_credit: "",
   };
   const [course_name, setCourse_name] = React.useState(
@@ -89,16 +89,14 @@ export default function CoursesUpdateForm(props) {
     setCourse_credit(cleanValues.course_credit);
     setErrors({});
   };
-  const [coursesRecord, setCoursesRecord] = React.useState(coursesModelProp);
+  const [coursesRecord, setCoursesRecord] = React.useState(courses);
   React.useEffect(() => {
     const queryData = async () => {
-      const record = idProp
-        ? await DataStore.query(Courses, idProp)
-        : coursesModelProp;
+      const record = idProp ? await DataStore.query(Courses, idProp) : courses;
       setCoursesRecord(record);
     };
     queryData();
-  }, [idProp, coursesModelProp]);
+  }, [idProp, courses]);
   React.useEffect(resetStateValues, [coursesRecord]);
   const validations = {
     course_name: [{ type: "Required" }],
@@ -528,7 +526,7 @@ export default function CoursesUpdateForm(props) {
             event.preventDefault();
             resetStateValues();
           }}
-          isDisabled={!(idProp || coursesModelProp)}
+          isDisabled={!(idProp || courses)}
           {...getOverrideProps(overrides, "ResetButton")}
         ></Button>
         <Flex
@@ -540,7 +538,7 @@ export default function CoursesUpdateForm(props) {
             type="submit"
             variation="primary"
             isDisabled={
-              !(idProp || coursesModelProp) ||
+              !(idProp || courses) ||
               Object.values(errors).some((e) => e?.hasError)
             }
             {...getOverrideProps(overrides, "SubmitButton")}
