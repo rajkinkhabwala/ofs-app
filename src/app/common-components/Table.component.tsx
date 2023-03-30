@@ -53,7 +53,7 @@ export const Table = ({ list }: any) => {
     ],
     content: form.getInputProps('course_description'),
     onUpdate: (props) => {
-        form.setFieldValue('course_description', props.editor.getHTML())
+        form.setFieldValue('course_description', JSON.stringify(props.editor.getJSON()))
     },
     editable: true,
   });

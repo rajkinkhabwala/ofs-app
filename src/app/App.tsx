@@ -9,13 +9,20 @@ import { RouterProvider } from "react-router";
 import "./styles/_login.scss";
 import awsmobile from "../aws-exports";
 import { Notifications } from "@mantine/notifications";
+import {
+  useQueryClient,
+  QueryClient,
+  QueryClientProvider,
+} from 'react-query'
 
 function App() {
   Amplify.configure(awsmobile);
   const { route } = useAuthenticator((context) => [context.route]);
+  const queryClient = new QueryClient()
   return (
     <MantineProvider>
       <ModalsProvider>
+      <QueryClientProvider client={queryClient}>
         {route === "authenticated" ? (
           <>
             <Notifications />
@@ -34,6 +41,7 @@ function App() {
             />
           </div>
         )}
+        </QueryClientProvider>
       </ModalsProvider>
     </MantineProvider>
   );

@@ -4,7 +4,9 @@ import { notifications } from "@mantine/notifications";
 import { CreateDepartmentsInput, UpdateDepartmentsInput } from "../../../API";
 import { createDepartment, updateDepartment } from "../../api/graphql/departments/api.department";
 
+
 function CreateDepartmentModal({formType, rowData}: any) {
+  
 
   let form = 
     useForm<any>({

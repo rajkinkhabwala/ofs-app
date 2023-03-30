@@ -5,7 +5,7 @@
  **************************************************************************/
 
 import * as React from "react";
-import { GridProps, SelectFieldProps, SwitchFieldProps, TextFieldProps } from "@aws-amplify/ui-react";
+import { GridProps, SelectFieldProps, SwitchFieldProps, TextAreaFieldProps, TextFieldProps } from "@aws-amplify/ui-react";
 import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
 import { Courses } from "../models";
 export declare type ValidationResponse = {
@@ -43,7 +43,7 @@ export declare type CoursesUpdateFormOverridesProps = {
     course_visibility?: PrimitiveOverrideProps<SwitchFieldProps>;
     course_start_date?: PrimitiveOverrideProps<TextFieldProps>;
     course_end_date?: PrimitiveOverrideProps<TextFieldProps>;
-    course_description?: PrimitiveOverrideProps<TextFieldProps>;
+    course_description?: PrimitiveOverrideProps<TextAreaFieldProps>;
     course_image?: PrimitiveOverrideProps<TextFieldProps>;
     course_format?: PrimitiveOverrideProps<SelectFieldProps>;
     course_credit?: PrimitiveOverrideProps<TextFieldProps>;

@@ -1,7 +1,7 @@
 import { Button } from "@mantine/core";
 import { DataTable } from "mantine-datatable";
 import { PropsWithChildren } from "react";
-import { ListDepartmentResult } from "../../page-components/Department/Department.component";
+import { GraphQLResult } from "../../types/result.type";
 import { IconPlus, IconEdit, IconTrash, IconEyeFilled } from "@tabler/icons-react";
 import { modals } from "@mantine/modals";
 import '../../styles/_table.scss';
@@ -9,7 +9,7 @@ import CreateDepartmentModal from "./Department.Create.Modal";
 import { deleteDepartment } from "../../api/graphql/departments/api.department";
 import { notifications } from "@mantine/notifications";
 
-function DepartmentTable({items, errors, nextToken, extenstions} : PropsWithChildren<ListDepartmentResult>) {
+function DepartmentTable({items, errors, nextToken, extenstions} : PropsWithChildren<GraphQLResult>) {
   console.log(items)
 
   const removeDepartment = (val: any) => {

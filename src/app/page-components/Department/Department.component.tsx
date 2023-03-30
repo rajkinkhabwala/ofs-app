@@ -3,13 +3,9 @@ import { useLoaderData } from "react-router-dom";
 import { listDepartment } from "../../api/graphql/departments/api.department";
 import { Title } from "@mantine/core";
 import DepartmentTable from "../../common-components/Department/Department.Table";
+import { GraphQLResult } from "../../types/result.type";
 
-export interface ListDepartmentResult {
-  items: [] | undefined;
-  nextToken: string | null | undefined;
-  errors: GraphQLError[] | undefined;
-  extenstions: { [key: string]: any } | undefined;
-}
+
 export async function loader() {
   return await new Promise((resolve, reject) => {
     listDepartment().then((value) => {
@@ -24,7 +20,7 @@ export async function loader() {
 }
 
 export function Component() {
-  let data = useLoaderData() as ListDepartmentResult;
+  let data = useLoaderData() as GraphQLResult;
   return (
     <>
       <Title order={1}>Departments</Title>
