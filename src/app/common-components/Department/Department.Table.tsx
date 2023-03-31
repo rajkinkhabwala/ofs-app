@@ -8,9 +8,12 @@ import '../../styles/_table.scss';
 import DepartmentModal from "./department.modal";
 import { deleteDepartment } from "../../api/graphql/departments/api.department";
 import { notifications } from "@mantine/notifications";
-import { DeleteDepartmentsInput, Departments } from "../../../API";
+import { Departments } from "../../../API";
+import { useNavigate } from "react-router-dom";
 
 function DepartmentTable({items, isLoading, refetch } : PropsWithChildren<any>) {
+
+  const navigate = useNavigate();
 
   const removeDepartment = (val: Departments) => {
     modals.openConfirmModal({
@@ -29,7 +32,7 @@ function DepartmentTable({items, isLoading, refetch } : PropsWithChildren<any>) 
           console.log(value)
           notifications.show({
             title: 'Successful',
-            message: `Successfully deleted ${value.data?.deleteDepartments?.department_name}`,
+            message: `Successfully deleted ${value.data?.deleteDepartments?.department_name}!`,
             color: 'red'
           })
           refetch();
@@ -81,7 +84,7 @@ return(
                       )
                     })}/></span>
                 <span onClick={() => removeDepartment(rowData)}><IconTrash strokeWidth={2} color={'red'}/></span>
-                <span><IconEyeFilled strokeWidth={2} color={'gray'} /></span>
+                <span><IconEyeFilled strokeWidth={2} color={'gray'} onClick={() => navigate(`department/${rowData.id}`)}/></span>
               </div>
             )},
           }

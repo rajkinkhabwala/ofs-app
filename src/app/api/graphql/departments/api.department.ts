@@ -2,7 +2,7 @@ import { API } from "aws-amplify";
 import * as mutations from '../../../../graphql/mutations';
 import * as queries from '../../../../graphql/queries';
 import { GraphQLQuery, graphqlOperation, GRAPHQL_AUTH_MODE } from '@aws-amplify/api';
-import { CreateDepartmentsInput, CreateDepartmentsMutation, DeleteDepartmentsInput, DeleteDepartmentsMutation, GetDepartmentsQuery, ListAnnouncementsQueryVariables, ListDepartmentsQuery, ModelDepartmentsFilterInput, UpdateDepartmentsInput, UpdateDepartmentsMutation } from "../../../../API";
+import { CreateDepartmentsInput, CreateDepartmentsMutation, DeleteDepartmentsMutation, GetDepartmentsQuery, ListAnnouncementsQueryVariables, ListDepartmentsQuery, UpdateDepartmentsInput, UpdateDepartmentsMutation } from "../../../../API";
 import { GraphQLResult } from "../../../types/result.type";
 
 
