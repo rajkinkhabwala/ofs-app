@@ -4,13 +4,11 @@ import {
   Navbar,
   Header,
   Footer,
-  Text,
   MediaQuery,
   Burger,
   useMantineTheme,
   Anchor,
 } from '@mantine/core';
-import { SegmentedControl, createStyles, getStylesRef, rem } from '@mantine/core';
 import { Outlet, useNavigate } from 'react-router-dom';
 import '../styles/_dashboard.scss'
 import { IconLogout } from '@tabler/icons-react';
