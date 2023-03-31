@@ -1,25 +1,42 @@
 import { Button } from "@mantine/core";
 import { DataTable } from "mantine-datatable";
 import { PropsWithChildren } from "react";
-import { GraphQLResult } from "../../types/result.type";
 import { IconPlus, IconEdit, IconTrash, IconEyeFilled } from "@tabler/icons-react";
+import {Text} from "@mantine/core"
 import { modals } from "@mantine/modals";
 import '../../styles/_table.scss';
-import CreateDepartmentModal from "./Department.Create.Modal";
+import DepartmentModal from "./department.modal";
 import { deleteDepartment } from "../../api/graphql/departments/api.department";
 import { notifications } from "@mantine/notifications";
+import { DeleteDepartmentsInput, Departments } from "../../../API";
 
-function DepartmentTable({items, errors, nextToken, extenstions} : PropsWithChildren<GraphQLResult>) {
-  console.log(items)
+function DepartmentTable({items, isLoading, refetch } : PropsWithChildren<any>) {
 
-  const removeDepartment = (val: any) => {
-    deleteDepartment({id : val.id}).then(() => {
-      notifications.show({
-        title: 'Successful',
-        message: `Successfully deleted 1 record`,
-        color: 'red'
-      })
-    });
+  const removeDepartment = (val: Departments) => {
+    modals.openConfirmModal({
+      title: 'Delete your profile',
+      centered: true,
+      children: (
+        <Text size="sm">
+          Are you sure you want to delete department {val.department_name}? This action is destructive and you will have
+          to contact support to restore your data.
+        </Text>
+      ),
+      labels: { confirm: 'Delete Department', cancel: "No don't delete it" },
+      confirmProps: { color: 'red' },
+      onConfirm: () => {
+        deleteDepartment(val.id).then((value) => {
+          console.log(value)
+          notifications.show({
+            title: 'Successful',
+            message: `Successfully deleted ${value.data?.deleteDepartments?.department_name}`,
+            color: 'red'
+          })
+          refetch();
+        });
+      },  
+    })
+    
   }
 
 return(
@@ -29,7 +46,7 @@ return(
           title: "Create Department",
           children: (
             <>
-            <CreateDepartmentModal formType="new-dept" close={modals.close} />
+            <DepartmentModal formType="new" refetch={refetch} />
             </>
           )
         })}>
@@ -39,6 +56,7 @@ return(
       <DataTable
         withBorder
         withColumnBorders
+        fetching={isLoading}
         records={items}
         style={{
           borderRadius: 5,
@@ -49,7 +67,7 @@ return(
           { accessor: "department_name", width: "40%", title: "Department Name" },
           {
             accessor: "Modify", width:"20%",
-            render: (rowData) => {
+            render: (rowData: Departments) => {
               
               return(
               <div className="crud-btn-container">
@@ -58,7 +76,7 @@ return(
                     title: "Edit Department",
                     children: (
                       <>
-                        <CreateDepartmentModal formType="edit-dept" rowData={rowData}/>
+                        <DepartmentModal formType="edit" record={rowData} refetch={refetch}/>
                       </>
                       )
                     })}/></span>

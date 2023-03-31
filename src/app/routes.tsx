@@ -8,7 +8,7 @@ const route = createBrowserRouter([
         children: [
             {
                 path: '/department',
-                lazy: () => import('./page-components/Department/department.component')
+                lazy: () => import('./page-components/Department/department.component'),
             },
             {
                 path: '/course',

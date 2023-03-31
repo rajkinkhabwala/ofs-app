@@ -2,7 +2,8 @@ import { API } from "aws-amplify";
 import * as mutations from '../../../../graphql/mutations';
 import * as queries from '../../../../graphql/queries';
 import { GraphQLQuery, graphqlOperation, GRAPHQL_AUTH_MODE } from '@aws-amplify/api';
-import { CreateDepartmentsInput, CreateDepartmentsMutation, DeleteDepartmentsInput, GetDepartmentsQuery, ListAnnouncementsQueryVariables, ListDepartmentsQuery, ModelDepartmentsFilterInput, UpdateDepartmentsInput, UpdateDepartmentsMutation } from "../../../../API";
+import { CreateDepartmentsInput, CreateDepartmentsMutation, DeleteDepartmentsInput, DeleteDepartmentsMutation, GetDepartmentsQuery, ListAnnouncementsQueryVariables, ListDepartmentsQuery, ModelDepartmentsFilterInput, UpdateDepartmentsInput, UpdateDepartmentsMutation } from "../../../../API";
+import { GraphQLResult } from "../../../types/result.type";
 
 
 export async function createDepartment(department: CreateDepartmentsInput) {
@@ -13,22 +14,28 @@ export async function updateDepartment(department: UpdateDepartmentsInput) {
     return await API.graphql<GraphQLQuery<UpdateDepartmentsMutation>>({...graphqlOperation(mutations.updateDepartments, { input: department }), authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS})
 }
 
-export async function deleteDepartment(department: DeleteDepartmentsInput) {
-    return await API.graphql<GraphQLQuery<DeleteDepartmentsInput>>({...graphqlOperation(mutations.deleteDepartments, { input: department }), authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS})
+export async function deleteDepartment(id: string) {
+    return await API.graphql<GraphQLQuery<DeleteDepartmentsMutation>>({...graphqlOperation(mutations.deleteDepartments, { input: {
+        id: id
+    } }), authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS})
+    
 }
 
 export async function listDepartment(
-    filter?: ModelDepartmentsFilterInput,
-    limit?: number,
-    nextToken?: string
-) {
-    return await API.graphql<GraphQLQuery<ListDepartmentsQuery>>({ ...graphqlOperation(queries.listDepartments, {
-        filter: filter,
-        limit: limit,
-        nextToken: nextToken
-    }),
-    authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS
-})
+    input?: ListAnnouncementsQueryVariables
+): Promise<GraphQLResult> {
+    return await new Promise((resolve, reject) =>{
+        API.graphql<GraphQLQuery<ListDepartmentsQuery>>({ ...graphqlOperation(queries.listDepartments, {input}),
+        authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS
+    }).then((value) => {
+    resolve({
+        items: value.data?.listDepartments?.items,
+        nextToken: value.data?.listDepartments?.nextToken,
+        errors: value.errors,
+        extenstions: value.extensions,
+    })
+    }).catch((err) => reject(err))
+    })
 }
 
 export async function getDepartment(department: string) {
