@@ -35,7 +35,7 @@ function DashboardLayout() {
       href={item.link}
       key={item.label}
       onClick={(event) => {
-        // event.preventDefault();
+        event.preventDefault();
         setActive(item.label);
         navigate(item.link)
       }}

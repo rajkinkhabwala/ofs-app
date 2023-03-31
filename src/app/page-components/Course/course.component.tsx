@@ -1,34 +1,35 @@
 import { Title } from "@mantine/core";
-import { useEffect } from "react";
-import { useQuery } from 'react-query';
-import { useFetcher, useLoaderData } from "react-router-dom";
+import { useQuery } from "react-query";
 import { listCourse } from "../../api/graphql/courses/api.course";
 import CourseTable from "../../common-components/Course/course.table";
-import { GraphQLResult } from "../../types/result.type";
-
-export async function loader() {
-  return await new Promise((resolve, reject) => {
-    listCourse().then((values) => {
-      resolve({
-        items: values.data?.listCourses?.items,
-        nextToken: values.data?.listCourses?.nextToken,
-        errors: values.errors,
-        extentions: values.extensions
-      })
-    }).catch((err) => reject(err));
-  })
-}
 
 export function Component() {
+  const { data, isLoading, error, isError, refetch, isFetching, status } = useQuery(["course"], () =>
+    listCourse(),
+    {
+    refetchOnWindowFocus: false,
+    }
+  );
 
-  const data = useLoaderData() as GraphQLResult;
-  
+  console.log(data)
   return (
     <>
-      <Title order={1}>Course</Title>
-      <CourseTable items={data.items} nextToken={data.nextToken} errors={data.errors} extenstions={data.extenstions} />
+      <Title order={1}>Courses</Title>
+      {
+        isError ?
+        <>
+        {error}
+        </>
+      : status === "success" ?
+      <CourseTable items={data?.items} isLoading={isLoading} refetch={refetch}/> :
+      <>
+      <CourseTable items={[]} isLoading={isLoading || isFetching} />
+      </>
+      }
+      
     </>
   );
 }
+
 
 Component.displayName = "Course";
