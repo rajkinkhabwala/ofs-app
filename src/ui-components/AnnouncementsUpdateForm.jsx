@@ -8,13 +8,13 @@
 import * as React from "react";
 import { Button, Flex, Grid, TextField } from "@aws-amplify/ui-react";
 import { getOverrideProps } from "@aws-amplify/ui-react/internal";
-import { Departments } from "../models";
+import { Announcements } from "../models";
 import { fetchByPath, validateField } from "./utils";
 import { DataStore } from "aws-amplify";
-export default function DepartmentsUpdateForm(props) {
+export default function AnnouncementsUpdateForm(props) {
   const {
     id: idProp,
-    departments: departmentsModelProp,
+    announcements: announcementsModelProp,
     onSuccess,
     onError,
     onSubmit,
@@ -24,45 +24,42 @@ export default function DepartmentsUpdateForm(props) {
     ...rest
   } = props;
   const initialValues = {
-    department_name: "",
-    department_id: "",
-    department_description: "",
+    title: "",
+    announcement: "",
+    coursesID: "",
   };
-  const [department_name, setDepartment_name] = React.useState(
-    initialValues.department_name
+  const [title, setTitle] = React.useState(initialValues.title);
+  const [announcement, setAnnouncement] = React.useState(
+    initialValues.announcement
   );
-  const [department_id, setDepartment_id] = React.useState(
-    initialValues.department_id
-  );
-  const [department_description, setDepartment_description] = React.useState(
-    initialValues.department_description
-  );
+  const [coursesID, setCoursesID] = React.useState(initialValues.coursesID);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
-    const cleanValues = departmentsRecord
-      ? { ...initialValues, ...departmentsRecord }
+    const cleanValues = announcementsRecord
+      ? { ...initialValues, ...announcementsRecord }
       : initialValues;
-    setDepartment_name(cleanValues.department_name);
-    setDepartment_id(cleanValues.department_id);
-    setDepartment_description(cleanValues.department_description);
+    setTitle(cleanValues.title);
+    setAnnouncement(cleanValues.announcement);
+    setCoursesID(cleanValues.coursesID);
     setErrors({});
   };
-  const [departmentsRecord, setDepartmentsRecord] =
-    React.useState(departmentsModelProp);
+  const [announcementsRecord, setAnnouncementsRecord] = React.useState(
+    announcementsModelProp
+  );
   React.useEffect(() => {
     const queryData = async () => {
       const record = idProp
-        ? await DataStore.query(Departments, idProp)
-        : departmentsModelProp;
-      setDepartmentsRecord(record);
+        ? await DataStore.query(Announcements, idProp)
+        : announcementsModelProp;
+      setAnnouncementsRecord(record);
     };
     queryData();
-  }, [idProp, departmentsModelProp]);
-  React.useEffect(resetStateValues, [departmentsRecord]);
+  }, [idProp, announcementsModelProp]);
+  React.useEffect(resetStateValues, [announcementsRecord]);
   const validations = {
-    department_name: [],
-    department_id: [],
-    department_description: [],
+    title: [],
+    announcement: [],
+    coursesID: [{ type: "Required" }],
   };
   const runValidationTasks = async (
     fieldName,
@@ -90,9 +87,9 @@ export default function DepartmentsUpdateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
-          department_name,
-          department_id,
-          department_description,
+          title,
+          announcement,
+          coursesID,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -123,7 +120,7 @@ export default function DepartmentsUpdateForm(props) {
             }
           });
           await DataStore.save(
-            Departments.copyOf(departmentsRecord, (updated) => {
+            Announcements.copyOf(announcementsRecord, (updated) => {
               Object.assign(updated, modelFields);
             })
           );
@@ -136,88 +133,86 @@ export default function DepartmentsUpdateForm(props) {
           }
         }
       }}
-      {...getOverrideProps(overrides, "DepartmentsUpdateForm")}
+      {...getOverrideProps(overrides, "AnnouncementsUpdateForm")}
       {...rest}
     >
       <TextField
-        label="Department name"
+        label="Title"
         isRequired={false}
         isReadOnly={false}
-        value={department_name}
+        value={title}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              department_name: value,
-              department_id,
-              department_description,
+              title: value,
+              announcement,
+              coursesID,
             };
             const result = onChange(modelFields);
-            value = result?.department_name ?? value;
+            value = result?.title ?? value;
           }
-          if (errors.department_name?.hasError) {
-            runValidationTasks("department_name", value);
+          if (errors.title?.hasError) {
+            runValidationTasks("title", value);
           }
-          setDepartment_name(value);
+          setTitle(value);
         }}
-        onBlur={() => runValidationTasks("department_name", department_name)}
-        errorMessage={errors.department_name?.errorMessage}
-        hasError={errors.department_name?.hasError}
-        {...getOverrideProps(overrides, "department_name")}
+        onBlur={() => runValidationTasks("title", title)}
+        errorMessage={errors.title?.errorMessage}
+        hasError={errors.title?.hasError}
+        {...getOverrideProps(overrides, "title")}
       ></TextField>
       <TextField
-        label="Department id"
+        label="Announcement"
         isRequired={false}
         isReadOnly={false}
-        value={department_id}
+        value={announcement}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              department_name,
-              department_id: value,
-              department_description,
+              title,
+              announcement: value,
+              coursesID,
             };
             const result = onChange(modelFields);
-            value = result?.department_id ?? value;
+            value = result?.announcement ?? value;
           }
-          if (errors.department_id?.hasError) {
-            runValidationTasks("department_id", value);
+          if (errors.announcement?.hasError) {
+            runValidationTasks("announcement", value);
           }
-          setDepartment_id(value);
+          setAnnouncement(value);
         }}
-        onBlur={() => runValidationTasks("department_id", department_id)}
-        errorMessage={errors.department_id?.errorMessage}
-        hasError={errors.department_id?.hasError}
-        {...getOverrideProps(overrides, "department_id")}
+        onBlur={() => runValidationTasks("announcement", announcement)}
+        errorMessage={errors.announcement?.errorMessage}
+        hasError={errors.announcement?.hasError}
+        {...getOverrideProps(overrides, "announcement")}
       ></TextField>
       <TextField
-        label="Department description"
-        isRequired={false}
+        label="Courses id"
+        isRequired={true}
         isReadOnly={false}
-        value={department_description}
+        value={coursesID}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              department_name,
-              department_id,
-              department_description: value,
+              title,
+              announcement,
+              coursesID: value,
             };
             const result = onChange(modelFields);
-            value = result?.department_description ?? value;
+            value = result?.coursesID ?? value;
           }
-          if (errors.department_description?.hasError) {
-            runValidationTasks("department_description", value);
+          if (errors.coursesID?.hasError) {
+            runValidationTasks("coursesID", value);
           }
-          setDepartment_description(value);
+          setCoursesID(value);
         }}
-        onBlur={() =>
-          runValidationTasks("department_description", department_description)
-        }
-        errorMessage={errors.department_description?.errorMessage}
-        hasError={errors.department_description?.hasError}
-        {...getOverrideProps(overrides, "department_description")}
+        onBlur={() => runValidationTasks("coursesID", coursesID)}
+        errorMessage={errors.coursesID?.errorMessage}
+        hasError={errors.coursesID?.hasError}
+        {...getOverrideProps(overrides, "coursesID")}
       ></TextField>
       <Flex
         justifyContent="space-between"
@@ -230,7 +225,7 @@ export default function DepartmentsUpdateForm(props) {
             event.preventDefault();
             resetStateValues();
           }}
-          isDisabled={!(idProp || departmentsModelProp)}
+          isDisabled={!(idProp || announcementsModelProp)}
           {...getOverrideProps(overrides, "ResetButton")}
         ></Button>
         <Flex
@@ -242,7 +237,7 @@ export default function DepartmentsUpdateForm(props) {
             type="submit"
             variation="primary"
             isDisabled={
-              !(idProp || departmentsModelProp) ||
+              !(idProp || announcementsModelProp) ||
               Object.values(errors).some((e) => e?.hasError)
             }
             {...getOverrideProps(overrides, "SubmitButton")}

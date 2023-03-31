@@ -76,8 +76,15 @@ export const getCourses = /* GraphQL */ `
       Announcements {
         items {
           id
-          title
-          announcement
+          assignment_name
+          assignment_desc
+          resubmit
+          teacher
+          max_bytes
+          time_due
+          time_available
+          grade
+          extra_data
           coursesID
           createdAt
           updatedAt
@@ -87,9 +94,27 @@ export const getCourses = /* GraphQL */ `
       Assignments {
         items {
           id
-          title
-          announcement
+          assignment_name
+          assignment_desc
+          resubmit
+          teacher
+          max_bytes
+          time_due
+          time_available
+          grade
+          extra_data
           coursesID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      departmentsID
+      users {
+        items {
+          id
+          coursesId
+          usersId
           createdAt
           updatedAt
         }
@@ -124,6 +149,53 @@ export const listCourses = /* GraphQL */ `
         Assignments {
           nextToken
         }
+        departmentsID
+        users {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const coursesByDepartmentsID = /* GraphQL */ `
+  query CoursesByDepartmentsID(
+    $departmentsID: ID!
+    $sortDirection: ModelSortDirection
+    $filter: ModelCoursesFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    coursesByDepartmentsID(
+      departmentsID: $departmentsID
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        course_name
+        course_code
+        course_visibility
+        course_start_date
+        course_end_date
+        course_description
+        course_image
+        course_format
+        course_credit
+        Announcements {
+          nextToken
+        }
+        Assignments {
+          nextToken
+        }
+        departmentsID
+        users {
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -154,6 +226,24 @@ export const getDepartments = /* GraphQL */ `
         }
         nextToken
       }
+      Courses {
+        items {
+          id
+          course_name
+          course_code
+          course_visibility
+          course_start_date
+          course_end_date
+          course_description
+          course_image
+          course_format
+          course_credit
+          departmentsID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -172,6 +262,9 @@ export const listDepartments = /* GraphQL */ `
         department_id
         department_description
         Users {
+          nextToken
+        }
+        Courses {
           nextToken
         }
         createdAt
@@ -207,6 +300,16 @@ export const getUsers = /* GraphQL */ `
         }
         nextToken
       }
+      Courses {
+        items {
+          id
+          coursesId
+          usersId
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -230,6 +333,9 @@ export const listUsers = /* GraphQL */ `
         departmentsID
         role
         AssignmentSubmissions {
+          nextToken
+        }
+        Courses {
           nextToken
         }
         createdAt
@@ -265,6 +371,9 @@ export const usersByDepartmentsID = /* GraphQL */ `
         departmentsID
         role
         AssignmentSubmissions {
+          nextToken
+        }
+        Courses {
           nextToken
         }
         createdAt
@@ -467,6 +576,214 @@ export const assignmentsByCoursesID = /* GraphQL */ `
           nextToken
         }
         coursesID
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getCoursesUsers = /* GraphQL */ `
+  query GetCoursesUsers($id: ID!) {
+    getCoursesUsers(id: $id) {
+      id
+      coursesId
+      usersId
+      courses {
+        id
+        course_name
+        course_code
+        course_visibility
+        course_start_date
+        course_end_date
+        course_description
+        course_image
+        course_format
+        course_credit
+        Announcements {
+          nextToken
+        }
+        Assignments {
+          nextToken
+        }
+        departmentsID
+        users {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      users {
+        id
+        email
+        name
+        phone
+        address
+        picture
+        description
+        departmentsID
+        role
+        AssignmentSubmissions {
+          nextToken
+        }
+        Courses {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listCoursesUsers = /* GraphQL */ `
+  query ListCoursesUsers(
+    $filter: ModelCoursesUsersFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listCoursesUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        coursesId
+        usersId
+        courses {
+          id
+          course_name
+          course_code
+          course_visibility
+          course_start_date
+          course_end_date
+          course_description
+          course_image
+          course_format
+          course_credit
+          departmentsID
+          createdAt
+          updatedAt
+        }
+        users {
+          id
+          email
+          name
+          phone
+          address
+          picture
+          description
+          departmentsID
+          role
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const coursesUsersByCoursesId = /* GraphQL */ `
+  query CoursesUsersByCoursesId(
+    $coursesId: ID!
+    $sortDirection: ModelSortDirection
+    $filter: ModelCoursesUsersFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    coursesUsersByCoursesId(
+      coursesId: $coursesId
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        coursesId
+        usersId
+        courses {
+          id
+          course_name
+          course_code
+          course_visibility
+          course_start_date
+          course_end_date
+          course_description
+          course_image
+          course_format
+          course_credit
+          departmentsID
+          createdAt
+          updatedAt
+        }
+        users {
+          id
+          email
+          name
+          phone
+          address
+          picture
+          description
+          departmentsID
+          role
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const coursesUsersByUsersId = /* GraphQL */ `
+  query CoursesUsersByUsersId(
+    $usersId: ID!
+    $sortDirection: ModelSortDirection
+    $filter: ModelCoursesUsersFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    coursesUsersByUsersId(
+      usersId: $usersId
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        coursesId
+        usersId
+        courses {
+          id
+          course_name
+          course_code
+          course_visibility
+          course_start_date
+          course_end_date
+          course_description
+          course_image
+          course_format
+          course_credit
+          departmentsID
+          createdAt
+          updatedAt
+        }
+        users {
+          id
+          email
+          name
+          phone
+          address
+          picture
+          description
+          departmentsID
+          role
+          createdAt
+          updatedAt
+        }
         createdAt
         updatedAt
       }
