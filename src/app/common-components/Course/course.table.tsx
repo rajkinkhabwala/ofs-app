@@ -39,7 +39,7 @@ return(
       <DataTable
         withBorder
         withColumnBorders
-        records={items}
+        // records={items}
         style={{
           borderRadius: 5,
           borderWidth: "1px"
