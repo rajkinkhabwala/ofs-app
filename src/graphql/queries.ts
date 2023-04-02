@@ -76,15 +76,8 @@ export const getCourses = /* GraphQL */ `
       Announcements {
         items {
           id
-          assignment_name
-          assignment_desc
-          resubmit
-          teacher
-          max_bytes
-          time_due
-          time_available
-          grade
-          extra_data
+          title
+          announcement
           coursesID
           createdAt
           updatedAt
@@ -210,22 +203,6 @@ export const getDepartments = /* GraphQL */ `
       department_name
       department_id
       department_description
-      Users {
-        items {
-          id
-          email
-          name
-          phone
-          address
-          picture
-          description
-          departmentsID
-          role
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
       Courses {
         items {
           id
@@ -261,9 +238,6 @@ export const listDepartments = /* GraphQL */ `
         department_name
         department_id
         department_description
-        Users {
-          nextToken
-        }
         Courses {
           nextToken
         }
@@ -284,7 +258,7 @@ export const getUsers = /* GraphQL */ `
       address
       picture
       description
-      departmentsID
+      department
       role
       AssignmentSubmissions {
         items {
@@ -330,45 +304,7 @@ export const listUsers = /* GraphQL */ `
         address
         picture
         description
-        departmentsID
-        role
-        AssignmentSubmissions {
-          nextToken
-        }
-        Courses {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const usersByDepartmentsID = /* GraphQL */ `
-  query UsersByDepartmentsID(
-    $departmentsID: ID!
-    $sortDirection: ModelSortDirection
-    $filter: ModelUsersFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    usersByDepartmentsID(
-      departmentsID: $departmentsID
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        email
-        name
-        phone
-        address
-        picture
-        description
-        departmentsID
+        department
         role
         AssignmentSubmissions {
           nextToken
@@ -621,7 +557,7 @@ export const getCoursesUsers = /* GraphQL */ `
         address
         picture
         description
-        departmentsID
+        department
         role
         AssignmentSubmissions {
           nextToken
@@ -671,7 +607,7 @@ export const listCoursesUsers = /* GraphQL */ `
           address
           picture
           description
-          departmentsID
+          department
           role
           createdAt
           updatedAt
@@ -725,7 +661,7 @@ export const coursesUsersByCoursesId = /* GraphQL */ `
           address
           picture
           description
-          departmentsID
+          department
           role
           createdAt
           updatedAt
@@ -779,7 +715,7 @@ export const coursesUsersByUsersId = /* GraphQL */ `
           address
           picture
           description
-          departmentsID
+          department
           role
           createdAt
           updatedAt

@@ -20,7 +20,7 @@ type Courses @model @auth(rules: [{allow: groups, groups: ["Admins"], operations
   course_image: String
   course_format: CourseFormat
   course_credit: Int
-  Announcements: [Assignments] @hasMany(indexName: "byCourses", fields: ["id"])
+  Announcements: [Announcements] @hasMany(indexName: "byCourses", fields: ["id"])
   Assignments: [Assignments] @hasMany(indexName: "byCourses", fields: ["id"])
   departmentsID: ID! @index(name: "byDepartments")
   users: [Users] @manyToMany(relationName: "CoursesUsers")
@@ -31,7 +31,6 @@ type Departments @model @auth(rules: [{allow: groups, groups: ["Admins"], operat
   department_name: String
   department_id: String
   department_description: String
-  Users: [Users] @hasMany(indexName: "byDepartments", fields: ["id"])
   Courses: [Courses] @hasMany(indexName: "byDepartments", fields: ["id"])
 }
 
@@ -43,7 +42,7 @@ type Users @model @auth(rules: [{allow: groups, groups: ["Admins"], operations: 
   address: String
   picture: String
   description: String
-  departmentsID: ID! @index(name: "byDepartments")
+  department: String
   role: String
   AssignmentSubmissions: [AssignmentSubmissions] @hasMany(indexName: "byUsers", fields: ["id"])
   Courses: [Courses] @manyToMany(relationName: "CoursesUsers")
@@ -73,4 +72,3 @@ type Assignments @model @auth(rules: [{allow: private, operations: [read]}, {all
   AssignmentSubmissions: [AssignmentSubmissions] @hasMany(indexName: "byAssignments", fields: ["id"])
   coursesID: ID! @index(name: "byCourses")
 }
- 
