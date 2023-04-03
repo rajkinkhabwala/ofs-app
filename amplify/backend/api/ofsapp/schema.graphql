@@ -16,32 +16,37 @@ type Courses @model @auth(rules: [{allow: groups, groups: ["Admins"], operations
   course_visibility: Boolean!
   course_start_date: AWSDateTime
   course_end_date: AWSDateTime
-  course_description: String
+  course_description: AWSJSON
   course_image: String
   course_format: CourseFormat
   course_credit: Int
-  Announcements: [Announcements] @hasMany(indexName: "byCourses", fields: ["id"])
-  Assignments: [Announcements] @hasMany(indexName: "byCourses", fields: ["id"])
+  Announcements: [Assignments] @hasMany(indexName: "byCourses", fields: ["id"])
+  Assignments: [Assignments] @hasMany(indexName: "byCourses", fields: ["id"])
+  departmentsID: ID! @index(name: "byDepartments")
+  users: [Users] @manyToMany(relationName: "CoursesUsers")
 }
 
-type Departments @model @auth(rules: [{allow: public, operations: [read]}, {allow: groups, groups: ["Admins"], operations: [read, create, update, delete]}, {allow: groups, groups: ["Owners"], operations: [read, create, update, delete]}]) {
+type Departments @model @auth(rules: [{allow: groups, groups: ["Admins"], operations: [read, create, update, delete]}, {allow: groups, groups: ["Owners"], operations: [read, create, update, delete]}, {allow: private, operations: [read]}]) {
   id: ID!
   department_name: String
   department_id: String
   department_description: String
   Users: [Users] @hasMany(indexName: "byDepartments", fields: ["id"])
+  Courses: [Courses] @hasMany(indexName: "byDepartments", fields: ["id"])
 }
 
-type Users @model @auth(rules: [{allow: groups, groups: ["Admins"], operations: [read, create, update, delete]}, {allow: groups, groups: ["Owners"], operations: [read, create, update, delete]}, {allow: owner}]) {
+type Users @model @auth(rules: [{allow: groups, groups: ["Admins"], operations: [read, create, update, delete]}, {allow: groups, groups: ["Owners"], operations: [read, create, update, delete]}]) {
   id: ID!
-  email: String @auth(rules: [{ allow: owner }])
-  phone: String @auth(rules: [{ allow: owner }])
-  address: String @auth(rules: [{ allow: owner }])
-  picture: String @auth(rules: [{ allow: owner }])
-  description: String @auth(rules: [{ allow: owner }])
+  email: String
+  name: String
+  phone: String
+  address: String
+  picture: String
+  description: String
   departmentsID: ID! @index(name: "byDepartments")
-  role: String @auth(rules: [{ allow: owner }])
+  role: String
   AssignmentSubmissions: [AssignmentSubmissions] @hasMany(indexName: "byUsers", fields: ["id"])
+  Courses: [Courses] @manyToMany(relationName: "CoursesUsers")
 }
 
 type AssignmentSubmissions @model @auth(rules: [{allow: public}]) {
@@ -54,7 +59,7 @@ type AssignmentSubmissions @model @auth(rules: [{allow: public}]) {
   checker: ID!
 }
 
-type Assignments @model @auth(rules: [{allow: public}, {allow: private, operations: [read]}, {allow: groups, groups: ["Admins"], operations: [read, create, update, delete]}, {allow: groups, groups: ["Teachers"], operations: [read, create, update, delete]}, {allow: groups, groups: ["Owners"], operations: [read, update, delete]}, {allow: groups, groups: ["Students"], operations: [read]}]) {
+type Assignments @model @auth(rules: [{allow: private, operations: [read]}, {allow: groups, groups: ["Admins"], operations: [read, create, update, delete]}, {allow: groups, groups: ["Teachers"], operations: [read, create, update, delete]}, {allow: groups, groups: ["Owners"], operations: [read, update, delete]}, {allow: groups, groups: ["Students"], operations: [read]}]) {
   id: ID!
   assignment_name: String!
   assignment_desc: String!
@@ -68,3 +73,4 @@ type Assignments @model @auth(rules: [{allow: public}, {allow: private, operatio
   AssignmentSubmissions: [AssignmentSubmissions] @hasMany(indexName: "byAssignments", fields: ["id"])
   coursesID: ID! @index(name: "byCourses")
 }
+ 

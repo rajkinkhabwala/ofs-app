@@ -66,8 +66,15 @@ export const createCourses = /* GraphQL */ `
       Announcements {
         items {
           id
-          title
-          announcement
+          assignment_name
+          assignment_desc
+          resubmit
+          teacher
+          max_bytes
+          time_due
+          time_available
+          grade
+          extra_data
           coursesID
           createdAt
           updatedAt
@@ -77,9 +84,27 @@ export const createCourses = /* GraphQL */ `
       Assignments {
         items {
           id
-          title
-          announcement
+          assignment_name
+          assignment_desc
+          resubmit
+          teacher
+          max_bytes
+          time_due
+          time_available
+          grade
+          extra_data
           coursesID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      departmentsID
+      users {
+        items {
+          id
+          coursesId
+          usersId
           createdAt
           updatedAt
         }
@@ -109,8 +134,15 @@ export const updateCourses = /* GraphQL */ `
       Announcements {
         items {
           id
-          title
-          announcement
+          assignment_name
+          assignment_desc
+          resubmit
+          teacher
+          max_bytes
+          time_due
+          time_available
+          grade
+          extra_data
           coursesID
           createdAt
           updatedAt
@@ -120,9 +152,27 @@ export const updateCourses = /* GraphQL */ `
       Assignments {
         items {
           id
-          title
-          announcement
+          assignment_name
+          assignment_desc
+          resubmit
+          teacher
+          max_bytes
+          time_due
+          time_available
+          grade
+          extra_data
           coursesID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      departmentsID
+      users {
+        items {
+          id
+          coursesId
+          usersId
           createdAt
           updatedAt
         }
@@ -152,8 +202,15 @@ export const deleteCourses = /* GraphQL */ `
       Announcements {
         items {
           id
-          title
-          announcement
+          assignment_name
+          assignment_desc
+          resubmit
+          teacher
+          max_bytes
+          time_due
+          time_available
+          grade
+          extra_data
           coursesID
           createdAt
           updatedAt
@@ -163,9 +220,27 @@ export const deleteCourses = /* GraphQL */ `
       Assignments {
         items {
           id
-          title
-          announcement
+          assignment_name
+          assignment_desc
+          resubmit
+          teacher
+          max_bytes
+          time_due
+          time_available
+          grade
+          extra_data
           coursesID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      departmentsID
+      users {
+        items {
+          id
+          coursesId
+          usersId
           createdAt
           updatedAt
         }
@@ -190,6 +265,7 @@ export const createDepartments = /* GraphQL */ `
         items {
           id
           email
+          name
           phone
           address
           picture
@@ -198,7 +274,24 @@ export const createDepartments = /* GraphQL */ `
           role
           createdAt
           updatedAt
-          owner
+        }
+        nextToken
+      }
+      Courses {
+        items {
+          id
+          course_name
+          course_code
+          course_visibility
+          course_start_date
+          course_end_date
+          course_description
+          course_image
+          course_format
+          course_credit
+          departmentsID
+          createdAt
+          updatedAt
         }
         nextToken
       }
@@ -221,6 +314,7 @@ export const updateDepartments = /* GraphQL */ `
         items {
           id
           email
+          name
           phone
           address
           picture
@@ -229,7 +323,24 @@ export const updateDepartments = /* GraphQL */ `
           role
           createdAt
           updatedAt
-          owner
+        }
+        nextToken
+      }
+      Courses {
+        items {
+          id
+          course_name
+          course_code
+          course_visibility
+          course_start_date
+          course_end_date
+          course_description
+          course_image
+          course_format
+          course_credit
+          departmentsID
+          createdAt
+          updatedAt
         }
         nextToken
       }
@@ -252,6 +363,7 @@ export const deleteDepartments = /* GraphQL */ `
         items {
           id
           email
+          name
           phone
           address
           picture
@@ -260,7 +372,24 @@ export const deleteDepartments = /* GraphQL */ `
           role
           createdAt
           updatedAt
-          owner
+        }
+        nextToken
+      }
+      Courses {
+        items {
+          id
+          course_name
+          course_code
+          course_visibility
+          course_start_date
+          course_end_date
+          course_description
+          course_image
+          course_format
+          course_credit
+          departmentsID
+          createdAt
+          updatedAt
         }
         nextToken
       }
@@ -277,6 +406,7 @@ export const createUsers = /* GraphQL */ `
     createUsers(input: $input, condition: $condition) {
       id
       email
+      name
       phone
       address
       picture
@@ -297,9 +427,18 @@ export const createUsers = /* GraphQL */ `
         }
         nextToken
       }
+      Courses {
+        items {
+          id
+          coursesId
+          usersId
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -311,6 +450,7 @@ export const updateUsers = /* GraphQL */ `
     updateUsers(input: $input, condition: $condition) {
       id
       email
+      name
       phone
       address
       picture
@@ -331,9 +471,18 @@ export const updateUsers = /* GraphQL */ `
         }
         nextToken
       }
+      Courses {
+        items {
+          id
+          coursesId
+          usersId
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -345,6 +494,7 @@ export const deleteUsers = /* GraphQL */ `
     deleteUsers(input: $input, condition: $condition) {
       id
       email
+      name
       phone
       address
       picture
@@ -365,9 +515,18 @@ export const deleteUsers = /* GraphQL */ `
         }
         nextToken
       }
+      Courses {
+        items {
+          id
+          coursesId
+          usersId
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -528,6 +687,177 @@ export const deleteAssignments = /* GraphQL */ `
         nextToken
       }
       coursesID
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createCoursesUsers = /* GraphQL */ `
+  mutation CreateCoursesUsers(
+    $input: CreateCoursesUsersInput!
+    $condition: ModelCoursesUsersConditionInput
+  ) {
+    createCoursesUsers(input: $input, condition: $condition) {
+      id
+      coursesId
+      usersId
+      courses {
+        id
+        course_name
+        course_code
+        course_visibility
+        course_start_date
+        course_end_date
+        course_description
+        course_image
+        course_format
+        course_credit
+        Announcements {
+          nextToken
+        }
+        Assignments {
+          nextToken
+        }
+        departmentsID
+        users {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      users {
+        id
+        email
+        name
+        phone
+        address
+        picture
+        description
+        departmentsID
+        role
+        AssignmentSubmissions {
+          nextToken
+        }
+        Courses {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateCoursesUsers = /* GraphQL */ `
+  mutation UpdateCoursesUsers(
+    $input: UpdateCoursesUsersInput!
+    $condition: ModelCoursesUsersConditionInput
+  ) {
+    updateCoursesUsers(input: $input, condition: $condition) {
+      id
+      coursesId
+      usersId
+      courses {
+        id
+        course_name
+        course_code
+        course_visibility
+        course_start_date
+        course_end_date
+        course_description
+        course_image
+        course_format
+        course_credit
+        Announcements {
+          nextToken
+        }
+        Assignments {
+          nextToken
+        }
+        departmentsID
+        users {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      users {
+        id
+        email
+        name
+        phone
+        address
+        picture
+        description
+        departmentsID
+        role
+        AssignmentSubmissions {
+          nextToken
+        }
+        Courses {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteCoursesUsers = /* GraphQL */ `
+  mutation DeleteCoursesUsers(
+    $input: DeleteCoursesUsersInput!
+    $condition: ModelCoursesUsersConditionInput
+  ) {
+    deleteCoursesUsers(input: $input, condition: $condition) {
+      id
+      coursesId
+      usersId
+      courses {
+        id
+        course_name
+        course_code
+        course_visibility
+        course_start_date
+        course_end_date
+        course_description
+        course_image
+        course_format
+        course_credit
+        Announcements {
+          nextToken
+        }
+        Assignments {
+          nextToken
+        }
+        departmentsID
+        users {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      users {
+        id
+        email
+        name
+        phone
+        address
+        picture
+        description
+        departmentsID
+        role
+        AssignmentSubmissions {
+          nextToken
+        }
+        Courses {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
     }

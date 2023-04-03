@@ -12,6 +12,7 @@ import {
   Grid,
   SelectField,
   SwitchField,
+  TextAreaField,
   TextField,
 } from "@aws-amplify/ui-react";
 import { getOverrideProps } from "@aws-amplify/ui-react/internal";
@@ -78,7 +79,11 @@ export default function CoursesUpdateForm(props) {
     setCourse_visibility(cleanValues.course_visibility);
     setCourse_start_date(cleanValues.course_start_date);
     setCourse_end_date(cleanValues.course_end_date);
-    setCourse_description(cleanValues.course_description);
+    setCourse_description(
+      typeof cleanValues.course_description === "string"
+        ? cleanValues.course_description
+        : JSON.stringify(cleanValues.course_description)
+    );
     setCourse_image(cleanValues.course_image);
     setCourse_format(cleanValues.course_format);
     setCourse_credit(cleanValues.course_credit);
@@ -99,7 +104,7 @@ export default function CoursesUpdateForm(props) {
     course_visibility: [{ type: "Required" }],
     course_start_date: [],
     course_end_date: [],
-    course_description: [],
+    course_description: [{ type: "JSON" }],
     course_image: [],
     course_format: [],
     course_credit: [],
@@ -370,7 +375,7 @@ export default function CoursesUpdateForm(props) {
         hasError={errors.course_end_date?.hasError}
         {...getOverrideProps(overrides, "course_end_date")}
       ></TextField>
-      <TextField
+      <TextAreaField
         label="Course description"
         isRequired={false}
         isReadOnly={false}
@@ -403,7 +408,7 @@ export default function CoursesUpdateForm(props) {
         errorMessage={errors.course_description?.errorMessage}
         hasError={errors.course_description?.hasError}
         {...getOverrideProps(overrides, "course_description")}
-      ></TextField>
+      ></TextAreaField>
       <TextField
         label="Course image"
         isRequired={false}

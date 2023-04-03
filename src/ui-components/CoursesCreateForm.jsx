@@ -12,6 +12,7 @@ import {
   Grid,
   SelectField,
   SwitchField,
+  TextAreaField,
   TextField,
 } from "@aws-amplify/ui-react";
 import { getOverrideProps } from "@aws-amplify/ui-react/internal";
@@ -86,7 +87,7 @@ export default function CoursesCreateForm(props) {
     course_visibility: [{ type: "Required" }],
     course_start_date: [],
     course_end_date: [],
-    course_description: [],
+    course_description: [{ type: "JSON" }],
     course_image: [],
     course_format: [],
     course_credit: [],
@@ -356,11 +357,10 @@ export default function CoursesCreateForm(props) {
         hasError={errors.course_end_date?.hasError}
         {...getOverrideProps(overrides, "course_end_date")}
       ></TextField>
-      <TextField
+      <TextAreaField
         label="Course description"
         isRequired={false}
         isReadOnly={false}
-        value={course_description}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
@@ -389,7 +389,7 @@ export default function CoursesCreateForm(props) {
         errorMessage={errors.course_description?.errorMessage}
         hasError={errors.course_description?.hasError}
         {...getOverrideProps(overrides, "course_description")}
-      ></TextField>
+      ></TextAreaField>
       <TextField
         label="Course image"
         isRequired={false}
