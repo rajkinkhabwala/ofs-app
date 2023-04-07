@@ -60,15 +60,8 @@ export const onCreateCourses = /* GraphQL */ `
       Announcements {
         items {
           id
-          assignment_name
-          assignment_desc
-          resubmit
-          teacher
-          max_bytes
-          time_due
-          time_available
-          grade
-          extra_data
+          title
+          announcement
           coursesID
           createdAt
           updatedAt
@@ -125,15 +118,8 @@ export const onUpdateCourses = /* GraphQL */ `
       Announcements {
         items {
           id
-          assignment_name
-          assignment_desc
-          resubmit
-          teacher
-          max_bytes
-          time_due
-          time_available
-          grade
-          extra_data
+          title
+          announcement
           coursesID
           createdAt
           updatedAt
@@ -190,15 +176,8 @@ export const onDeleteCourses = /* GraphQL */ `
       Announcements {
         items {
           id
-          assignment_name
-          assignment_desc
-          resubmit
-          teacher
-          max_bytes
-          time_due
-          time_available
-          grade
-          extra_data
+          title
+          announcement
           coursesID
           createdAt
           updatedAt
@@ -248,22 +227,6 @@ export const onCreateDepartments = /* GraphQL */ `
       department_name
       department_id
       department_description
-      Users {
-        items {
-          id
-          email
-          name
-          phone
-          address
-          picture
-          description
-          departmentsID
-          role
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
       Courses {
         items {
           id
@@ -296,22 +259,6 @@ export const onUpdateDepartments = /* GraphQL */ `
       department_name
       department_id
       department_description
-      Users {
-        items {
-          id
-          email
-          name
-          phone
-          address
-          picture
-          description
-          departmentsID
-          role
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
       Courses {
         items {
           id
@@ -344,22 +291,6 @@ export const onDeleteDepartments = /* GraphQL */ `
       department_name
       department_id
       department_description
-      Users {
-        items {
-          id
-          email
-          name
-          phone
-          address
-          picture
-          description
-          departmentsID
-          role
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
       Courses {
         items {
           id
@@ -393,7 +324,7 @@ export const onCreateUsers = /* GraphQL */ `
       address
       picture
       description
-      departmentsID
+      department
       role
       AssignmentSubmissions {
         items {
@@ -434,7 +365,7 @@ export const onUpdateUsers = /* GraphQL */ `
       address
       picture
       description
-      departmentsID
+      department
       role
       AssignmentSubmissions {
         items {
@@ -475,7 +406,7 @@ export const onDeleteUsers = /* GraphQL */ `
       address
       picture
       description
-      departmentsID
+      department
       role
       AssignmentSubmissions {
         items {
@@ -702,7 +633,7 @@ export const onCreateCoursesUsers = /* GraphQL */ `
         address
         picture
         description
-        departmentsID
+        department
         role
         AssignmentSubmissions {
           nextToken
@@ -758,7 +689,7 @@ export const onUpdateCoursesUsers = /* GraphQL */ `
         address
         picture
         description
-        departmentsID
+        department
         role
         AssignmentSubmissions {
           nextToken
@@ -814,7 +745,7 @@ export const onDeleteCoursesUsers = /* GraphQL */ `
         address
         picture
         description
-        departmentsID
+        department
         role
         AssignmentSubmissions {
           nextToken

@@ -166,12 +166,18 @@ export type Courses = {
   course_image?: string | null,
   course_format?: CourseFormat | null,
   course_credit?: number | null,
-  Announcements?: ModelAssignmentsConnection | null,
+  Announcements?: ModelAnnouncementsConnection | null,
   Assignments?: ModelAssignmentsConnection | null,
   departmentsID: string,
   users?: ModelCoursesUsersConnection | null,
   createdAt: string,
   updatedAt: string,
+};
+
+export type ModelAnnouncementsConnection = {
+  __typename: "ModelAnnouncementsConnection",
+  items:  Array<Announcements | null >,
+  nextToken?: string | null,
 };
 
 export type ModelAssignmentsConnection = {
@@ -243,7 +249,7 @@ export type Users = {
   address?: string | null,
   picture?: string | null,
   description?: string | null,
-  departmentsID: string,
+  department?: string | null,
   role?: string | null,
   AssignmentSubmissions?: ModelAssignmentSubmissionsConnection | null,
   Courses?: ModelCoursesUsersConnection | null,
@@ -291,16 +297,9 @@ export type Departments = {
   department_name?: string | null,
   department_id?: string | null,
   department_description?: string | null,
-  Users?: ModelUsersConnection | null,
   Courses?: ModelCoursesConnection | null,
   createdAt: string,
   updatedAt: string,
-};
-
-export type ModelUsersConnection = {
-  __typename: "ModelUsersConnection",
-  items:  Array<Users | null >,
-  nextToken?: string | null,
 };
 
 export type ModelCoursesConnection = {
@@ -328,7 +327,7 @@ export type CreateUsersInput = {
   address?: string | null,
   picture?: string | null,
   description?: string | null,
-  departmentsID: string,
+  department?: string | null,
   role?: string | null,
 };
 
@@ -339,7 +338,7 @@ export type ModelUsersConditionInput = {
   address?: ModelStringInput | null,
   picture?: ModelStringInput | null,
   description?: ModelStringInput | null,
-  departmentsID?: ModelIDInput | null,
+  department?: ModelStringInput | null,
   role?: ModelStringInput | null,
   and?: Array< ModelUsersConditionInput | null > | null,
   or?: Array< ModelUsersConditionInput | null > | null,
@@ -354,7 +353,7 @@ export type UpdateUsersInput = {
   address?: string | null,
   picture?: string | null,
   description?: string | null,
-  departmentsID?: string | null,
+  department?: string | null,
   role?: string | null,
 };
 
@@ -480,12 +479,6 @@ export type ModelAnnouncementsFilterInput = {
   not?: ModelAnnouncementsFilterInput | null,
 };
 
-export type ModelAnnouncementsConnection = {
-  __typename: "ModelAnnouncementsConnection",
-  items:  Array<Announcements | null >,
-  nextToken?: string | null,
-};
-
 export enum ModelSortDirection {
   ASC = "ASC",
   DESC = "DESC",
@@ -533,11 +526,17 @@ export type ModelUsersFilterInput = {
   address?: ModelStringInput | null,
   picture?: ModelStringInput | null,
   description?: ModelStringInput | null,
-  departmentsID?: ModelIDInput | null,
+  department?: ModelStringInput | null,
   role?: ModelStringInput | null,
   and?: Array< ModelUsersFilterInput | null > | null,
   or?: Array< ModelUsersFilterInput | null > | null,
   not?: ModelUsersFilterInput | null,
+};
+
+export type ModelUsersConnection = {
+  __typename: "ModelUsersConnection",
+  items:  Array<Users | null >,
+  nextToken?: string | null,
 };
 
 export type ModelAssignmentSubmissionsFilterInput = {
@@ -668,7 +667,7 @@ export type ModelSubscriptionUsersFilterInput = {
   address?: ModelSubscriptionStringInput | null,
   picture?: ModelSubscriptionStringInput | null,
   description?: ModelSubscriptionStringInput | null,
-  departmentsID?: ModelSubscriptionIDInput | null,
+  department?: ModelSubscriptionStringInput | null,
   role?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionUsersFilterInput | null > | null,
   or?: Array< ModelSubscriptionUsersFilterInput | null > | null,
@@ -780,19 +779,12 @@ export type CreateCoursesMutation = {
     course_format?: CourseFormat | null,
     course_credit?: number | null,
     Announcements?:  {
-      __typename: "ModelAssignmentsConnection",
+      __typename: "ModelAnnouncementsConnection",
       items:  Array< {
-        __typename: "Assignments",
+        __typename: "Announcements",
         id: string,
-        assignment_name: string,
-        assignment_desc: string,
-        resubmit: number,
-        teacher: string,
-        max_bytes?: number | null,
-        time_due?: string | null,
-        time_available?: string | null,
-        grade: number,
-        extra_data?: string | null,
+        title?: string | null,
+        announcement?: string | null,
         coursesID: string,
         createdAt: string,
         updatedAt: string,
@@ -856,19 +848,12 @@ export type UpdateCoursesMutation = {
     course_format?: CourseFormat | null,
     course_credit?: number | null,
     Announcements?:  {
-      __typename: "ModelAssignmentsConnection",
+      __typename: "ModelAnnouncementsConnection",
       items:  Array< {
-        __typename: "Assignments",
+        __typename: "Announcements",
         id: string,
-        assignment_name: string,
-        assignment_desc: string,
-        resubmit: number,
-        teacher: string,
-        max_bytes?: number | null,
-        time_due?: string | null,
-        time_available?: string | null,
-        grade: number,
-        extra_data?: string | null,
+        title?: string | null,
+        announcement?: string | null,
         coursesID: string,
         createdAt: string,
         updatedAt: string,
@@ -932,19 +917,12 @@ export type DeleteCoursesMutation = {
     course_format?: CourseFormat | null,
     course_credit?: number | null,
     Announcements?:  {
-      __typename: "ModelAssignmentsConnection",
+      __typename: "ModelAnnouncementsConnection",
       items:  Array< {
-        __typename: "Assignments",
+        __typename: "Announcements",
         id: string,
-        assignment_name: string,
-        assignment_desc: string,
-        resubmit: number,
-        teacher: string,
-        max_bytes?: number | null,
-        time_due?: string | null,
-        time_available?: string | null,
-        grade: number,
-        extra_data?: string | null,
+        title?: string | null,
+        announcement?: string | null,
         coursesID: string,
         createdAt: string,
         updatedAt: string,
@@ -1001,24 +979,6 @@ export type CreateDepartmentsMutation = {
     department_name?: string | null,
     department_id?: string | null,
     department_description?: string | null,
-    Users?:  {
-      __typename: "ModelUsersConnection",
-      items:  Array< {
-        __typename: "Users",
-        id: string,
-        email?: string | null,
-        name?: string | null,
-        phone?: string | null,
-        address?: string | null,
-        picture?: string | null,
-        description?: string | null,
-        departmentsID: string,
-        role?: string | null,
-        createdAt: string,
-        updatedAt: string,
-      } | null >,
-      nextToken?: string | null,
-    } | null,
     Courses?:  {
       __typename: "ModelCoursesConnection",
       items:  Array< {
@@ -1056,24 +1016,6 @@ export type UpdateDepartmentsMutation = {
     department_name?: string | null,
     department_id?: string | null,
     department_description?: string | null,
-    Users?:  {
-      __typename: "ModelUsersConnection",
-      items:  Array< {
-        __typename: "Users",
-        id: string,
-        email?: string | null,
-        name?: string | null,
-        phone?: string | null,
-        address?: string | null,
-        picture?: string | null,
-        description?: string | null,
-        departmentsID: string,
-        role?: string | null,
-        createdAt: string,
-        updatedAt: string,
-      } | null >,
-      nextToken?: string | null,
-    } | null,
     Courses?:  {
       __typename: "ModelCoursesConnection",
       items:  Array< {
@@ -1111,24 +1053,6 @@ export type DeleteDepartmentsMutation = {
     department_name?: string | null,
     department_id?: string | null,
     department_description?: string | null,
-    Users?:  {
-      __typename: "ModelUsersConnection",
-      items:  Array< {
-        __typename: "Users",
-        id: string,
-        email?: string | null,
-        name?: string | null,
-        phone?: string | null,
-        address?: string | null,
-        picture?: string | null,
-        description?: string | null,
-        departmentsID: string,
-        role?: string | null,
-        createdAt: string,
-        updatedAt: string,
-      } | null >,
-      nextToken?: string | null,
-    } | null,
     Courses?:  {
       __typename: "ModelCoursesConnection",
       items:  Array< {
@@ -1169,7 +1093,7 @@ export type CreateUsersMutation = {
     address?: string | null,
     picture?: string | null,
     description?: string | null,
-    departmentsID: string,
+    department?: string | null,
     role?: string | null,
     AssignmentSubmissions?:  {
       __typename: "ModelAssignmentSubmissionsConnection",
@@ -1219,7 +1143,7 @@ export type UpdateUsersMutation = {
     address?: string | null,
     picture?: string | null,
     description?: string | null,
-    departmentsID: string,
+    department?: string | null,
     role?: string | null,
     AssignmentSubmissions?:  {
       __typename: "ModelAssignmentSubmissionsConnection",
@@ -1269,7 +1193,7 @@ export type DeleteUsersMutation = {
     address?: string | null,
     picture?: string | null,
     description?: string | null,
-    departmentsID: string,
+    department?: string | null,
     role?: string | null,
     AssignmentSubmissions?:  {
       __typename: "ModelAssignmentSubmissionsConnection",
@@ -1508,7 +1432,7 @@ export type CreateCoursesUsersMutation = {
       course_format?: CourseFormat | null,
       course_credit?: number | null,
       Announcements?:  {
-        __typename: "ModelAssignmentsConnection",
+        __typename: "ModelAnnouncementsConnection",
         nextToken?: string | null,
       } | null,
       Assignments?:  {
@@ -1532,7 +1456,7 @@ export type CreateCoursesUsersMutation = {
       address?: string | null,
       picture?: string | null,
       description?: string | null,
-      departmentsID: string,
+      department?: string | null,
       role?: string | null,
       AssignmentSubmissions?:  {
         __typename: "ModelAssignmentSubmissionsConnection",
@@ -1574,7 +1498,7 @@ export type UpdateCoursesUsersMutation = {
       course_format?: CourseFormat | null,
       course_credit?: number | null,
       Announcements?:  {
-        __typename: "ModelAssignmentsConnection",
+        __typename: "ModelAnnouncementsConnection",
         nextToken?: string | null,
       } | null,
       Assignments?:  {
@@ -1598,7 +1522,7 @@ export type UpdateCoursesUsersMutation = {
       address?: string | null,
       picture?: string | null,
       description?: string | null,
-      departmentsID: string,
+      department?: string | null,
       role?: string | null,
       AssignmentSubmissions?:  {
         __typename: "ModelAssignmentSubmissionsConnection",
@@ -1640,7 +1564,7 @@ export type DeleteCoursesUsersMutation = {
       course_format?: CourseFormat | null,
       course_credit?: number | null,
       Announcements?:  {
-        __typename: "ModelAssignmentsConnection",
+        __typename: "ModelAnnouncementsConnection",
         nextToken?: string | null,
       } | null,
       Assignments?:  {
@@ -1664,7 +1588,7 @@ export type DeleteCoursesUsersMutation = {
       address?: string | null,
       picture?: string | null,
       description?: string | null,
-      departmentsID: string,
+      department?: string | null,
       role?: string | null,
       AssignmentSubmissions?:  {
         __typename: "ModelAssignmentSubmissionsConnection",
@@ -1762,19 +1686,12 @@ export type GetCoursesQuery = {
     course_format?: CourseFormat | null,
     course_credit?: number | null,
     Announcements?:  {
-      __typename: "ModelAssignmentsConnection",
+      __typename: "ModelAnnouncementsConnection",
       items:  Array< {
-        __typename: "Assignments",
+        __typename: "Announcements",
         id: string,
-        assignment_name: string,
-        assignment_desc: string,
-        resubmit: number,
-        teacher: string,
-        max_bytes?: number | null,
-        time_due?: string | null,
-        time_available?: string | null,
-        grade: number,
-        extra_data?: string | null,
+        title?: string | null,
+        announcement?: string | null,
         coursesID: string,
         createdAt: string,
         updatedAt: string,
@@ -1841,7 +1758,7 @@ export type ListCoursesQuery = {
       course_format?: CourseFormat | null,
       course_credit?: number | null,
       Announcements?:  {
-        __typename: "ModelAssignmentsConnection",
+        __typename: "ModelAnnouncementsConnection",
         nextToken?: string | null,
       } | null,
       Assignments?:  {
@@ -1884,7 +1801,7 @@ export type CoursesByDepartmentsIDQuery = {
       course_format?: CourseFormat | null,
       course_credit?: number | null,
       Announcements?:  {
-        __typename: "ModelAssignmentsConnection",
+        __typename: "ModelAnnouncementsConnection",
         nextToken?: string | null,
       } | null,
       Assignments?:  {
@@ -1914,24 +1831,6 @@ export type GetDepartmentsQuery = {
     department_name?: string | null,
     department_id?: string | null,
     department_description?: string | null,
-    Users?:  {
-      __typename: "ModelUsersConnection",
-      items:  Array< {
-        __typename: "Users",
-        id: string,
-        email?: string | null,
-        name?: string | null,
-        phone?: string | null,
-        address?: string | null,
-        picture?: string | null,
-        description?: string | null,
-        departmentsID: string,
-        role?: string | null,
-        createdAt: string,
-        updatedAt: string,
-      } | null >,
-      nextToken?: string | null,
-    } | null,
     Courses?:  {
       __typename: "ModelCoursesConnection",
       items:  Array< {
@@ -1972,10 +1871,6 @@ export type ListDepartmentsQuery = {
       department_name?: string | null,
       department_id?: string | null,
       department_description?: string | null,
-      Users?:  {
-        __typename: "ModelUsersConnection",
-        nextToken?: string | null,
-      } | null,
       Courses?:  {
         __typename: "ModelCoursesConnection",
         nextToken?: string | null,
@@ -2001,7 +1896,7 @@ export type GetUsersQuery = {
     address?: string | null,
     picture?: string | null,
     description?: string | null,
-    departmentsID: string,
+    department?: string | null,
     role?: string | null,
     AssignmentSubmissions?:  {
       __typename: "ModelAssignmentSubmissionsConnection",
@@ -2054,44 +1949,7 @@ export type ListUsersQuery = {
       address?: string | null,
       picture?: string | null,
       description?: string | null,
-      departmentsID: string,
-      role?: string | null,
-      AssignmentSubmissions?:  {
-        __typename: "ModelAssignmentSubmissionsConnection",
-        nextToken?: string | null,
-      } | null,
-      Courses?:  {
-        __typename: "ModelCoursesUsersConnection",
-        nextToken?: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null >,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type UsersByDepartmentsIDQueryVariables = {
-  departmentsID: string,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelUsersFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type UsersByDepartmentsIDQuery = {
-  usersByDepartmentsID?:  {
-    __typename: "ModelUsersConnection",
-    items:  Array< {
-      __typename: "Users",
-      id: string,
-      email?: string | null,
-      name?: string | null,
-      phone?: string | null,
-      address?: string | null,
-      picture?: string | null,
-      description?: string | null,
-      departmentsID: string,
+      department?: string | null,
       role?: string | null,
       AssignmentSubmissions?:  {
         __typename: "ModelAssignmentSubmissionsConnection",
@@ -2336,7 +2194,7 @@ export type GetCoursesUsersQuery = {
       course_format?: CourseFormat | null,
       course_credit?: number | null,
       Announcements?:  {
-        __typename: "ModelAssignmentsConnection",
+        __typename: "ModelAnnouncementsConnection",
         nextToken?: string | null,
       } | null,
       Assignments?:  {
@@ -2360,7 +2218,7 @@ export type GetCoursesUsersQuery = {
       address?: string | null,
       picture?: string | null,
       description?: string | null,
-      departmentsID: string,
+      department?: string | null,
       role?: string | null,
       AssignmentSubmissions?:  {
         __typename: "ModelAssignmentSubmissionsConnection",
@@ -2417,7 +2275,7 @@ export type ListCoursesUsersQuery = {
         address?: string | null,
         picture?: string | null,
         description?: string | null,
-        departmentsID: string,
+        department?: string | null,
         role?: string | null,
         createdAt: string,
         updatedAt: string,
@@ -2470,7 +2328,7 @@ export type CoursesUsersByCoursesIdQuery = {
         address?: string | null,
         picture?: string | null,
         description?: string | null,
-        departmentsID: string,
+        department?: string | null,
         role?: string | null,
         createdAt: string,
         updatedAt: string,
@@ -2523,7 +2381,7 @@ export type CoursesUsersByUsersIdQuery = {
         address?: string | null,
         picture?: string | null,
         description?: string | null,
-        departmentsID: string,
+        department?: string | null,
         role?: string | null,
         createdAt: string,
         updatedAt: string,
@@ -2601,19 +2459,12 @@ export type OnCreateCoursesSubscription = {
     course_format?: CourseFormat | null,
     course_credit?: number | null,
     Announcements?:  {
-      __typename: "ModelAssignmentsConnection",
+      __typename: "ModelAnnouncementsConnection",
       items:  Array< {
-        __typename: "Assignments",
+        __typename: "Announcements",
         id: string,
-        assignment_name: string,
-        assignment_desc: string,
-        resubmit: number,
-        teacher: string,
-        max_bytes?: number | null,
-        time_due?: string | null,
-        time_available?: string | null,
-        grade: number,
-        extra_data?: string | null,
+        title?: string | null,
+        announcement?: string | null,
         coursesID: string,
         createdAt: string,
         updatedAt: string,
@@ -2676,19 +2527,12 @@ export type OnUpdateCoursesSubscription = {
     course_format?: CourseFormat | null,
     course_credit?: number | null,
     Announcements?:  {
-      __typename: "ModelAssignmentsConnection",
+      __typename: "ModelAnnouncementsConnection",
       items:  Array< {
-        __typename: "Assignments",
+        __typename: "Announcements",
         id: string,
-        assignment_name: string,
-        assignment_desc: string,
-        resubmit: number,
-        teacher: string,
-        max_bytes?: number | null,
-        time_due?: string | null,
-        time_available?: string | null,
-        grade: number,
-        extra_data?: string | null,
+        title?: string | null,
+        announcement?: string | null,
         coursesID: string,
         createdAt: string,
         updatedAt: string,
@@ -2751,19 +2595,12 @@ export type OnDeleteCoursesSubscription = {
     course_format?: CourseFormat | null,
     course_credit?: number | null,
     Announcements?:  {
-      __typename: "ModelAssignmentsConnection",
+      __typename: "ModelAnnouncementsConnection",
       items:  Array< {
-        __typename: "Assignments",
+        __typename: "Announcements",
         id: string,
-        assignment_name: string,
-        assignment_desc: string,
-        resubmit: number,
-        teacher: string,
-        max_bytes?: number | null,
-        time_due?: string | null,
-        time_available?: string | null,
-        grade: number,
-        extra_data?: string | null,
+        title?: string | null,
+        announcement?: string | null,
         coursesID: string,
         createdAt: string,
         updatedAt: string,
@@ -2819,24 +2656,6 @@ export type OnCreateDepartmentsSubscription = {
     department_name?: string | null,
     department_id?: string | null,
     department_description?: string | null,
-    Users?:  {
-      __typename: "ModelUsersConnection",
-      items:  Array< {
-        __typename: "Users",
-        id: string,
-        email?: string | null,
-        name?: string | null,
-        phone?: string | null,
-        address?: string | null,
-        picture?: string | null,
-        description?: string | null,
-        departmentsID: string,
-        role?: string | null,
-        createdAt: string,
-        updatedAt: string,
-      } | null >,
-      nextToken?: string | null,
-    } | null,
     Courses?:  {
       __typename: "ModelCoursesConnection",
       items:  Array< {
@@ -2873,24 +2692,6 @@ export type OnUpdateDepartmentsSubscription = {
     department_name?: string | null,
     department_id?: string | null,
     department_description?: string | null,
-    Users?:  {
-      __typename: "ModelUsersConnection",
-      items:  Array< {
-        __typename: "Users",
-        id: string,
-        email?: string | null,
-        name?: string | null,
-        phone?: string | null,
-        address?: string | null,
-        picture?: string | null,
-        description?: string | null,
-        departmentsID: string,
-        role?: string | null,
-        createdAt: string,
-        updatedAt: string,
-      } | null >,
-      nextToken?: string | null,
-    } | null,
     Courses?:  {
       __typename: "ModelCoursesConnection",
       items:  Array< {
@@ -2927,24 +2728,6 @@ export type OnDeleteDepartmentsSubscription = {
     department_name?: string | null,
     department_id?: string | null,
     department_description?: string | null,
-    Users?:  {
-      __typename: "ModelUsersConnection",
-      items:  Array< {
-        __typename: "Users",
-        id: string,
-        email?: string | null,
-        name?: string | null,
-        phone?: string | null,
-        address?: string | null,
-        picture?: string | null,
-        description?: string | null,
-        departmentsID: string,
-        role?: string | null,
-        createdAt: string,
-        updatedAt: string,
-      } | null >,
-      nextToken?: string | null,
-    } | null,
     Courses?:  {
       __typename: "ModelCoursesConnection",
       items:  Array< {
@@ -2984,7 +2767,7 @@ export type OnCreateUsersSubscription = {
     address?: string | null,
     picture?: string | null,
     description?: string | null,
-    departmentsID: string,
+    department?: string | null,
     role?: string | null,
     AssignmentSubmissions?:  {
       __typename: "ModelAssignmentSubmissionsConnection",
@@ -3033,7 +2816,7 @@ export type OnUpdateUsersSubscription = {
     address?: string | null,
     picture?: string | null,
     description?: string | null,
-    departmentsID: string,
+    department?: string | null,
     role?: string | null,
     AssignmentSubmissions?:  {
       __typename: "ModelAssignmentSubmissionsConnection",
@@ -3082,7 +2865,7 @@ export type OnDeleteUsersSubscription = {
     address?: string | null,
     picture?: string | null,
     description?: string | null,
-    departmentsID: string,
+    department?: string | null,
     role?: string | null,
     AssignmentSubmissions?:  {
       __typename: "ModelAssignmentSubmissionsConnection",
@@ -3314,7 +3097,7 @@ export type OnCreateCoursesUsersSubscription = {
       course_format?: CourseFormat | null,
       course_credit?: number | null,
       Announcements?:  {
-        __typename: "ModelAssignmentsConnection",
+        __typename: "ModelAnnouncementsConnection",
         nextToken?: string | null,
       } | null,
       Assignments?:  {
@@ -3338,7 +3121,7 @@ export type OnCreateCoursesUsersSubscription = {
       address?: string | null,
       picture?: string | null,
       description?: string | null,
-      departmentsID: string,
+      department?: string | null,
       role?: string | null,
       AssignmentSubmissions?:  {
         __typename: "ModelAssignmentSubmissionsConnection",
@@ -3379,7 +3162,7 @@ export type OnUpdateCoursesUsersSubscription = {
       course_format?: CourseFormat | null,
       course_credit?: number | null,
       Announcements?:  {
-        __typename: "ModelAssignmentsConnection",
+        __typename: "ModelAnnouncementsConnection",
         nextToken?: string | null,
       } | null,
       Assignments?:  {
@@ -3403,7 +3186,7 @@ export type OnUpdateCoursesUsersSubscription = {
       address?: string | null,
       picture?: string | null,
       description?: string | null,
-      departmentsID: string,
+      department?: string | null,
       role?: string | null,
       AssignmentSubmissions?:  {
         __typename: "ModelAssignmentSubmissionsConnection",
@@ -3444,7 +3227,7 @@ export type OnDeleteCoursesUsersSubscription = {
       course_format?: CourseFormat | null,
       course_credit?: number | null,
       Announcements?:  {
-        __typename: "ModelAssignmentsConnection",
+        __typename: "ModelAnnouncementsConnection",
         nextToken?: string | null,
       } | null,
       Assignments?:  {
@@ -3468,7 +3251,7 @@ export type OnDeleteCoursesUsersSubscription = {
       address?: string | null,
       picture?: string | null,
       description?: string | null,
-      departmentsID: string,
+      department?: string | null,
       role?: string | null,
       AssignmentSubmissions?:  {
         __typename: "ModelAssignmentSubmissionsConnection",
