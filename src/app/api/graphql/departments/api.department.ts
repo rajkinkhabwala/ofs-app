@@ -44,7 +44,7 @@ export async function getDepartment(department: string) {
 
 export async function listDepartmentsQuery(department: ListDepartmentsQuery) {
     return await API.graphql<GraphQLQuery<ListAnnouncementsQueryVariables>>({
-        query: queries.usersByDepartmentsID,
+        query: queries.coursesByDepartmentsID,
         variables: department
     })
 }
