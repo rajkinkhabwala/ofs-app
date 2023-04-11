@@ -1,4 +1,14 @@
 import { API, Auth } from "aws-amplify";
+import { } from "aws-sdk";
+
+export interface UserResult {
+  Users: Array<{Attributes: [] | undefined | null,
+  Enabled: boolean,
+  UserCreateDate: string | undefined | null,
+  UserLastModifiedDate: string | undefined | null,
+  UserStatus: string | undefined | null,
+  Username: string | undefined | null,}> | null
+}
 
 export async function addToGroup(email: string, groupName: string) { 
     let apiName = 'AdminQueries';
@@ -22,7 +32,7 @@ export async function addToGroup(email: string, groupName: string) {
   }
 
 
-  export async function listUsers() { 
+  export async function listUsers(): Promise<any> { 
     let apiName = 'AdminQueries';
     let path = '/listUsers';
     let myInit = { 
@@ -34,7 +44,7 @@ export async function addToGroup(email: string, groupName: string) {
 
     return await new Promise((resolve, reject) => {
         API.get(apiName, path, myInit).then((value) => {
-            resolve(value);
+          resolve(value);
         }).catch((err) => reject(err));
     }) 
   }

@@ -10,7 +10,7 @@ export function Component() {
     refetchOnWindowFocus: false,
     }
   );
-    console.log(data)
+  
   return (
     <>
       <Title order={1}>Departments</Title>

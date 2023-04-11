@@ -41,10 +41,3 @@ export async function listDepartment(
 export async function getDepartment(department: string) {
     return await API.graphql<GraphQLQuery<GetDepartmentsQuery>>(graphqlOperation(queries.getDepartments, { id: department }))
 }
-
-export async function listDepartmentsQuery(department: ListDepartmentsQuery) {
-    return await API.graphql<GraphQLQuery<ListAnnouncementsQueryVariables>>({
-        query: queries.usersByDepartmentsID,
-        variables: department
-    })
-}
