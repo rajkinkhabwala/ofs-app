@@ -36,6 +36,7 @@
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
     "aws-amplify": "^5.0.18",
+    "aws-sdk": "^2.1353.0",
     "dayjs": "^1.11.7",
     "embla-carousel-react": "^7.1.0",
     "lodash-es": "^4.17.21",

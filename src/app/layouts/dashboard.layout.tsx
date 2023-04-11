@@ -1,48 +1,22 @@
 import { useState } from 'react';
 import {
   AppShell,
-  Navbar,
   Header,
   Footer,
   MediaQuery,
   Burger,
   useMantineTheme,
-  Anchor,
 } from '@mantine/core';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import '../styles/_dashboard.scss'
-import { IconLogout } from '@tabler/icons-react';
+import AdminNavBar from './navbars/admin.navbar';
+import { useAuthenticator } from '@aws-amplify/ui-react';
 
 function DashboardLayout() {
   const theme = useMantineTheme();
   const [opened, setOpened] = useState(false);
-  const [active, setActive] = useState('Department');
-  const navigate = useNavigate();
-
-
-  const tabs = [
-    { link: '/department', label: 'Department'},
-    { link: '/course', label: 'Course'},
-    { link: '/course/assignment', label: 'Assignment'},
-
-  ]
+  const { user } = useAuthenticator((context) => [context.signOut])
   
-  const links = tabs.map((item) => (
-    <a
-      className={item.label === active ? 'link active-link' : 'link'}
-      href={item.link}
-      key={item.label}
-      onClick={(event) => {
-        event.preventDefault();
-        setActive(item.label);
-        navigate(item.link)
-      }}
-    >
-      {/* <item.icon className='' stroke={1.5} /> */}
-      <span>{item.label}</span>
-    </a>
-  ));
-
   return (
     <AppShell
       styles={{
@@ -53,26 +27,7 @@ function DashboardLayout() {
       navbarOffsetBreakpoint="sm"
       asideOffsetBreakpoint="sm"
       navbar={
-        <Navbar p="md" hiddenBreakpoint="sm" hidden={!opened} width={{ sm: 200, lg: 300 }} className="navbar-template">
-            {/* <Text weight={500} size="sm" className='' color="dimmed" mb="xs">
-              bgluesticker@mantine.dev
-            </Text> */}
-            <Navbar.Section grow mt="xl">
-              {links}
-            </Navbar.Section>
-
-            <Navbar.Section className='sidebar-bottom'>
-              {/* <a href="#" className='' onClick={(event) => event.preventDefault()}>
-                <IconSwitchHorizontal className={classes.linkIcon} stroke={1.5} />
-                <span>Change account</span>
-              </a> */}
-
-              <Anchor href="#" className='logout-option' onClick={(event) => event.preventDefault()}>
-                <IconLogout className='' stroke={1.5} />
-                <span>Logout</span>
-              </Anchor>
-      </Navbar.Section>
-        </Navbar>
+      <AdminNavBar burgerVisiblity={!opened} user={user}/>
       }
       footer={
         <Footer height={60} p="md" className="footer-section">

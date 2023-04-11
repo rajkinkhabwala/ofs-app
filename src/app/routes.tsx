@@ -18,6 +18,10 @@ const route = createBrowserRouter([
             {
                 path: '/course',
                 lazy: () => import('./page-components/Course/course.component')
+            },
+            {
+                path: '/user',
+                lazy: () => import('./page-components/User/user.component')
             }
         ]
     },

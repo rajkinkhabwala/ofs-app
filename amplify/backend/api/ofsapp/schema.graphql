@@ -48,7 +48,7 @@ type Users @model @auth(rules: [{allow: groups, groups: ["Admins"], operations: 
   Courses: [Courses] @manyToMany(relationName: "CoursesUsers")
 }
 
-type AssignmentSubmissions @model @auth(rules: [{allow: public}]) {
+type AssignmentSubmissions @model @auth(rules: [{allow: public}, {allow: groups, groups: ["Admins"], operations: [read, create, update, delete]}, {allow: groups, groups: ["Owners"], operations: [read]}, {allow: groups, groups: ["Students"], operations: [read, create, update, delete]}, {allow: groups, groups: ["Teachers"], operations: [read, create, update, delete]}]) {
   id: ID!
   assignmentsID: ID! @index(name: "byAssignments")
   usersID: ID! @index(name: "byUsers")
