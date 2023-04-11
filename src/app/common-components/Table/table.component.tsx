@@ -1,15 +1,21 @@
 import { DataTable, DataTableColumn} from "mantine-datatable";
 import '../../styles/_table.scss';
+import React from "react";
 
 interface TableProps<T> extends React.PropsWithChildren {
     records: T[] | undefined,
     columns:  DataTableColumn<T>[],
     fetching?: boolean | false,
+    header?: React.ReactNode 
 }
 
-export function Table<T>({records, columns, fetching}: TableProps<T>){
+export function Table<T>({records, columns, fetching, header}: TableProps<T>){
 
 return(
+    <div className="table-template">
+      <div className="table-header">
+        {header}
+      </div>
     <DataTable 
     withBorder
     withColumnBorders
@@ -21,6 +27,7 @@ return(
         borderWidth: "1px"
       }}
     />
+    </div>
 )
 }
 

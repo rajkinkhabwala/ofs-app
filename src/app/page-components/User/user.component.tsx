@@ -6,6 +6,7 @@ import { listUser } from "../../api/graphql/users/api.user";
 import { Users } from "../../../API";
 import { IconEdit, IconEyeFilled, IconTrash } from "@tabler/icons-react";
 import { modals } from "@mantine/modals";
+import { useNavigate } from "react-router-dom";
 
 export function Component() {
 
@@ -15,7 +16,8 @@ export function Component() {
     refetchOnWindowFocus: false,
     }
   );
-console.log(data)
+
+  const navigate = useNavigate();
 
   return (
     <Page title="Users">
@@ -31,20 +33,9 @@ console.log(data)
         {
           accessor: "Modify", width:"20%",
           render: (rowData: any) => {
-            
             return(
             <div className="crud-btn-container">
-              <span>
-                <IconEdit strokeWidth={2} color={'blue'} onClick={() => modals.open({
-                  title: "Edit Department",
-                  children: (
-                    <>
-                      adding soon
-                    </>
-                    )
-                  })}/></span>
-              <span onClick={() => console.log('Add soon')}><IconTrash strokeWidth={2} color={'red'}/></span>
-              <span><IconEyeFilled strokeWidth={2} color={'gray'} onClick={() => console.log(rowData.id)}/></span>
+              <span><IconEyeFilled strokeWidth={2} color={'gray'} onClick={() => navigate(`${rowData.id}`)}/></span>
             </div>
           )},
         }
