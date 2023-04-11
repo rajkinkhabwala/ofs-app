@@ -1,41 +1,49 @@
 import { Button, Group, Textarea, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { notifications } from "@mantine/notifications";
+import { Switch } from '@mantine/core';
+import { Select } from '@mantine/core';
 import {
-  CreateDepartmentsInput,
-  Departments,
-  UpdateDepartmentsInput,
+  CreateCoursesInput,
+  Courses,
+  UpdateCoursesInput,
 } from "../../../API";
 import {
-  createDepartment,
-  updateDepartment,
-} from "../../api/graphql/departments/api.department";
+  createCourse,
+  updateCourse,
+} from "../../api/graphql/courses/api.course";
+import "../../styles/_modal.scss"
 
-interface CustomDepartmentFormModal extends FormModal<Departments> {
+interface CustomCoursesFormModal extends FormModal<Courses> {
   refetch?: any
+  departmentData?: any
 }
 
 
-function CourseModal({ formType, record, refetch }: CustomDepartmentFormModal) {
+function CourseModal({ formType, record, refetch, departmentData }: CustomCoursesFormModal) {
+
   let form = useForm<any>({
     initialValues:
       formType === "new"
         ? {
-            department_name: "",
-            department_description: "",
-            department_id: "",
-          }
+          course_name: "",
+          course_code: "",
+          course_visibility: false,
+          departmentsID: ""
+        }
         : {
-            id: record?.id,
-            department_name: record?.department_name,
-            department_description: record?.department_description,
-            department_id: record?.department_id,
-          },
+          id: record?.id,
+          course_name: record?.course_name,
+          course_code: record?.course_code,
+          course_visibility: record?.course_visibility,
+          departmentsID: record?.departmentsID
+        },
   });
+  
 
-  function handleSubmit(values: CreateDepartmentsInput) {
-    createDepartment(values).then((values) => {
-      let d = values.data?.createDepartments?.department_name;
+  function handleSubmit(values: CreateCoursesInput) {
+    createCourse(values).then((values) => {
+      let d = values.data?.createCourses?.course_name;
       notifications.show({
         title: "Successful",
         message: `Successfully added ${d}`,
@@ -46,9 +54,9 @@ function CourseModal({ formType, record, refetch }: CustomDepartmentFormModal) {
     });
   }
 
-  function handleEdit(values: UpdateDepartmentsInput) {
+  function handleEdit(values: UpdateCoursesInput) {
     console.log("edited");
-    updateDepartment(values).then(() => {
+    updateCourse(values).then(() => {
       notifications.show({
         title: "Successful",
         message: `Successfully edited`,
@@ -60,36 +68,55 @@ function CourseModal({ formType, record, refetch }: CustomDepartmentFormModal) {
   }
 
   return (
-    <form
-      onSubmit={
-        formType === "new"
-          ? form.onSubmit(handleSubmit)
-          : form.onSubmit(handleEdit)
-      }
-    >
-      <TextInput
-        withAsterisk
-        label="Department Name"
-        placeholder="Enter the department name..."
-        required
-        {...form.getInputProps("department_name")}
-      />
-      <TextInput
-        withAsterisk
-        label="Department ID"
-        placeholder="Enter the department id..."
-        required
-        {...form.getInputProps("department_id")}
-      />
-      <Textarea
-        placeholder="Department Description"
-        label="Enter the department description"
-        {...form.getInputProps("department_description")}
-      />
-      <Group position="right" mt="md">
-        <Button type="submit">Submit</Button>
-      </Group>
-    </form>
+    <div className="modal-template">
+      <form
+        onSubmit={
+          formType === "new"
+            ? form.onSubmit(handleSubmit)
+            : form.onSubmit(handleEdit)
+        }
+      >
+        <TextInput
+          withAsterisk
+          label="Course Name"
+          placeholder="Enter the course name..."
+          required
+          {...form.getInputProps("course_name")}
+        />
+        <TextInput
+          withAsterisk
+          label="Course Code"
+          placeholder="Enter the course code..."
+          required
+          {...form.getInputProps("course_code")}
+        />
+        {/* <Textarea
+          placeholder="Course Description"
+          label="Enter the course description"
+          {...form.getInputProps("course_description")}
+        /> */}
+
+        <div className="switch-label">
+          <label>Visibility <span>*</span></label>
+        </div>
+        <Switch
+          checked={form.getInputProps("course_visibility").value}
+          {...form.getInputProps("course_visibility")} />
+
+        <Select {...form.getInputProps("departmentsID")}
+         label="Your favorite framework/library"
+         placeholder="Pick one"
+         data={departmentData.items.map((el: any) => (
+            {value : el.id, label: el.department_name}
+          )
+         )}
+       />
+        
+        <Group position="right" mt="md">
+          <Button type="submit">Submit</Button>
+        </Group>
+      </form>
+    </div>
   );
 }
 

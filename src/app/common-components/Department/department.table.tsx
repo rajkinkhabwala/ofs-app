@@ -43,13 +43,13 @@ function DepartmentTable({items, isLoading, refetch } : PropsWithChildren<any>) 
   }
 
 return(
-    <div className="table-template">
+    <div className={isLoading ? `table-template table-loading` : "table-template"}>
       <div className="table-header">
         <Button className="add-course" leftIcon={<IconPlus />} onClick={() => modals.open({
           title: "Create Department",
           children: (
             <>
-            <DepartmentModal formType="new" refetch={refetch} />
+              <DepartmentModal formType="new" refetch={refetch} />
             </>
           )
         })}>

@@ -1,5 +1,12 @@
 .table-template{
 
+    &.table-loading {
+        
+        table {
+            min-height: 14rem !important;
+        }
+    }
+
     .table-header{
         border: none;
         display: flex;

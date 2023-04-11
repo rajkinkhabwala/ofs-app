@@ -1,0 +1,19 @@
+.modal-template {
+
+    .switch-label {
+    
+        label {
+            display: inline-block;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #212529;
+            word-break: break-word;
+            cursor: default;
+            -webkit-tap-highlight-color: transparent;
+
+            span{
+                color: #fa5252;
+            }
+        }
+    }
+}
