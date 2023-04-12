@@ -4,7 +4,7 @@ import DepartmentTable from "../../common-components/Department/department.table
 import { useQuery } from "react-query";
 
 export function Component() {
-  const { data, isLoading, error, isError, refetch, isFetching, status } = useQuery(["department"], () =>
+  const { data, isLoading, error, isError, refetch, isFetching, status } = useQuery(["departments"], () =>
     listDepartment(),
     {
     refetchOnWindowFocus: false,

@@ -80,6 +80,9 @@ export const onCreateCourses = /* GraphQL */ `
           time_available
           grade
           extra_data
+          AssignmentSubmissions {
+            nextToken
+          }
           coursesID
           createdAt
           updatedAt
@@ -92,6 +95,34 @@ export const onCreateCourses = /* GraphQL */ `
           id
           coursesId
           usersId
+          courses {
+            id
+            course_name
+            course_code
+            course_visibility
+            course_start_date
+            course_end_date
+            course_description
+            course_image
+            course_format
+            course_credit
+            departmentsID
+            createdAt
+            updatedAt
+          }
+          users {
+            id
+            email
+            name
+            phone
+            address
+            picture
+            description
+            department
+            role
+            createdAt
+            updatedAt
+          }
           createdAt
           updatedAt
         }
@@ -138,6 +169,9 @@ export const onUpdateCourses = /* GraphQL */ `
           time_available
           grade
           extra_data
+          AssignmentSubmissions {
+            nextToken
+          }
           coursesID
           createdAt
           updatedAt
@@ -150,6 +184,34 @@ export const onUpdateCourses = /* GraphQL */ `
           id
           coursesId
           usersId
+          courses {
+            id
+            course_name
+            course_code
+            course_visibility
+            course_start_date
+            course_end_date
+            course_description
+            course_image
+            course_format
+            course_credit
+            departmentsID
+            createdAt
+            updatedAt
+          }
+          users {
+            id
+            email
+            name
+            phone
+            address
+            picture
+            description
+            department
+            role
+            createdAt
+            updatedAt
+          }
           createdAt
           updatedAt
         }
@@ -196,6 +258,9 @@ export const onDeleteCourses = /* GraphQL */ `
           time_available
           grade
           extra_data
+          AssignmentSubmissions {
+            nextToken
+          }
           coursesID
           createdAt
           updatedAt
@@ -208,6 +273,34 @@ export const onDeleteCourses = /* GraphQL */ `
           id
           coursesId
           usersId
+          courses {
+            id
+            course_name
+            course_code
+            course_visibility
+            course_start_date
+            course_end_date
+            course_description
+            course_image
+            course_format
+            course_credit
+            departmentsID
+            createdAt
+            updatedAt
+          }
+          users {
+            id
+            email
+            name
+            phone
+            address
+            picture
+            description
+            department
+            role
+            createdAt
+            updatedAt
+          }
           createdAt
           updatedAt
         }
@@ -239,7 +332,16 @@ export const onCreateDepartments = /* GraphQL */ `
           course_image
           course_format
           course_credit
+          Announcements {
+            nextToken
+          }
+          Assignments {
+            nextToken
+          }
           departmentsID
+          users {
+            nextToken
+          }
           createdAt
           updatedAt
         }
@@ -271,7 +373,16 @@ export const onUpdateDepartments = /* GraphQL */ `
           course_image
           course_format
           course_credit
+          Announcements {
+            nextToken
+          }
+          Assignments {
+            nextToken
+          }
           departmentsID
+          users {
+            nextToken
+          }
           createdAt
           updatedAt
         }
@@ -303,7 +414,16 @@ export const onDeleteDepartments = /* GraphQL */ `
           course_image
           course_format
           course_credit
+          Announcements {
+            nextToken
+          }
+          Assignments {
+            nextToken
+          }
           departmentsID
+          users {
+            nextToken
+          }
           createdAt
           updatedAt
         }
@@ -345,6 +465,34 @@ export const onCreateUsers = /* GraphQL */ `
           id
           coursesId
           usersId
+          courses {
+            id
+            course_name
+            course_code
+            course_visibility
+            course_start_date
+            course_end_date
+            course_description
+            course_image
+            course_format
+            course_credit
+            departmentsID
+            createdAt
+            updatedAt
+          }
+          users {
+            id
+            email
+            name
+            phone
+            address
+            picture
+            description
+            department
+            role
+            createdAt
+            updatedAt
+          }
           createdAt
           updatedAt
         }
@@ -386,6 +534,34 @@ export const onUpdateUsers = /* GraphQL */ `
           id
           coursesId
           usersId
+          courses {
+            id
+            course_name
+            course_code
+            course_visibility
+            course_start_date
+            course_end_date
+            course_description
+            course_image
+            course_format
+            course_credit
+            departmentsID
+            createdAt
+            updatedAt
+          }
+          users {
+            id
+            email
+            name
+            phone
+            address
+            picture
+            description
+            department
+            role
+            createdAt
+            updatedAt
+          }
           createdAt
           updatedAt
         }
@@ -427,6 +603,34 @@ export const onDeleteUsers = /* GraphQL */ `
           id
           coursesId
           usersId
+          courses {
+            id
+            course_name
+            course_code
+            course_visibility
+            course_start_date
+            course_end_date
+            course_description
+            course_image
+            course_format
+            course_credit
+            departmentsID
+            createdAt
+            updatedAt
+          }
+          users {
+            id
+            email
+            name
+            phone
+            address
+            picture
+            description
+            department
+            role
+            createdAt
+            updatedAt
+          }
           createdAt
           updatedAt
         }
@@ -613,13 +817,43 @@ export const onCreateCoursesUsers = /* GraphQL */ `
         course_format
         course_credit
         Announcements {
+          items {
+            id
+            title
+            announcement
+            coursesID
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         Assignments {
+          items {
+            id
+            assignment_name
+            assignment_desc
+            resubmit
+            teacher
+            max_bytes
+            time_due
+            time_available
+            grade
+            extra_data
+            coursesID
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         departmentsID
         users {
+          items {
+            id
+            coursesId
+            usersId
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         createdAt
@@ -636,9 +870,27 @@ export const onCreateCoursesUsers = /* GraphQL */ `
         department
         role
         AssignmentSubmissions {
+          items {
+            id
+            assignmentsID
+            usersID
+            number_of_files
+            grade
+            submission_comment
+            checker
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         Courses {
+          items {
+            id
+            coursesId
+            usersId
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         createdAt
@@ -669,13 +921,43 @@ export const onUpdateCoursesUsers = /* GraphQL */ `
         course_format
         course_credit
         Announcements {
+          items {
+            id
+            title
+            announcement
+            coursesID
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         Assignments {
+          items {
+            id
+            assignment_name
+            assignment_desc
+            resubmit
+            teacher
+            max_bytes
+            time_due
+            time_available
+            grade
+            extra_data
+            coursesID
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         departmentsID
         users {
+          items {
+            id
+            coursesId
+            usersId
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         createdAt
@@ -692,9 +974,27 @@ export const onUpdateCoursesUsers = /* GraphQL */ `
         department
         role
         AssignmentSubmissions {
+          items {
+            id
+            assignmentsID
+            usersID
+            number_of_files
+            grade
+            submission_comment
+            checker
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         Courses {
+          items {
+            id
+            coursesId
+            usersId
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         createdAt
@@ -725,13 +1025,43 @@ export const onDeleteCoursesUsers = /* GraphQL */ `
         course_format
         course_credit
         Announcements {
+          items {
+            id
+            title
+            announcement
+            coursesID
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         Assignments {
+          items {
+            id
+            assignment_name
+            assignment_desc
+            resubmit
+            teacher
+            max_bytes
+            time_due
+            time_available
+            grade
+            extra_data
+            coursesID
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         departmentsID
         users {
+          items {
+            id
+            coursesId
+            usersId
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         createdAt
@@ -748,9 +1078,27 @@ export const onDeleteCoursesUsers = /* GraphQL */ `
         department
         role
         AssignmentSubmissions {
+          items {
+            id
+            assignmentsID
+            usersID
+            number_of_files
+            grade
+            submission_comment
+            checker
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         Courses {
+          items {
+            id
+            coursesId
+            usersId
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         createdAt
