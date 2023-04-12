@@ -96,6 +96,9 @@ export const getCourses = /* GraphQL */ `
           time_available
           grade
           extra_data
+          AssignmentSubmissions {
+            nextToken
+          }
           coursesID
           createdAt
           updatedAt
@@ -108,6 +111,34 @@ export const getCourses = /* GraphQL */ `
           id
           coursesId
           usersId
+          courses {
+            id
+            course_name
+            course_code
+            course_visibility
+            course_start_date
+            course_end_date
+            course_description
+            course_image
+            course_format
+            course_credit
+            departmentsID
+            createdAt
+            updatedAt
+          }
+          users {
+            id
+            email
+            name
+            phone
+            address
+            picture
+            description
+            department
+            role
+            createdAt
+            updatedAt
+          }
           createdAt
           updatedAt
         }
@@ -137,13 +168,43 @@ export const listCourses = /* GraphQL */ `
         course_format
         course_credit
         Announcements {
+          items {
+            id
+            title
+            announcement
+            coursesID
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         Assignments {
+          items {
+            id
+            assignment_name
+            assignment_desc
+            resubmit
+            teacher
+            max_bytes
+            time_due
+            time_available
+            grade
+            extra_data
+            coursesID
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         departmentsID
         users {
+          items {
+            id
+            coursesId
+            usersId
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         createdAt
@@ -180,13 +241,43 @@ export const coursesByDepartmentsID = /* GraphQL */ `
         course_format
         course_credit
         Announcements {
+          items {
+            id
+            title
+            announcement
+            coursesID
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         Assignments {
+          items {
+            id
+            assignment_name
+            assignment_desc
+            resubmit
+            teacher
+            max_bytes
+            time_due
+            time_available
+            grade
+            extra_data
+            coursesID
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         departmentsID
         users {
+          items {
+            id
+            coursesId
+            usersId
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         createdAt
@@ -215,7 +306,16 @@ export const getDepartments = /* GraphQL */ `
           course_image
           course_format
           course_credit
+          Announcements {
+            nextToken
+          }
+          Assignments {
+            nextToken
+          }
           departmentsID
+          users {
+            nextToken
+          }
           createdAt
           updatedAt
         }
@@ -239,6 +339,21 @@ export const listDepartments = /* GraphQL */ `
         department_id
         department_description
         Courses {
+          items {
+            id
+            course_name
+            course_code
+            course_visibility
+            course_start_date
+            course_end_date
+            course_description
+            course_image
+            course_format
+            course_credit
+            departmentsID
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         createdAt
@@ -279,6 +394,34 @@ export const getUsers = /* GraphQL */ `
           id
           coursesId
           usersId
+          courses {
+            id
+            course_name
+            course_code
+            course_visibility
+            course_start_date
+            course_end_date
+            course_description
+            course_image
+            course_format
+            course_credit
+            departmentsID
+            createdAt
+            updatedAt
+          }
+          users {
+            id
+            email
+            name
+            phone
+            address
+            picture
+            description
+            department
+            role
+            createdAt
+            updatedAt
+          }
           createdAt
           updatedAt
         }
@@ -307,9 +450,27 @@ export const listUsers = /* GraphQL */ `
         department
         role
         AssignmentSubmissions {
+          items {
+            id
+            assignmentsID
+            usersID
+            number_of_files
+            grade
+            submission_comment
+            checker
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         Courses {
+          items {
+            id
+            coursesId
+            usersId
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         createdAt
@@ -472,6 +633,17 @@ export const listAssignments = /* GraphQL */ `
         grade
         extra_data
         AssignmentSubmissions {
+          items {
+            id
+            assignmentsID
+            usersID
+            number_of_files
+            grade
+            submission_comment
+            checker
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         coursesID
@@ -509,6 +681,17 @@ export const assignmentsByCoursesID = /* GraphQL */ `
         grade
         extra_data
         AssignmentSubmissions {
+          items {
+            id
+            assignmentsID
+            usersID
+            number_of_files
+            grade
+            submission_comment
+            checker
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         coursesID
@@ -537,13 +720,43 @@ export const getCoursesUsers = /* GraphQL */ `
         course_format
         course_credit
         Announcements {
+          items {
+            id
+            title
+            announcement
+            coursesID
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         Assignments {
+          items {
+            id
+            assignment_name
+            assignment_desc
+            resubmit
+            teacher
+            max_bytes
+            time_due
+            time_available
+            grade
+            extra_data
+            coursesID
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         departmentsID
         users {
+          items {
+            id
+            coursesId
+            usersId
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         createdAt
@@ -560,9 +773,27 @@ export const getCoursesUsers = /* GraphQL */ `
         department
         role
         AssignmentSubmissions {
+          items {
+            id
+            assignmentsID
+            usersID
+            number_of_files
+            grade
+            submission_comment
+            checker
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         Courses {
+          items {
+            id
+            coursesId
+            usersId
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         createdAt
@@ -595,7 +826,16 @@ export const listCoursesUsers = /* GraphQL */ `
           course_image
           course_format
           course_credit
+          Announcements {
+            nextToken
+          }
+          Assignments {
+            nextToken
+          }
           departmentsID
+          users {
+            nextToken
+          }
           createdAt
           updatedAt
         }
@@ -609,6 +849,12 @@ export const listCoursesUsers = /* GraphQL */ `
           description
           department
           role
+          AssignmentSubmissions {
+            nextToken
+          }
+          Courses {
+            nextToken
+          }
           createdAt
           updatedAt
         }
@@ -649,7 +895,16 @@ export const coursesUsersByCoursesId = /* GraphQL */ `
           course_image
           course_format
           course_credit
+          Announcements {
+            nextToken
+          }
+          Assignments {
+            nextToken
+          }
           departmentsID
+          users {
+            nextToken
+          }
           createdAt
           updatedAt
         }
@@ -663,6 +918,12 @@ export const coursesUsersByCoursesId = /* GraphQL */ `
           description
           department
           role
+          AssignmentSubmissions {
+            nextToken
+          }
+          Courses {
+            nextToken
+          }
           createdAt
           updatedAt
         }
@@ -703,7 +964,16 @@ export const coursesUsersByUsersId = /* GraphQL */ `
           course_image
           course_format
           course_credit
+          Announcements {
+            nextToken
+          }
+          Assignments {
+            nextToken
+          }
           departmentsID
+          users {
+            nextToken
+          }
           createdAt
           updatedAt
         }
@@ -717,6 +987,12 @@ export const coursesUsersByUsersId = /* GraphQL */ `
           description
           department
           role
+          AssignmentSubmissions {
+            nextToken
+          }
+          Courses {
+            nextToken
+          }
           createdAt
           updatedAt
         }

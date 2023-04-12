@@ -84,7 +84,7 @@ return(
                       )
                     })}/></span>
                 <span onClick={() => removeDepartment(rowData)}><IconTrash strokeWidth={2} color={'red'}/></span>
-                <span><IconEyeFilled strokeWidth={2} color={'gray'} onClick={() => navigate(`department/${rowData.id}`)}/></span>
+                <span><IconEyeFilled strokeWidth={2} color={'gray'} onClick={() => navigate(`${rowData.id}`)}/></span>
               </div>
             )},
           }
