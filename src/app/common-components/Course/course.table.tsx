@@ -23,8 +23,8 @@ function CourseTable({items, isLoading, refetch } : PropsWithChildren<any>) {
                   listDepartment()
                 )
 
-  const [departmentName, setDepartmentName] = useState('')
-
+  // const [departmentName, setDepartmentName] = useState('')
+  
   const removeCourse = (val: Courses) => {
     modals.openConfirmModal({
       title: 'Delete your profile',
@@ -98,12 +98,12 @@ return(
           },
           { accessor: "departmentsID", width: "40%", title: "Department",
             render: (department: any) => {
-              
+              let departmentName = ""
               if(data?.items && data?.items?.length > 0){
                 items = data?.items;
                 if(items){
                   const new_item = items.filter((el: any) => el.id === department.departmentsID) // change to department.id later
-                  setDepartmentName(new_item[0].department_name)
+                  departmentName = new_item[0].department_name;
                 } 
               }
               
