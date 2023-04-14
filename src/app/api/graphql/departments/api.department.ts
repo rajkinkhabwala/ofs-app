@@ -2,8 +2,8 @@ import { API } from "aws-amplify";
 import * as mutations from '../../../../graphql/mutations';
 import * as queries from '../../../../graphql/queries';
 import { GraphQLQuery, graphqlOperation, GRAPHQL_AUTH_MODE } from '@aws-amplify/api';
-import { CreateDepartmentsInput, CreateDepartmentsMutation, DeleteDepartmentsMutation, GetDepartmentsQuery, ListAnnouncementsQueryVariables, ListDepartmentsQuery, UpdateDepartmentsInput, UpdateDepartmentsMutation } from "../../../../API";
-import { GraphQLResult } from "../../../types/result.type";
+import { CreateDepartmentsInput, CreateDepartmentsMutation, DeleteDepartmentsMutation, Departments, GetDepartmentsQuery, ListAnnouncementsQueryVariables, ListDepartmentsQuery, UpdateDepartmentsInput, UpdateDepartmentsMutation } from "../../../../API";
+import { DepartmentGraphQLResult, GraphQLResult } from "../../../types/result.type";
 
 
 export async function createDepartment(department: CreateDepartmentsInput) {
@@ -23,13 +23,13 @@ export async function deleteDepartment(id: string) {
 
 export async function listDepartment(
     input?: ListAnnouncementsQueryVariables
-): Promise<GraphQLResult> {
+): Promise<DepartmentGraphQLResult> {
     return await new Promise((resolve, reject) =>{
         API.graphql<GraphQLQuery<ListDepartmentsQuery>>({ ...graphqlOperation(queries.listDepartments, {input}),
         authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS
     }).then((value) => {
     resolve({
-        items: value.data?.listDepartments?.items,
+        items: value.data?.listDepartments?.items as Departments[],
         nextToken: value.data?.listDepartments?.nextToken,
         errors: value.errors,
         extenstions: value.extensions,
