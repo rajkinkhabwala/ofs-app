@@ -1,16 +1,14 @@
 import { useQuery } from "react-query";
 import { Page } from "../../common-components/Page/Page.component";
-import { UserResult, listUsers } from "../../api/admin/api.admin";
 import Table from "../../common-components/Table/table.component";
 import { listUser } from "../../api/graphql/users/api.user";
-import { Users } from "../../../API";
-import { IconEdit, IconEyeFilled, IconTrash } from "@tabler/icons-react";
-import { modals } from "@mantine/modals";
+import { IconEyeFilled } from "@tabler/icons-react";
 import { useNavigate } from "react-router-dom";
+import { Users } from "../../../API";
 
 export function Component() {
 
-  const { data , isLoading, error, isError, refetch, isFetching, status } = useQuery(["user"], () =>
+  const { data , isLoading, error, isError, isFetching, status } = useQuery(["user"], () =>
     listUser(),
     {
     refetchOnWindowFocus: false,
@@ -27,12 +25,12 @@ export function Component() {
         {error}
         </>
       : status === "success" ?
-      <Table records={data.items!} columns={[
+      <Table<Users> records={data.items!} columns={[
         {accessor: "name", width: "30%", title: "Name"},
         {accessor: "email", width: "20%", title: "Email Address"},
         {
           accessor: "Modify", width:"20%",
-          render: (rowData: any) => {
+          render: (rowData: Users) => {
             return(
             <div className="crud-btn-container">
               <span><IconEyeFilled strokeWidth={2} color={'gray'} onClick={() => navigate(`${rowData.id}`)}/></span>

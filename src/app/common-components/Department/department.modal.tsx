@@ -10,13 +10,11 @@ import {
   createDepartment,
   updateDepartment,
 } from "../../api/graphql/departments/api.department";
-
-interface CustomDepartmentFormModal extends FormModal<Departments> {
-  refetch?: any
-}
+import { useMutation, useQueryClient } from "react-query";
 
 
-function DepartmentModal({ formType, record, refetch }: CustomDepartmentFormModal) {
+function DepartmentModal({ formType, record}: FormModal<Departments>) {
+
   let form = useForm<any>({
     initialValues:
       formType === "new"
@@ -33,29 +31,45 @@ function DepartmentModal({ formType, record, refetch }: CustomDepartmentFormModa
           },
   });
 
+  const queryClient = useQueryClient();
+  const createMutation = useMutation({
+    mutationFn: createDepartment,
+  });
+
+  const updateMutation = useMutation({
+    mutationFn: updateDepartment
+  });
+
   function handleSubmit(values: CreateDepartmentsInput) {
-    createDepartment(values).then((values) => {
-      let d = values.data?.createDepartments?.department_name;
-      notifications.show({
-        title: "Successful",
-        message: `Successfully added ${d}`,
-        color: "green",
-      });
-      refetch();
+    createMutation.mutate(values, {
+      onSuccess(data, variables, context) {
+        
+        notifications.show({
+          title: "Successful",
+          message: `Successfully added ${data.data?.createDepartments?.department_name}`,
+          color: "green",
+        }); 
+
+      queryClient.invalidateQueries({ queryKey: ['departments'] })
       form.reset();
+      },
     });
+    
   }
 
   function handleEdit(values: UpdateDepartmentsInput) {
-    console.log("edited");
-    updateDepartment(values).then(() => {
-      notifications.show({
-        title: "Successful",
-        message: `Successfully edited`,
-        color: "green",
-      });
-      refetch();
+    updateMutation.mutate(values, {
+      onSuccess(data, variables, context) {
+        
+        notifications.show({
+          title: "Successful",
+          message: `Successfully edited ${data.data?.updateDepartments?.department_name}`,
+          color: "green",
+        }); 
+
+      queryClient.invalidateQueries({ queryKey: ['departments'] })
       form.reset();
+      },
     });
   }
 

@@ -6,14 +6,18 @@ import './index.css';
 import App from './app/App';
 import reportWebVitals from './reportWebVitals';
 import { Authenticator } from '@aws-amplify/ui-react';
+import {QueryClientProvider, QueryClient} from "react-query";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+const client = new QueryClient();
 root.render(
   <React.StrictMode>
     <Authenticator.Provider>
+    <QueryClientProvider client={client} contextSharing={true}>
     <App />
+    </QueryClientProvider>
     </Authenticator.Provider>
   </React.StrictMode>
 );
