@@ -15,7 +15,8 @@ import { useAuthenticator } from '@aws-amplify/ui-react';
 function DashboardLayout() {
   const theme = useMantineTheme();
   const [opened, setOpened] = useState(false);
-  const { user } = useAuthenticator((context) => [context.signOut])
+  const { user } = useAuthenticator((context) => [context.user]);
+  const groups = user.getSignInUserSession()?.getAccessToken().payload["cognito:groups"];
   
   return (
     <AppShell
@@ -27,6 +28,7 @@ function DashboardLayout() {
       navbarOffsetBreakpoint="sm"
       asideOffsetBreakpoint="sm"
       navbar={
+        
       <AdminNavBar burgerVisiblity={!opened} user={user}/>
       }
       footer={

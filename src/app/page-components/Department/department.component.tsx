@@ -1,31 +1,23 @@
-import { listDepartment } from "../../api/graphql/departments/api.department";
 import { Title } from "@mantine/core";
 import DepartmentTable from "../../common-components/Department/department.table";
-import { useQuery } from "react-query";
+import { ErrorComponent } from "../../common-components/Errors/Error/Error.component";
+import { useListDepartmentQuery } from "../../api/queries/departments/queries.departments";
 
 export function Component() {
-  const { data, isLoading, error, isError, refetch, isFetching, status } = useQuery(["department"], () =>
-    listDepartment(),
-    {
-    refetchOnWindowFocus: false,
-    }
-  );
   
+  const { data, isLoading, error, isError } = useListDepartmentQuery();
+  
+  if(isError) {
+    return(
+      <ErrorComponent error={error} />
+    )
+  }
+  
+
   return (
     <>
       <Title order={1}>Departments</Title>
-      {
-        isError ?
-        <>
-        {error}
-        </>
-      : status === "success" ?
-      <DepartmentTable items={data?.items} isLoading={isLoading} refetch={refetch}/> :
-      <>
-      <DepartmentTable items={[]} isLoading={isLoading || isFetching} />
-      </>
-      }
-      
+      <DepartmentTable data={data} isLoading={isLoading} enableHeader={true} /> 
     </>
   );
 }

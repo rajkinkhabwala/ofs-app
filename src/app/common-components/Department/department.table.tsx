@@ -1,5 +1,4 @@
 import { Button } from "@mantine/core";
-import { DataTable } from "mantine-datatable";
 import { PropsWithChildren } from "react";
 import { IconPlus, IconEdit, IconTrash, IconEyeFilled } from "@tabler/icons-react";
 import {Text} from "@mantine/core"
@@ -10,12 +9,27 @@ import { deleteDepartment } from "../../api/graphql/departments/api.department";
 import { notifications } from "@mantine/notifications";
 import { Departments } from "../../../API";
 import { useNavigate } from "react-router-dom";
+import Table from "../Table/table.component";
+import { DepartmentGraphQLResult } from "../../types/result.type";
+import { useMutation, useQueryClient } from "react-query";
 
-function DepartmentTable({items, isLoading, refetch } : PropsWithChildren<any>) {
+
+interface DepartmentTableProps extends PropsWithChildren {
+  data: DepartmentGraphQLResult | undefined | null,
+  isLoading: boolean,
+  enableHeader: boolean
+}
+
+
+function DepartmentTable({data, isLoading, enableHeader} : DepartmentTableProps) {
 
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
+  const deleteMutation = useMutation(deleteDepartment);
 
+  
   const removeDepartment = (val: Departments) => {
+
     modals.openConfirmModal({
       title: 'Delete your profile',
       centered: true,
@@ -28,44 +42,25 @@ function DepartmentTable({items, isLoading, refetch } : PropsWithChildren<any>) 
       labels: { confirm: 'Delete Department', cancel: "No don't delete it" },
       confirmProps: { color: 'red' },
       onConfirm: () => {
-        deleteDepartment(val.id).then((value) => {
-          console.log(value)
-          notifications.show({
-            title: 'Successful',
-            message: `Successfully deleted ${value.data?.deleteDepartments?.department_name}!`,
-            color: 'red'
-          })
-          refetch();
-        });
+        deleteMutation.mutate(val.id, {
+          onSuccess(data, variables, context) {
+            notifications.show({
+              title: 'Successful',
+              message: `Successfully deleted ${data.data?.deleteDepartments?.department_name}!`,
+              color: 'red'
+            });
+            queryClient.invalidateQueries({queryKey: ["departments"]})   
+          },
+        })
       },  
     })
     
   }
 
 return(
-    <div className={isLoading ? `table-template table-loading` : "table-template"}>
-      <div className="table-header">
-        <Button className="add-course" leftIcon={<IconPlus />} onClick={() => modals.open({
-          title: "Create Department",
-          children: (
-            <>
-              <DepartmentModal formType="new" refetch={refetch} />
-            </>
-          )
-        })}>
-          Add Department
-        </Button>
-      </div>
-      <DataTable
-        withBorder
-        withColumnBorders
-        fetching={isLoading}
-        records={items}
-        style={{
-          borderRadius: 5,
-          borderWidth: "1px"
-        }}
-        columns={[
+    <Table<Departments>
+    records={data?.items!} 
+    columns={[
           { accessor: "department_id", width: "40%", title: "Department ID" },
           { accessor: "department_name", width: "40%", title: "Department Name" },
           {
@@ -79,20 +74,37 @@ return(
                     title: "Edit Department",
                     children: (
                       <>
-                        <DepartmentModal formType="edit" record={rowData} refetch={refetch}/>
+                        <DepartmentModal formType="edit" record={rowData} />
                       </>
                       )
                     })}/></span>
                 <span onClick={() => removeDepartment(rowData)}><IconTrash strokeWidth={2} color={'red'}/></span>
-                <span><IconEyeFilled strokeWidth={2} color={'gray'} onClick={() => navigate(`department/${rowData.id}`)}/></span>
+                <span><IconEyeFilled strokeWidth={2} color={'gray'} onClick={() => navigate(`${rowData.id}`)}/></span>
               </div>
             )},
           }
-        ]}
-      />
-      </div>
+    ]}
+    
+    header= {
+      enableHeader? 
+      <Button className="add-course" leftIcon={<IconPlus />} onClick={() => modals.open({
+              title: "Create Department",
+              children: (
+                <>
+                  <DepartmentModal formType="new" />
+                </>
+              )
+            })}>
+              Add Department
+            </Button>
+      :
+      <>
+      
+      </>
+    }
+    fetching={isLoading}
+    />
 )
-
 }
 
 export default DepartmentTable;
