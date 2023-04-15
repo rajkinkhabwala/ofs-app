@@ -16,7 +16,7 @@
       "function": {
         "AdminQueriesc70cc6d6": {
           "deploymentBucketName": "amplify-ofsapp-dev-171226-deployment",
-          "s3Key": "amplify-builds/AdminQueriesc70cc6d6-5848554144684f2f386e-build.zip"
+          "s3Key": "amplify-builds/AdminQueriesc70cc6d6-6c64566d365447494d4c-build.zip"
         },
         "ofsapp34d3690a34d3690aPostConfirmation": {
           "deploymentBucketName": "amplify-ofsapp-dev-171226-deployment",
