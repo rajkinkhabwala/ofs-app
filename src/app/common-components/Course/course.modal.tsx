@@ -1,4 +1,4 @@
-import { Button, Group, Textarea, TextInput } from "@mantine/core";
+import { Button, Group, Loader, Textarea, TextInput, SelectItem } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { notifications } from "@mantine/notifications";
 import { Switch } from '@mantine/core';
@@ -7,20 +7,21 @@ import {
   CreateCoursesInput,
   Courses,
   UpdateCoursesInput,
+  Departments,
 } from "../../../API";
 import {
   createCourse,
   updateCourse,
 } from "../../api/graphql/courses/api.course";
 import "../../styles/_modal.scss"
-
-interface CustomCoursesFormModal extends FormModal<Courses> {
-  refetch?: any
-  departmentData?: any
-}
+import { useMutation, useQueryClient } from "react-query";
+import { useListDepartmentQuery } from "../../api/queries/departments/queries.departments";
 
 
-function CourseModal({ formType, record, refetch, departmentData }: CustomCoursesFormModal) {
+
+
+function CourseModal({ formType, record}: FormModal<Courses>) {
+
 
   let form = useForm<any>({
     initialValues:
@@ -40,32 +41,50 @@ function CourseModal({ formType, record, refetch, departmentData }: CustomCourse
         },
   });
   
+    const queryClient = useQueryClient();
 
-  function handleSubmit(values: CreateCoursesInput) {
-    createCourse(values).then((values) => {
-      let d = values.data?.createCourses?.course_name;
-      notifications.show({
-        title: "Successful",
-        message: `Successfully added ${d}`,
-        color: "green",
-      });
-      refetch();
-      form.reset();
+    const { data, isError, isLoading} = useListDepartmentQuery(); 
+
+    // Create
+    const createMutation = useMutation({
+      mutationFn: createCourse,
     });
-  }
+
+    // Update
+    const updateMutation = useMutation({
+      mutationFn: updateCourse
+    });   
+    
+  function handleSubmit(values: CreateCoursesInput) {
+      createMutation.mutate(values, {
+        onSuccess(data, variables, context) {
+
+          notifications.show({
+            title: "Successful",
+            message: `Successfully added ${data.data?.createCourses?.course_name}`,
+            color: "green",
+          });
+
+          queryClient.invalidateQueries({queryKey: ['courses']})
+          form.reset();
+        },
+      });
+    }
 
   function handleEdit(values: UpdateCoursesInput) {
-    console.log("edited");
-    updateCourse(values).then(() => {
-      notifications.show({
-        title: "Successful",
-        message: `Successfully edited`,
-        color: "green",
-      });
-      refetch();
-      form.reset();
-    });
-  }
+      updateMutation.mutate(values, {
+        onSuccess(data, variables, context) {
+
+          notifications.show({
+            title: "Successful",
+            message: `Successfully edited ${data.data?.updateCourses?.course_name}`,
+            color: "green",
+          }); 
+          queryClient.invalidateQueries({ queryKey: ['courses'] })
+          
+          },
+        });
+      }
 
   return (
     <div className="modal-template">
@@ -90,26 +109,21 @@ function CourseModal({ formType, record, refetch, departmentData }: CustomCourse
           required
           {...form.getInputProps("course_code")}
         />
-        {/* <Textarea
-          placeholder="Course Description"
-          label="Enter the course description"
-          {...form.getInputProps("course_description")}
-        /> */}
-
+        
         <div className="switch-label">
           <label>Visibility <span>*</span></label>
         </div>
         <Switch
           checked={form.getInputProps("course_visibility").value}
           {...form.getInputProps("course_visibility")} />
-
+      
         <Select {...form.getInputProps("departmentsID")}
-         label="Your favorite framework/library"
-         placeholder="Pick one"
-         data={departmentData.items.map((el: any) => (
-            {value : el.id, label: el.department_name}
-          )
-         )}
+         label="Course Department"
+         rightSection={isLoading ? <Loader />: null}
+         error={isError ?? "Data is not fetch!"}
+         placeholder="Pick one department"
+         data={isLoading ? [] : data?.items.map((el: Departments) => ({value: el.id, label: el.department_name, selected: record ? record : null})
+       )}
        />
         
         <Group position="right" mt="md">

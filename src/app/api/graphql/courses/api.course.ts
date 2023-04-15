@@ -2,8 +2,8 @@ import { API } from "aws-amplify";
 import * as mutations from '../../../../graphql/mutations';
 import * as queries from '../../../../graphql/queries';
 import { GraphQLQuery, graphqlOperation, GRAPHQL_AUTH_MODE } from '@aws-amplify/api';
-import { CreateCoursesInput, CreateCoursesMutation, DeleteCoursesMutation, GetCoursesQuery, ListCoursesQuery, ModelCoursesFilterInput, UpdateCoursesInput, UpdateCoursesMutation } from "../../../../API";
-import { GraphQLResult } from "../../../types/result.type";
+import { CreateCoursesInput, CreateCoursesMutation, Courses, DeleteCoursesMutation, GetCoursesQuery, ListCoursesQuery, ModelCoursesFilterInput, UpdateCoursesInput, UpdateCoursesMutation } from "../../../../API";
+import { CourseGraphQLResult, GraphQLResult } from "../../../types/result.type";
 
 
 export async function createCourse(course: CreateCoursesInput) {
@@ -22,7 +22,7 @@ export async function listCourse(
     filter?: ModelCoursesFilterInput,
     limit?: number,
     nextToken?: string
-) :Promise<GraphQLResult> {
+) :Promise<CourseGraphQLResult> {
         return await new Promise((resolve, reject) =>{
             API.graphql<GraphQLQuery<ListCoursesQuery>>(graphqlOperation(queries.listCourses, {
                 filter: filter,
@@ -30,7 +30,7 @@ export async function listCourse(
                 nextToken: nextToken
             })).then((value) => {
         resolve({
-            items: value.data?.listCourses?.items,
+            items: value.data?.listCourses?.items as Courses[],
             nextToken: value.data?.listCourses?.nextToken,
             errors: value.errors,
             extenstions: value.extensions,

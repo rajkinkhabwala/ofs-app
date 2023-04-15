@@ -1,5 +1,5 @@
-import { Button } from "@mantine/core";
-import { DataTable } from "mantine-datatable";
+import { Button, Loader } from "@mantine/core";
+// import { DataTable } from "mantine-datatable";
 import { PropsWithChildren, useState } from "react";
 import { IconPlus, IconEdit, IconTrash, IconEyeFilled } from "@tabler/icons-react";
 import {Text} from "@mantine/core"
@@ -9,21 +9,34 @@ import { deleteCourse } from "../../api/graphql/courses/api.course";
 import { notifications } from "@mantine/notifications";
 import { Courses } from "../../../API";
 import { useNavigate } from "react-router-dom";
-import { listDepartment } from "../../api/graphql/departments/api.department";
+import { getDepartment, listDepartment } from "../../api/graphql/departments/api.department";
 import CourseModal from "./course.modal";
 import { useQuery } from "react-query";
 import { IconEyeCheck } from '@tabler/icons-react';
 import { IconEyeOff } from '@tabler/icons-react';
+import Table from "../Table/table.component"
+import {CourseGraphQLResult} from "../../types/result.type";
+import { useMutation, useQueryClient } from "react-query";
+import { useDepartmentQuery } from "../../api/queries/departments/queries.departments";
 
-function CourseTable({items, isLoading, refetch } : PropsWithChildren<any>) {
+// function CourseTable({items, isLoading, refetch } : PropsWithChildren<any>) {
+  interface CourseTableProps extends PropsWithChildren {
+    data: CourseGraphQLResult | undefined | null,
+    isLoading: boolean,
+    enableHeader: boolean
+  }
+  
+  
+  function CourseTable({data, isLoading, enableHeader} : CourseTableProps) {
 
-  const navigate = useNavigate();
+    const navigate = useNavigate();
+    const queryClient = useQueryClient();
+    const deleteMutation = useMutation(deleteCourse);
+    console.log(data)
 
-  const {data} = useQuery(["department"], () =>
-                  listDepartment()
-                )
+  //const [departmentID, setDepartmentID] = useState('');
 
-  // const [departmentName, setDepartmentName] = useState('')
+  //const { data: departmentData, isError: isDepartmentError, isLoading: isDepartmentLoading } = useDepartmentQuery(departmentID);
   
   const removeCourse = (val: Courses) => {
     modals.openConfirmModal({
@@ -38,47 +51,28 @@ function CourseTable({items, isLoading, refetch } : PropsWithChildren<any>) {
       labels: { confirm: 'Delete Course', cancel: "No don't delete it" },
       confirmProps: { color: 'red' },
       onConfirm: () => {
-        deleteCourse(val.id).then((value) => {
-          console.log(value)
-          notifications.show({
-            title: 'Successful',
-            message: `Successfully deleted ${value.data?.deleteCourses?.course_name}!`,
-            color: 'red'
-          })
-          refetch();
-        });
+        deleteMutation.mutate(val.id, {
+          onSuccess(data, variables, context) {
+            notifications.show({
+              title: 'Successful',
+              message: `Successfully deleted ${data.data?.deleteCourses?.course_name}!`,
+              color: 'red'
+            });
+            queryClient.invalidateQueries({queryKey: ["courses"]})   
+          },
+        })
       },  
     })
     
   }  
 
 return(
-    <div className={isLoading ? `table-template table-loading` : "table-template"}>
-      <div className="table-header">
-        <Button className="add-course" leftIcon={<IconPlus />} onClick={() => modals.open({
-          title: "Create Course",
-          children: (
-            <>
-              <CourseModal formType="new" refetch={refetch} departmentData={data} />
-            </>
-          )
-        })}>
-          Add Course
-        </Button>
-      </div>
-      <DataTable
-        withBorder
-        withColumnBorders
-        fetching={isLoading}
-        records={items}
-        style={{
-          borderRadius: 5,
-          borderWidth: "1px"
-        }}
-        columns={[
-          { accessor: "course_code", width: "40%", title: "Course Code" },
-          { accessor: "course_name", width: "40%", title: "Course Name" },
-          { accessor: "course_visibility", width: "40%", title: "Visibility",
+  <Table<Courses>
+    records={data?.items!} 
+    columns={[
+          { accessor: "course_code", title: "Course Code" },
+          { accessor: "course_name", title: "Course Name" },
+          { accessor: "course_visibility", title: "Visibility",
             render: (vis: any) => {
               return(
                 <div style={{textAlign: "center"}}>
@@ -97,44 +91,51 @@ return(
             }
           },
           { accessor: "departmentsID", width: "40%", title: "Department",
-            render: (department: any) => {
-              let departmentName = ""
-              if(data?.items && data?.items?.length > 0){
-                items = data?.items;
-                if(items){
-                  const new_item = items.filter((el: any) => el.id === department.departmentsID) // change to department.id later
-                  departmentName = new_item[0].department_name;
-                } 
-              }
-              
-              return (
-                <div>{departmentName}</div>
-              )
+            render: (course: Courses) => {
+              return (<>{course.departmentsID}</>)
             }
           },
-          {
-            accessor: "Modify", width:"20%",
+          { 
+            accessor: "Modify", width: "20%",
             render: (rowData: Courses) => {
               
               return(
               <div className="crud-btn-container">
-                <span>
+            <span>
                   <IconEdit strokeWidth={2} color={'blue'} onClick={() => modals.open({
-                    title: "Edit Course",
-                    children: (
-                      <>
-                        <CourseModal formType="edit" record={rowData} refetch={refetch} departmentData={data}/>
-                      </>
-                      )
-                    })}/></span>
-                <span onClick={() => removeCourse(rowData)}><IconTrash strokeWidth={2} color={'red'}/></span>
-                <span><IconEyeFilled strokeWidth={2} color={'gray'} onClick={() => navigate(`course/${rowData.id}`)}/></span>
-              </div>
-            )},
-          }
-        ]}
-      />
+            title: "View Course",
+            children: (
+              <>
+                <CourseModal formType="edit" record={rowData} />
+              </>
+            ) 
+          })}/></span>
+          <span onClick={() => removeCourse(rowData)}><IconTrash strokeWidth={2} color={'red'}/></span>
+          <span><IconEyeFilled strokeWidth={2} color={'gray'} onClick={() => navigate(`${rowData.id}`)}/></span>
       </div>
+    )},
+   }
+  ]}
+
+    header= {
+      enableHeader? 
+      <Button className="add-course" leftIcon={<IconPlus />} onClick={() => modals.open({
+              title: "Create Course",
+              children: (
+                <>
+                  <CourseModal formType="new" />
+                </>
+              )
+            })}>
+              Add Course
+            </Button>
+      :
+      <>
+
+      </>
+    }
+    fetching={isLoading}
+    />
 )
 
 }

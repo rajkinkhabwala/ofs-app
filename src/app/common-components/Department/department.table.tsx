@@ -61,7 +61,7 @@ return(
     <Table<Departments>
     records={data?.items!} 
     columns={[
-            { accessor: "department_id", width: "40%", title: "Department ID" },
+          { accessor: "department_id", width: "40%", title: "Department ID" },
           { accessor: "department_name", width: "40%", title: "Department Name" },
           {
             accessor: "Modify", width:"20%",
