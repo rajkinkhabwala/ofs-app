@@ -6,7 +6,9 @@ import PageNotFound from "../../common-components/Errors/404/404.component";
 import Loading from "../../common-components/Loading/loading.component";
 import { Tabs } from "@mantine/core";
 import { IconPhoto, IconMessageCircle, IconSettings } from "@tabler/icons-react";
-import CourseTable from "../../common-components/Course/course.table";
+import React from "react";
+import { Calendar } from "@mantine/dates";
+const EditCourse = React.lazy(() => import("../../common-components/Course/editcourse.page"));
 
 export function Component(){
     const params = useParams()
@@ -24,19 +26,22 @@ export function Component(){
 return(
 <Page title={data?.data?.getCourses?.course_name!}>
 
-<Tabs defaultValue="gallery">
+<Tabs defaultValue="edit">
       <Tabs.List>
-        <Tabs.Tab value="gallery" icon={<IconPhoto size="0.8rem" />}>Gallery</Tabs.Tab>
+        <Tabs.Tab value="edit" icon={<IconPhoto size="0.8rem" />}>Edit</Tabs.Tab>
         <Tabs.Tab value="messages" icon={<IconMessageCircle size="0.8rem" />}>Messages</Tabs.Tab>
         <Tabs.Tab value="settings" icon={<IconSettings size="0.8rem" />}>Settings</Tabs.Tab>
       </Tabs.List>
 
-      <Tabs.Panel value="gallery" pt="xl">
+      <Tabs.Panel value="edit" pt="xl">
         {/* <CourseTable items={data} isLoading={isLoading} refetch={refetch}/> */}
+
+        <EditCourse record={data}/>
+
       </Tabs.Panel>
 
       <Tabs.Panel value="messages" pt="xl">
-        Messages tab content
+        <Calendar size="xl" />
       </Tabs.Panel>
 
       <Tabs.Panel value="settings" pt="xl">
