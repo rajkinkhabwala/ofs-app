@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { PropsWithChildren, useState } from 'react';
 import {
   AppShell,
   Header,
@@ -6,18 +6,21 @@ import {
   MediaQuery,
   Burger,
   useMantineTheme,
+  Overlay,
 } from '@mantine/core';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import '../styles/_dashboard.scss'
 import AdminNavBar from './navbars/admin.navbar';
 import { useAuthenticator } from '@aws-amplify/ui-react';
+import NavBarLayout from './navbars/navbar.layout';
 
 function DashboardLayout() {
   const theme = useMantineTheme();
   const [opened, setOpened] = useState(false);
   const { user } = useAuthenticator((context) => [context.user]);
-  const groups = user.getSignInUserSession()?.getAccessToken().payload["cognito:groups"];
-  
+  //const groups = user.getSignInUserSession()?.getAccessToken().payload["cognito:groups"];
+  const location = useLocation();
+  console.log(location)
   return (
     <AppShell
       styles={{
@@ -29,7 +32,16 @@ function DashboardLayout() {
       asideOffsetBreakpoint="sm"
       navbar={
         
-      <AdminNavBar burgerVisiblity={!opened} user={user}/>
+      <NavBarLayout burgerVisiblity={!opened} user={user}>
+        {
+          location.pathname.includes("/admin") ?
+          <AdminNavBar /> :
+          location.pathname.includes("/student/") ?
+          <>Hello</> :
+          <></>
+        }
+        
+        </NavBarLayout>
       }
       footer={
         <Footer height={60} p="md" className="footer-section">
@@ -54,7 +66,7 @@ function DashboardLayout() {
         </Header>
       }
     >
-      <Outlet />
+      <Outlet context={user}/>
     </AppShell>
   );
 }

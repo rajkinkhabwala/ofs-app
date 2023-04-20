@@ -6,7 +6,9 @@ import {
     Button,
     SimpleGrid,
     rem,
+    Image
   } from '@mantine/core';
+import { useRouteError } from 'react-router-dom';
 
   
   const useStyles = createStyles((theme) => ({
@@ -45,24 +47,28 @@ import {
     },
   }));
   
-  export function ErrorComponent({error}:any) {
+  export function ErrorComponent() {
     const { classes } = useStyles();
+    const error = useRouteError();
+
+    console.log(error);
   
     return (
       <Container className={classes.root}>
-        <SimpleGrid spacing={80} cols={2} breakpoints={[{ maxWidth: 'sm', cols: 1, spacing: 40 }]}>
-          <div>
-            <Title className={classes.title}>Something is not right...</Title>
-            <Text color="dimmed" size="lg">
-              Page you are trying to open does not exist. You may have mistyped the address, or the
-              page has been moved to another URL. If you think this is an error contact support.
-            </Text>
-            {error}
-            <Button variant="outline" size="md" mt="xl" className={classes.control}>
-              Get back to home page
-            </Button>
-          </div>
-        </SimpleGrid>
-      </Container>
+      <SimpleGrid spacing={80} cols={2} breakpoints={[{ maxWidth: 'sm', cols: 1, spacing: 40 }]}>
+        <Image src={"https://raw.githubusercontent.com/mantinedev/ui.mantine.dev/master/components/NotFoundImage/image.svg"} className={classes.mobileImage} />
+        <div>
+          <Title className={classes.title}>Something is not right...</Title>
+          <Text color="dimmed" size="lg">
+            Page you are trying to open does not exist. You may have mistyped the address, or the
+            page has been moved to another URL. If you think this is an error contact support.
+          </Text>
+          <Button variant="filled" color='teal' size="md" mt="xl" className={classes.control}>
+            Get back to home page
+          </Button>
+        </div>
+        <Image src={"https://raw.githubusercontent.com/mantinedev/ui.mantine.dev/master/components/NotFoundImage/image.svg"} className={classes.desktopImage} />
+      </SimpleGrid>
+    </Container>
     );
   }

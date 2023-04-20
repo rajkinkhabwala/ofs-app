@@ -6,22 +6,6 @@ import { NavLink, useLocation } from 'react-router-dom';
 import { adminlinks } from '../../constants/navbars/admin-navbars';
 
 const useStyles = createStyles((theme) => ({
-  header: {
-    paddingBottom: theme.spacing.md,
-    marginBottom: `calc(${theme.spacing.md} * 1.5)`,
-    borderBottom: `${rem(1)} solid ${
-      theme.colorScheme === 'dark' ? theme.colors.dark[4] : theme.colors.gray[2]
-    }`,
-  },
-
-  footer: {
-    paddingTop: theme.spacing.xs,
-    marginTop: theme.spacing.xs,
-    borderTop: `${rem(1)} solid ${
-      theme.colorScheme === 'dark' ? theme.colors.dark[4] : theme.colors.gray[2]
-    }`,
-  },
-
   link: {
     ...theme.fn.focusStyles(),
     display: 'flex',
@@ -62,7 +46,7 @@ const useStyles = createStyles((theme) => ({
 
 const data = adminlinks;
 
-export function AdminNavBar({burgerVisiblity, user} : any) {
+export function AdminNavBar() {
   const { classes, cx } = useStyles();
   const location = useLocation();
 
@@ -77,23 +61,8 @@ export function AdminNavBar({burgerVisiblity, user} : any) {
     </NavLink>
   ));
 
-  return (
-    <Navbar p="md" hiddenBreakpoint="sm" hidden={!burgerVisiblity} width={{ sm: 200, lg: 300 }} className="navbar-template">
-      <Navbar.Section grow>
-        {links}
-      </Navbar.Section>
-
-      <Navbar.Section className={classes.footer}>        
-        <Anchor className={classes.link} onClick={() => {
-          user.signOut();
-          window.location.reload();
-        }}>
-          <IconLogout className={classes.linkIcon} stroke={1.5} />
-          <span>Logout</span>
-        </Anchor>
-      </Navbar.Section>
-    </Navbar>
-  );
+  
+  return (<>{links}</>);
 }
 
 export default AdminNavBar
