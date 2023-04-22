@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { getUser } from "../../api/graphql/users/api.user";
 import { Tabs } from "@mantine/core";
 import { IconPhoto, IconMessageCircle, IconSettings } from "@tabler/icons-react";
+import '../../styles/_single-pages.scss'
 
 export function Component() {
 
@@ -20,15 +21,17 @@ return(
         {error}
         </>
       : status === "success" ?
-      <>
+      <div className="single-page-template">
       <Page title={data.data?.getUsers?.name!}>
 
       <Tabs defaultValue="gallery">
-      <Tabs.List>
-        <Tabs.Tab value="gallery" icon={<IconPhoto size="0.8rem" />}>Gallery</Tabs.Tab>
-        <Tabs.Tab value="messages" icon={<IconMessageCircle size="0.8rem" />}>Messages</Tabs.Tab>
-        <Tabs.Tab value="settings" icon={<IconSettings size="0.8rem" />}>Settings</Tabs.Tab>
-      </Tabs.List>
+        <div className="nav-container">
+          <Tabs.List>
+            <Tabs.Tab value="gallery" icon={<IconPhoto size="1rem" />}>Gallery</Tabs.Tab>
+            <Tabs.Tab value="messages" icon={<IconMessageCircle size="1rem" />}>Messages</Tabs.Tab>
+            <Tabs.Tab value="settings" icon={<IconSettings size="1rem" />}>Settings</Tabs.Tab>
+          </Tabs.List>
+        </div>
 
       <Tabs.Panel value="gallery" pt="xl">
         Gallery tab content
@@ -41,11 +44,11 @@ return(
       <Tabs.Panel value="settings" pt="xl">
         Settings tab content
       </Tabs.Panel>
-    </Tabs>
+      </Tabs>
         
       </Page>
       
-      </>
+      </div>
        :
       <>
       

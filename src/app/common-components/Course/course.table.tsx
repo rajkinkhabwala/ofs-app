@@ -1,5 +1,4 @@
 import { Button, Loader } from "@mantine/core";
-// import { DataTable } from "mantine-datatable";
 import { PropsWithChildren, useState } from "react";
 import { IconPlus, IconEdit, IconTrash, IconEyeFilled } from "@tabler/icons-react";
 import {Text} from "@mantine/core"
@@ -9,17 +8,13 @@ import { deleteCourse } from "../../api/graphql/courses/api.course";
 import { notifications } from "@mantine/notifications";
 import { Courses } from "../../../API";
 import { useNavigate } from "react-router-dom";
-import { getDepartment, listDepartment } from "../../api/graphql/departments/api.department";
 import CourseModal from "./course.modal";
-import { useQuery } from "react-query";
 import { IconEyeCheck } from '@tabler/icons-react';
 import { IconEyeOff } from '@tabler/icons-react';
 import Table from "../Table/table.component"
 import {CourseGraphQLResult} from "../../types/result.type";
 import { useMutation, useQueryClient } from "react-query";
-import { useDepartmentQuery } from "../../api/queries/departments/queries.departments";
 
-// function CourseTable({items, isLoading, refetch } : PropsWithChildren<any>) {
   interface CourseTableProps extends PropsWithChildren {
     data: CourseGraphQLResult | undefined | null,
     isLoading: boolean,
@@ -32,12 +27,7 @@ import { useDepartmentQuery } from "../../api/queries/departments/queries.depart
     const navigate = useNavigate();
     const queryClient = useQueryClient();
     const deleteMutation = useMutation(deleteCourse);
-    console.log(data)
 
-  //const [departmentID, setDepartmentID] = useState('');
-
-  //const { data: departmentData, isError: isDepartmentError, isLoading: isDepartmentLoading } = useDepartmentQuery(departmentID);
-  
   const removeCourse = (val: Courses) => {
     modals.openConfirmModal({
       title: 'Delete your profile',
@@ -92,6 +82,7 @@ return(
           },
           { accessor: "departmentsID", width: "40%", title: "Department",
             render: (course: Courses) => {
+              //  dept name needed
               return (<>{course.departmentsID}</>)
             }
           },
@@ -101,17 +92,17 @@ return(
               
               return(
               <div className="crud-btn-container">
-            <span>
-                  <IconEdit strokeWidth={2} color={'blue'} onClick={() => modals.open({
-            title: "View Course",
-            children: (
-              <>
-                <CourseModal formType="edit" record={rowData} />
-              </>
-            ) 
-          })}/></span>
-          <span onClick={() => removeCourse(rowData)}><IconTrash strokeWidth={2} color={'red'}/></span>
-          <span><IconEyeFilled strokeWidth={2} color={'gray'} onClick={() => navigate(`${rowData.id}`)}/></span>
+                <span>
+                      <IconEdit strokeWidth={2} color={'blue'} onClick={() => modals.open({
+                title: "View Course",
+                children: (
+                  <>
+                    <CourseModal formType="edit" record={rowData} />
+                  </>
+                ) 
+              })}/></span>
+              <span onClick={() => removeCourse(rowData)}><IconTrash strokeWidth={2} color={'red'}/></span>
+              <span><IconEyeFilled strokeWidth={2} color={'gray'} onClick={() => navigate(`${rowData.id}`)}/></span>
       </div>
     )},
    }

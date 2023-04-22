@@ -1,0 +1,22 @@
+.single-page-template {
+    
+    .nav-container {
+        margin-top: 1rem;
+        
+        .mantine-Tabs-tab{
+            background-color: #9ad4d652;
+            border-color: #dee2e6;       
+            border-radius: 10px 10px 0 0;        
+            margin-right: 2px;
+
+            &[data-active] {
+                border-color: #000;
+            }
+
+            .mantine-Tabs-tabLabel {
+                font-size: 18px;
+                font-weight: 300;
+            }
+        }
+    }
+}
