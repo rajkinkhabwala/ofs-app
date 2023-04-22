@@ -19,6 +19,7 @@ function DashboardLayout() {
   const [opened, setOpened] = useState(false);
   const { user } = useAuthenticator((context) => [context.user]);
   const groups = user.getSignInUserSession()?.getAccessToken().payload["cognito:groups"];
+  
   const location = useLocation();
   //console.log(location)
 

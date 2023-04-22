@@ -2,8 +2,6 @@ import { createBrowserRouter} from 'react-router-dom';
 import DashboardLayout from './layouts/dashboard.layout';
 import { ErrorComponent } from './common-components/Errors/Error/Error.component';
 
-
-
 const route = createBrowserRouter([
     {
         path: '/',
@@ -38,6 +36,14 @@ const route = createBrowserRouter([
                         path: 'users/:id/',
                         lazy: () => import('./page-components/User/singleuser.compontent')
                     },
+                    {
+                        path: 'assignments/',
+                        lazy: () => import('./page-components/Assignment/assignment.component')
+                    },
+                    {
+                        path: 'assignments/:id',
+                        lazy: () => import('./page-components/Assignment/singleassignment.component')
+                    }
                    
                 ],
                 errorElement: <ErrorComponent /> 
