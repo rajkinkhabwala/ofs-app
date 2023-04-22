@@ -1,6 +1,5 @@
 import { createBrowserRouter} from 'react-router-dom';
 import DashboardLayout from './layouts/dashboard.layout';
-import PageNotFound from './common-components/Errors/404/404.component';
 import { ErrorComponent } from './common-components/Errors/Error/Error.component';
 
 
@@ -12,7 +11,7 @@ const route = createBrowserRouter([
         children: [
             {
     
-                path: '/admin',
+                path: 'admin/',
                 lazy: () => import('./layouts/dashboard/admin.dashboard'),
                 children: [
                     {
@@ -20,7 +19,7 @@ const route = createBrowserRouter([
                         lazy: () => import('./page-components/Department/department.component'),
                     },
                     {
-                        path: 'departments/:id',
+                        path: 'departments/:id/',
                         lazy: () => import('./page-components/Department/singledepartment.component')
                     },
                     {
@@ -39,15 +38,12 @@ const route = createBrowserRouter([
                         path: 'users/:id/',
                         lazy: () => import('./page-components/User/singleuser.compontent')
                     },
-                    {
-                        path: 'student/',
-                        element: <>Student</>
-                    }
+                   
                 ],
-            
+                errorElement: <ErrorComponent /> 
         },
             {
-                path: "/student",
+                path: "student/",
                 lazy: () => import('./layouts/dashboard/student.dashboard'),
                 children:[
                     // Add Routes Over here

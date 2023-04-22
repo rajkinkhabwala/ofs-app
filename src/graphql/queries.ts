@@ -106,7 +106,7 @@ export const getCourses = /* GraphQL */ `
         nextToken
       }
       departmentsID
-      users {
+      Users {
         items {
           id
           coursesId
@@ -197,7 +197,7 @@ export const listCourses = /* GraphQL */ `
           nextToken
         }
         departmentsID
-        users {
+        Users {
           items {
             id
             coursesId
@@ -270,7 +270,7 @@ export const coursesByDepartmentsID = /* GraphQL */ `
           nextToken
         }
         departmentsID
-        users {
+        Users {
           items {
             id
             coursesId
@@ -313,7 +313,7 @@ export const getDepartments = /* GraphQL */ `
             nextToken
           }
           departmentsID
-          users {
+          Users {
             nextToken
           }
           createdAt
@@ -749,7 +749,7 @@ export const getCoursesUsers = /* GraphQL */ `
           nextToken
         }
         departmentsID
-        users {
+        Users {
           items {
             id
             coursesId
@@ -833,7 +833,7 @@ export const listCoursesUsers = /* GraphQL */ `
             nextToken
           }
           departmentsID
-          users {
+          Users {
             nextToken
           }
           createdAt
@@ -902,7 +902,7 @@ export const coursesUsersByCoursesId = /* GraphQL */ `
             nextToken
           }
           departmentsID
-          users {
+          Users {
             nextToken
           }
           createdAt
@@ -971,7 +971,7 @@ export const coursesUsersByUsersId = /* GraphQL */ `
             nextToken
           }
           departmentsID
-          users {
+          Users {
             nextToken
           }
           createdAt

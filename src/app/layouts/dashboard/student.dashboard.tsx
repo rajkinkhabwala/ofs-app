@@ -6,14 +6,6 @@ export function Component(){
     const user = useOutletContext<AmplifyUser>();
     const groups = user.getSignInUserSession()?.getAccessToken().payload["cognito:groups"];
 
-    if(groups === undefined){
-        throw json(
-            { message: "You are not authorized" },
-            { status: 401 }
-        );
-        
-    }
-
     if(!groups.includes('Students')){
          
         throw json(
@@ -21,10 +13,6 @@ export function Component(){
             { status: 401 }
         );
     }
-    
-
-    
-    
 
     return(
         <Outlet />

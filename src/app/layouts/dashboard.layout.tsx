@@ -8,7 +8,7 @@ import {
   useMantineTheme,
   Overlay,
 } from '@mantine/core';
-import { Outlet, useLocation } from 'react-router-dom';
+import { Outlet, json, useLocation } from 'react-router-dom';
 import '../styles/_dashboard.scss'
 import AdminNavBar from './navbars/admin.navbar';
 import { useAuthenticator } from '@aws-amplify/ui-react';
@@ -18,9 +18,18 @@ function DashboardLayout() {
   const theme = useMantineTheme();
   const [opened, setOpened] = useState(false);
   const { user } = useAuthenticator((context) => [context.user]);
-  //const groups = user.getSignInUserSession()?.getAccessToken().payload["cognito:groups"];
+  const groups = user.getSignInUserSession()?.getAccessToken().payload["cognito:groups"];
   const location = useLocation();
-  console.log(location)
+  //console.log(location)
+
+  if(groups === undefined){
+    throw json(
+        { message: "Contact Support." },
+        { status: 401 }
+    );
+    
+}
+
   return (
     <AppShell
       styles={{

@@ -1,8 +1,5 @@
-import { createStyles, Navbar, getStylesRef, rem, Anchor } from '@mantine/core';
-import {
-  IconLogout,
-} from '@tabler/icons-react';
-import { NavLink, useLocation } from 'react-router-dom';
+import { createStyles, getStylesRef } from '@mantine/core';
+import { NavLink } from 'react-router-dom';
 import { adminlinks } from '../../constants/navbars/admin-navbars';
 
 const useStyles = createStyles((theme) => ({
@@ -48,11 +45,10 @@ const data = adminlinks;
 
 export function AdminNavBar() {
   const { classes, cx } = useStyles();
-  const location = useLocation();
 
   const links = data.map((item) => (
     <NavLink
-      className={cx(classes.link, { [classes.linkActive]: item.link === location.pathname })}
+      className={({isActive}) => cx(classes.link, { [classes.linkActive]: isActive })}
       to={item.link}
       key={item.link}
     >
