@@ -13,3 +13,4 @@ return useQuery(["departments"], () =>
 export function useDepartmentQuery(id: string) {
   return useQuery(["department",id], () => getDepartment(id));
 }
+
