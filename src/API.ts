@@ -169,7 +169,7 @@ export type Courses = {
   Announcements?: ModelAnnouncementsConnection | null,
   Assignments?: ModelAssignmentsConnection | null,
   departmentsID: string,
-  users?: ModelCoursesUsersConnection | null,
+  Users?: ModelCoursesUsersConnection | null,
   createdAt: string,
   updatedAt: string,
 };
@@ -816,7 +816,7 @@ export type CreateCoursesMutation = {
       nextToken?: string | null,
     } | null,
     departmentsID: string,
-    users?:  {
+    Users?:  {
       __typename: "ModelCoursesUsersConnection",
       items:  Array< {
         __typename: "CoursesUsers",
@@ -919,7 +919,7 @@ export type UpdateCoursesMutation = {
       nextToken?: string | null,
     } | null,
     departmentsID: string,
-    users?:  {
+    Users?:  {
       __typename: "ModelCoursesUsersConnection",
       items:  Array< {
         __typename: "CoursesUsers",
@@ -1022,7 +1022,7 @@ export type DeleteCoursesMutation = {
       nextToken?: string | null,
     } | null,
     departmentsID: string,
-    users?:  {
+    Users?:  {
       __typename: "ModelCoursesUsersConnection",
       items:  Array< {
         __typename: "CoursesUsers",
@@ -1104,7 +1104,7 @@ export type CreateDepartmentsMutation = {
           nextToken?: string | null,
         } | null,
         departmentsID: string,
-        users?:  {
+        Users?:  {
           __typename: "ModelCoursesUsersConnection",
           nextToken?: string | null,
         } | null,
@@ -1153,7 +1153,7 @@ export type UpdateDepartmentsMutation = {
           nextToken?: string | null,
         } | null,
         departmentsID: string,
-        users?:  {
+        Users?:  {
           __typename: "ModelCoursesUsersConnection",
           nextToken?: string | null,
         } | null,
@@ -1202,7 +1202,7 @@ export type DeleteDepartmentsMutation = {
           nextToken?: string | null,
         } | null,
         departmentsID: string,
-        users?:  {
+        Users?:  {
           __typename: "ModelCoursesUsersConnection",
           nextToken?: string | null,
         } | null,
@@ -1693,7 +1693,7 @@ export type CreateCoursesUsersMutation = {
         nextToken?: string | null,
       } | null,
       departmentsID: string,
-      users?:  {
+      Users?:  {
         __typename: "ModelCoursesUsersConnection",
         items:  Array< {
           __typename: "CoursesUsers",
@@ -1812,7 +1812,7 @@ export type UpdateCoursesUsersMutation = {
         nextToken?: string | null,
       } | null,
       departmentsID: string,
-      users?:  {
+      Users?:  {
         __typename: "ModelCoursesUsersConnection",
         items:  Array< {
           __typename: "CoursesUsers",
@@ -1931,7 +1931,7 @@ export type DeleteCoursesUsersMutation = {
         nextToken?: string | null,
       } | null,
       departmentsID: string,
-      users?:  {
+      Users?:  {
         __typename: "ModelCoursesUsersConnection",
         items:  Array< {
           __typename: "CoursesUsers",
@@ -2110,7 +2110,7 @@ export type GetCoursesQuery = {
       nextToken?: string | null,
     } | null,
     departmentsID: string,
-    users?:  {
+    Users?:  {
       __typename: "ModelCoursesUsersConnection",
       items:  Array< {
         __typename: "CoursesUsers",
@@ -2212,7 +2212,7 @@ export type ListCoursesQuery = {
         nextToken?: string | null,
       } | null,
       departmentsID: string,
-      users?:  {
+      Users?:  {
         __typename: "ModelCoursesUsersConnection",
         items:  Array< {
           __typename: "CoursesUsers",
@@ -2288,7 +2288,7 @@ export type CoursesByDepartmentsIDQuery = {
         nextToken?: string | null,
       } | null,
       departmentsID: string,
-      users?:  {
+      Users?:  {
         __typename: "ModelCoursesUsersConnection",
         items:  Array< {
           __typename: "CoursesUsers",
@@ -2341,7 +2341,7 @@ export type GetDepartmentsQuery = {
           nextToken?: string | null,
         } | null,
         departmentsID: string,
-        users?:  {
+        Users?:  {
           __typename: "ModelCoursesUsersConnection",
           nextToken?: string | null,
         } | null,
@@ -2816,7 +2816,7 @@ export type GetCoursesUsersQuery = {
         nextToken?: string | null,
       } | null,
       departmentsID: string,
-      users?:  {
+      Users?:  {
         __typename: "ModelCoursesUsersConnection",
         items:  Array< {
           __typename: "CoursesUsers",
@@ -2913,7 +2913,7 @@ export type ListCoursesUsersQuery = {
           nextToken?: string | null,
         } | null,
         departmentsID: string,
-        users?:  {
+        Users?:  {
           __typename: "ModelCoursesUsersConnection",
           nextToken?: string | null,
         } | null,
@@ -2986,7 +2986,7 @@ export type CoursesUsersByCoursesIdQuery = {
           nextToken?: string | null,
         } | null,
         departmentsID: string,
-        users?:  {
+        Users?:  {
           __typename: "ModelCoursesUsersConnection",
           nextToken?: string | null,
         } | null,
@@ -3059,7 +3059,7 @@ export type CoursesUsersByUsersIdQuery = {
           nextToken?: string | null,
         } | null,
         departmentsID: string,
-        users?:  {
+        Users?:  {
           __typename: "ModelCoursesUsersConnection",
           nextToken?: string | null,
         } | null,
@@ -3198,7 +3198,7 @@ export type OnCreateCoursesSubscription = {
       nextToken?: string | null,
     } | null,
     departmentsID: string,
-    users?:  {
+    Users?:  {
       __typename: "ModelCoursesUsersConnection",
       items:  Array< {
         __typename: "CoursesUsers",
@@ -3300,7 +3300,7 @@ export type OnUpdateCoursesSubscription = {
       nextToken?: string | null,
     } | null,
     departmentsID: string,
-    users?:  {
+    Users?:  {
       __typename: "ModelCoursesUsersConnection",
       items:  Array< {
         __typename: "CoursesUsers",
@@ -3402,7 +3402,7 @@ export type OnDeleteCoursesSubscription = {
       nextToken?: string | null,
     } | null,
     departmentsID: string,
-    users?:  {
+    Users?:  {
       __typename: "ModelCoursesUsersConnection",
       items:  Array< {
         __typename: "CoursesUsers",
@@ -3483,7 +3483,7 @@ export type OnCreateDepartmentsSubscription = {
           nextToken?: string | null,
         } | null,
         departmentsID: string,
-        users?:  {
+        Users?:  {
           __typename: "ModelCoursesUsersConnection",
           nextToken?: string | null,
         } | null,
@@ -3531,7 +3531,7 @@ export type OnUpdateDepartmentsSubscription = {
           nextToken?: string | null,
         } | null,
         departmentsID: string,
-        users?:  {
+        Users?:  {
           __typename: "ModelCoursesUsersConnection",
           nextToken?: string | null,
         } | null,
@@ -3579,7 +3579,7 @@ export type OnDeleteDepartmentsSubscription = {
           nextToken?: string | null,
         } | null,
         departmentsID: string,
-        users?:  {
+        Users?:  {
           __typename: "ModelCoursesUsersConnection",
           nextToken?: string | null,
         } | null,
@@ -4060,7 +4060,7 @@ export type OnCreateCoursesUsersSubscription = {
         nextToken?: string | null,
       } | null,
       departmentsID: string,
-      users?:  {
+      Users?:  {
         __typename: "ModelCoursesUsersConnection",
         items:  Array< {
           __typename: "CoursesUsers",
@@ -4178,7 +4178,7 @@ export type OnUpdateCoursesUsersSubscription = {
         nextToken?: string | null,
       } | null,
       departmentsID: string,
-      users?:  {
+      Users?:  {
         __typename: "ModelCoursesUsersConnection",
         items:  Array< {
           __typename: "CoursesUsers",
@@ -4296,7 +4296,7 @@ export type OnDeleteCoursesUsersSubscription = {
         nextToken?: string | null,
       } | null,
       departmentsID: string,
-      users?:  {
+      Users?:  {
         __typename: "ModelCoursesUsersConnection",
         items:  Array< {
           __typename: "CoursesUsers",

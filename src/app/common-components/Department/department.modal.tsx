@@ -42,7 +42,7 @@ function DepartmentModal({ formType, record}: FormModal<Departments>) {
 
   function handleSubmit(values: CreateDepartmentsInput) {
     createMutation.mutate(values, {
-      onSuccess(data, variables, context) {
+      onSuccess(data, context) {
         
         notifications.show({
           title: "Successful",

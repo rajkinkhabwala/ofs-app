@@ -102,3 +102,22 @@ export async function addToGroup(email: string, groupName: string) {
         }).catch((err) => reject(err));
     }) 
   }  
+
+  export async function listUsersInGroup(groupname: string,limit?: number, nextToken?: string){
+    let apiName = 'AdminQueries';
+    let path = '/listUsersInGroup';
+    let myInit = { 
+        queryStringParameters: {
+          "groupname": groupname,
+          "limit": limit,
+          "token": nextToken
+        },
+        headers: {
+          'Content-Type' : 'application/json',
+          Authorization: `${(await Auth.currentSession()).getAccessToken().getJwtToken()}`
+        }
+    }
+    const { NextToken, ...rest } =  await API.get(apiName, path, myInit);
+    nextToken = NextToken;
+    return rest;
+  }

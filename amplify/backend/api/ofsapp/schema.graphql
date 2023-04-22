@@ -16,14 +16,14 @@ type Courses @model @auth(rules: [{allow: groups, groups: ["Admins"], operations
   course_visibility: Boolean!
   course_start_date: AWSDateTime
   course_end_date: AWSDateTime
-  course_description: AWSJSON
+  course_description: String
   course_image: String
   course_format: CourseFormat
   course_credit: Int
   Announcements: [Announcements] @hasMany(indexName: "byCourses", fields: ["id"])
   Assignments: [Assignments] @hasMany(indexName: "byCourses", fields: ["id"])
   departmentsID: ID! @index(name: "byDepartments")
-  users: [Users] @manyToMany(relationName: "CoursesUsers")
+  Users: [Users] @manyToMany(relationName: "CoursesUsers")
 }
 
 type Departments @model @auth(rules: [{allow: groups, groups: ["Admins"], operations: [read, create, update, delete]}, {allow: groups, groups: ["Owners"], operations: [read, create, update, delete]}, {allow: private, operations: [read]}]) {

@@ -1,8 +1,27 @@
-import { createStyles, getStylesRef } from '@mantine/core';
-import { NavLink } from 'react-router-dom';
+import { createStyles, Navbar, getStylesRef, rem, Anchor } from '@mantine/core';
+import {
+  IconLogout,
+} from '@tabler/icons-react';
+import { NavLink, useLocation } from 'react-router-dom';
 import { adminlinks } from '../../constants/navbars/admin-navbars';
 
 const useStyles = createStyles((theme) => ({
+  header: {
+    paddingBottom: theme.spacing.md,
+    marginBottom: `calc(${theme.spacing.md} * 1.5)`,
+    borderBottom: `${rem(1)} solid ${
+      theme.colorScheme === 'dark' ? theme.colors.dark[4] : theme.colors.gray[2]
+    }`,
+  },
+
+  footer: {
+    paddingTop: theme.spacing.xs,
+    marginTop: theme.spacing.xs,
+    borderTop: `${rem(1)} solid ${
+      theme.colorScheme === 'dark' ? theme.colors.dark[4] : theme.colors.gray[2]
+    }`,
+  },
+
   link: {
     ...theme.fn.focusStyles(),
     display: 'flex',
@@ -43,12 +62,13 @@ const useStyles = createStyles((theme) => ({
 
 const data = adminlinks;
 
-export function AdminNavBar() {
+export function AdminNavBar({burgerVisiblity, user} : any) {
   const { classes, cx } = useStyles();
+  const location = useLocation();
 
   const links = data.map((item) => (
     <NavLink
-      className={({isActive}) => cx(classes.link, { [classes.linkActive]: isActive })}
+      className={cx(classes.link, { [classes.linkActive]: item.link === location.pathname })}
       to={item.link}
       key={item.link}
     >
@@ -57,8 +77,23 @@ export function AdminNavBar() {
     </NavLink>
   ));
 
-  
-  return (<>{links}</>);
+  return (
+    <Navbar p="md" hiddenBreakpoint="sm" hidden={!burgerVisiblity} width={{ sm: 200, lg: 300 }} className="navbar-template">
+      <Navbar.Section grow>
+        {links}
+      </Navbar.Section>
+
+      <Navbar.Section className={classes.footer}>        
+        <Anchor className={classes.link} onClick={() => {
+          user.signOut();
+          window.location.reload();
+        }}>
+          <IconLogout className={classes.linkIcon} stroke={1.5} />
+          <span>Logout</span>
+        </Anchor>
+      </Navbar.Section>
+    </Navbar>
+  );
 }
 
 export default AdminNavBar

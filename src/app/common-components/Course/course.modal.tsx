@@ -16,6 +16,7 @@ import {
 import "../../styles/_modal.scss"
 import { useMutation, useQueryClient } from "react-query";
 import { useListDepartmentQuery } from "../../api/queries/departments/queries.departments";
+import { DatePickerInput } from "@mantine/dates";
 
 
 
@@ -29,6 +30,8 @@ function CourseModal({ formType, record}: FormModal<Courses>) {
         ? {
           course_name: "",
           course_code: "",
+          course_start_date: "",
+          course_end_date: "",
           course_visibility: false,
           departmentsID: ""
         }
@@ -36,6 +39,8 @@ function CourseModal({ formType, record}: FormModal<Courses>) {
           id: record?.id,
           course_name: record?.course_name,
           course_code: record?.course_code,
+          course_start_date: "",
+          course_end_date: "",
           course_visibility: record?.course_visibility,
           departmentsID: record?.departmentsID
         },
@@ -125,6 +130,19 @@ function CourseModal({ formType, record}: FormModal<Courses>) {
          data={isLoading ? [] : data?.items.map((el: Departments) => ({value: el.id, label: el.department_name, selected: record ? record : null})
        )}
        />
+
+<DatePickerInput
+      label="Pick start date"
+      placeholder="Pick start date"
+      {...form.getInputProps("course_start_date")}
+      required
+    />
+    <DatePickerInput
+      label="Pick end date"
+      placeholder="Pick end date"
+      {...form.getInputProps("course_end_date")}
+      required
+    />
         
         <Group position="right" mt="md">
           <Button type="submit">Submit</Button>
