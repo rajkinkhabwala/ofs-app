@@ -96,7 +96,7 @@ export const createCourses = /* GraphQL */ `
         nextToken
       }
       departmentsID
-      users {
+      Users {
         items {
           id
           coursesId
@@ -188,7 +188,7 @@ export const updateCourses = /* GraphQL */ `
         nextToken
       }
       departmentsID
-      users {
+      Users {
         items {
           id
           coursesId
@@ -280,7 +280,7 @@ export const deleteCourses = /* GraphQL */ `
         nextToken
       }
       departmentsID
-      users {
+      Users {
         items {
           id
           coursesId
@@ -352,7 +352,7 @@ export const createDepartments = /* GraphQL */ `
             nextToken
           }
           departmentsID
-          users {
+          Users {
             nextToken
           }
           createdAt
@@ -394,7 +394,7 @@ export const updateDepartments = /* GraphQL */ `
             nextToken
           }
           departmentsID
-          users {
+          Users {
             nextToken
           }
           createdAt
@@ -436,7 +436,7 @@ export const deleteDepartments = /* GraphQL */ `
             nextToken
           }
           departmentsID
-          users {
+          Users {
             nextToken
           }
           createdAt
@@ -877,7 +877,7 @@ export const createCoursesUsers = /* GraphQL */ `
           nextToken
         }
         departmentsID
-        users {
+        Users {
           items {
             id
             coursesId
@@ -982,7 +982,7 @@ export const updateCoursesUsers = /* GraphQL */ `
           nextToken
         }
         departmentsID
-        users {
+        Users {
           items {
             id
             coursesId
@@ -1087,7 +1087,7 @@ export const deleteCoursesUsers = /* GraphQL */ `
           nextToken
         }
         departmentsID
-        users {
+        Users {
           items {
             id
             coursesId

@@ -43,7 +43,7 @@ const route = createBrowserRouter([
                     {
                         path: 'assignments/:id',
                         lazy: () => import('./page-components/Assignment/singleassignment.component')
-                    },
+                    }
                    
                 ],
                 errorElement: <ErrorComponent /> 

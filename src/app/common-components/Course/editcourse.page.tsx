@@ -20,7 +20,8 @@ import {
   Image,
   SimpleGrid,
   Overlay,
-  AspectRatio
+  AspectRatio,
+  rem
 } from "@mantine/core";
 import {Storage} from "aws-amplify";
 import { useListDepartmentQuery } from "../../api/queries/departments/queries.departments";
@@ -37,6 +38,7 @@ import { Dropzone, FileWithPath, IMAGE_MIME_TYPE } from '@mantine/dropzone';
 import { useMutation } from "react-query";
 import { updateCourse } from "../../api/graphql/courses/api.course";
 import { notifications } from "@mantine/notifications";
+import dayjs from "dayjs";
 
 interface EditCourse {
   record: GraphQLResult<GraphQLQuery<GetCoursesQuery>> | undefined;
@@ -59,6 +61,7 @@ export default function EditCourse({ record }: EditCourse) {
     },
   });
 
+
   const { data, isError, isLoading} = useListDepartmentQuery();
 
   const editor = useEditor({
@@ -75,6 +78,7 @@ export default function EditCourse({ record }: EditCourse) {
     onUpdate(props) {
         form.setFieldValue('course_description', JSON.stringify(props.editor.getJSON()))
     },
+    editable: true,
   });
 
   const editCourseMutation = useMutation({
@@ -167,7 +171,7 @@ export default function EditCourse({ record }: EditCourse) {
         {...form.getInputProps("course_credit")}
       />
 
-<RichTextEditor editor={editor}>
+<RichTextEditor editor={editor} styles={{ content: {height: rem(400)}}}>
       <RichTextEditor.Toolbar sticky stickyOffset={60}>
         <RichTextEditor.ControlsGroup>
           <RichTextEditor.Bold />
@@ -213,13 +217,19 @@ export default function EditCourse({ record }: EditCourse) {
     <DatePickerInput
       label="Pick start date"
       placeholder="Pick start date"
-      {...form.getInputProps("course_start_date")}
+      value={form.values.course_start_date === null ? dayjs(new Date()).toDate() : new Date(form.values.course_start_date!)}
+      onChange={(value) => {
+        form.setFieldValue('course_start_date', value?.toISOString())
+      }}
       required
     />
     <DatePickerInput
       label="Pick end date"
       placeholder="Pick end date"
-      {...form.getInputProps("course_end_date")}
+      value={form.values.course_end_date === null ? dayjs(new Date()).add(1, 'day').toDate() : new Date(form.values.course_end_date!)}
+      onChange={(value) => {
+        form.setFieldValue('course_end_date', value?.toISOString())
+      }}
       required
     />
     <Select
@@ -251,5 +261,4 @@ export default function EditCourse({ record }: EditCourse) {
     </>
   );
 }
-
 
