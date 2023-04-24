@@ -16,7 +16,7 @@ export function Component() {
 
   if(isError) {
     return(
-      <ErrorComponent error={error} />
+      <ErrorComponent />
     )
   }
 
