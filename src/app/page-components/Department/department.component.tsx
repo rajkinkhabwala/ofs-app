@@ -1,24 +1,15 @@
-import { Title } from "@mantine/core";
 import DepartmentTable from "../../common-components/Department/department.table";
-import { ErrorComponent } from "../../common-components/Errors/Error/Error.component";
 import { useListDepartmentQuery } from "../../api/queries/departments/queries.departments";
+import { Page } from "../../common-components/Page/Page.component";
 
 export function Component() {
   
-  const { data, isLoading, error, isError } = useListDepartmentQuery();
-  
-  if(isError) {
-    return(
-      <ErrorComponent />
-    )
-  }
-  
+  const { data, isLoading } = useListDepartmentQuery();
 
   return (
-    <>
-      <Title order={1}>Departments</Title>
-      <DepartmentTable data={data} isLoading={isLoading} enableHeader={true} /> 
-    </>
+    <Page title="Departments">
+      <DepartmentTable data={data} isLoading={isLoading} enableHeader={true} />
+    </Page> 
   );
 }
 

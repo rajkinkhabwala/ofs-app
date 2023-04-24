@@ -2,7 +2,7 @@ import { useQuery } from "react-query";
 import { getAssignment, listAssignment } from "../../graphql/assignments/api.assignment";
 
 export function useListAssignmentQuery() {
-return useQuery(["courses"], () =>
+return useQuery(["assignments"], () =>
     listAssignment(),
     {
     refetchOnWindowFocus: false,
@@ -11,6 +11,6 @@ return useQuery(["courses"], () =>
 }
 
 export function useAssignmentQuery(id: string) {
-  return useQuery(["course",id], () => getAssignment(id));
+  return useQuery(["assignment",id], () => getAssignment(id));
 }
 

@@ -46,17 +46,21 @@ const route = createBrowserRouter([
                     }
                    
                 ],
-                errorElement: <ErrorComponent /> 
+             
         },
-            {
-                path: "student/",
-                lazy: () => import('./layouts/dashboard/student.dashboard'),
-                children:[
-                    // Add Routes Over here
-                ]
+        {
+            path: "student/",
+            lazy: () => import('./layouts/dashboard/student.dashboard'),
+            children:[
+                // Add Routes Over here
+            ]
 
 
-            },
+        },
+        {
+            path: "teacher/",
+        }
+
         ],
         errorElement: <ErrorComponent />
     },

@@ -61,7 +61,7 @@ export default function EditCourse({ record }: EditCourse) {
     },
   });
 
-
+  console.log(record)
   const { data, isError, isLoading} = useListDepartmentQuery();
 
   const editor = useEditor({
@@ -76,9 +76,12 @@ export default function EditCourse({ record }: EditCourse) {
     ],
     content: form.values.course_description,
     onUpdate(props) {
-        form.setFieldValue('course_description', JSON.stringify(props.editor.getJSON()))
+        form.setFieldValue('course_description', JSON.stringify(props.editor.getHTML()))
     },
+    autofocus: false,
     editable: true,
+    injectCSS: false,
+    
   });
 
   const editCourseMutation = useMutation({
@@ -96,10 +99,10 @@ export default function EditCourse({ record }: EditCourse) {
   function handleSubmit(){
     console.log(form.values)
     Storage.put(form.values.course_image!, files[0]).then((value) => {
-      console.log(value);
-      form.onSubmit((values) => {
-        editCourseMutation.mutate(values);
-      })
+    })
+
+    form.onSubmit((values) => {
+      editCourseMutation.mutate(values);
     })
     
   }

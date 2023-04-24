@@ -1,30 +1,22 @@
-import { Title } from "@mantine/core";
-import { useQuery } from "react-query";
-import { listCourse } from "../../api/graphql/courses/api.course";
 import CourseTable from "../../common-components/Course/course.table";
-import { ErrorComponent } from "../../common-components/Errors/Error/Error.component";
+import { useListCourseQuery } from "../../api/queries/courses/queries.courses";
+import { Page } from "../../common-components/Page/Page.component";
+import { json } from "react-router-dom";
 
 export function Component() {
-  // const { data, isLoading, error, isError, refetch, isFetching, status } = useQuery(["course"], () =>
-    const { data, isLoading, error, isError} = useQuery(["courses"], () =>
-    listCourse(),
-    {
-    refetchOnWindowFocus: false,
+    const { data, isLoading, isError, error} = useListCourseQuery();
+
+    if(isError){
+      json(
+        {message: error},
+        {status: 500}
+      )
     }
-  );
 
-  if(isError) {
-    return(
-      <ErrorComponent />
-    )
-  }
-
-  console.log(data)
   return (
-    <>
-      <Title order={1}>Courses</Title>
+    <Page title="Courses">
       <CourseTable data={data} isLoading={isLoading} enableHeader={true} />
-    </>
+    </Page>
   );
 }
 

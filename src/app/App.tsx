@@ -18,11 +18,13 @@ function App() {
       <ModalsProvider>
         
           {route === "authenticated" ? (
-            
-              <><Notifications /><RouterProvider
-            router={router}
-            fallbackElement={<NavigationProgress autoReset progressLabel="Loading Page" />} /></>
-          ) : (
+              <>
+          <Notifications />
+            <RouterProvider
+              router={router}
+              fallbackElement={<NavigationProgress autoReset progressLabel="Loading Page" /> } />
+              </>
+            ) : (
             <div className="login-template">
               <Authenticator
                 signUpAttributes={["email", "name", "phone_number"]}
