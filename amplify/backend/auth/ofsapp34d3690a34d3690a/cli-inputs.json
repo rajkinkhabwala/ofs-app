@@ -27,30 +27,25 @@
     "aliasAttributes": [],
     "userpoolClientGenerateSecret": false,
     "userpoolClientRefreshTokenValidity": 30,
-    "userpoolClientWriteAttributes": [
-      "email"
-    ],
-    "userpoolClientReadAttributes": [
-      "email"
-    ],
+    "userpoolClientWriteAttributes": [],
+    "userpoolClientReadAttributes": [],
     "userpoolClientLambdaRole": "ofsapp34d3690a_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
     "sharedId": "34d3690a",
     "resourceName": "ofsapp34d3690a34d3690a",
     "authSelections": "identityPoolAndUserPool",
     "useDefault": "manual",
-    "thirdPartyAuth": false,
     "usernameAttributes": [
       "email"
     ],
-    "userPoolGroups": false,
+    "userPoolGroups": true,
     "adminQueries": true,
     "triggers": {
       "PostConfirmation": [
         "custom"
       ]
     },
-    "hostedUI": false,
+    "hostedUI": true,
     "userPoolGroupList": [
       "Admins",
       "Owners",
@@ -85,11 +80,20 @@
         ]
       }
     ],
-    "authProviders": [],
     "parentStack": {
       "Ref": "AWS::StackId"
     },
     "authTriggerConnections": "[\n  {\n    \"triggerType\": \"PostConfirmation\",\n    \"lambdaFunctionName\": \"ofsapp34d3690a34d3690aPostConfirmation\"\n  }\n]",
-    "permissions": []
+    "permissions": [],
+    "hostedUIDomainName": "ofs",
+    "authProvidersUserPool": [
+      "Google"
+    ],
+    "hostedUIProviderMeta": "[{\"ProviderName\":\"Google\",\"authorize_scopes\":\"openid email profile\",\"AttributeMapping\":{\"email\":\"email\",\"name\":\"name\",\"phone_number\":\"phoneNumbers\",\"username\":\"sub\"}}]",
+    "authProviders": [
+      "accounts.google.com"
+    ],
+    "thirdPartyAuth": true,
+    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"implicit\"],\"AllowedOAuthScopes\":[\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"http://localhost:3000/\",\"http://localhost:3001\",\"http://localhost:3001/\"],\"LogoutURLs\":[\"http://localhost:3000/\",\"http://localhost:3001/\"]}"
   }
 }

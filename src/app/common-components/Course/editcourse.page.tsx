@@ -21,24 +21,26 @@ import {
   SimpleGrid,
   Overlay,
   AspectRatio,
-  rem
+  rem,
 } from "@mantine/core";
-import {Storage} from "aws-amplify";
+import { Storage } from "aws-amplify";
 import { useListDepartmentQuery } from "../../api/queries/departments/queries.departments";
-import {RichTextEditor, Link} from "@mantine/tiptap";
-import { useEditor } from '@tiptap/react';
-import Highlight from '@tiptap/extension-highlight';
-import StarterKit from '@tiptap/starter-kit';
-import Underline from '@tiptap/extension-underline';
-import TextAlign from '@tiptap/extension-text-align';
-import Superscript from '@tiptap/extension-superscript';
-import SubScript from '@tiptap/extension-subscript';
+import { RichTextEditor, Link } from "@mantine/tiptap";
+import { useEditor } from "@tiptap/react";
+import Highlight from "@tiptap/extension-highlight";
+import StarterKit from "@tiptap/starter-kit";
+import Underline from "@tiptap/extension-underline";
+import TextAlign from "@tiptap/extension-text-align";
+import Superscript from "@tiptap/extension-superscript";
+import SubScript from "@tiptap/extension-subscript";
 import { DatePickerInput } from "@mantine/dates";
-import { Dropzone, FileWithPath, IMAGE_MIME_TYPE } from '@mantine/dropzone';
+import { Dropzone, FileWithPath, IMAGE_MIME_TYPE } from "@mantine/dropzone";
 import { useMutation } from "react-query";
 import { updateCourse } from "../../api/graphql/courses/api.course";
 import { notifications } from "@mantine/notifications";
 import dayjs from "dayjs";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 interface EditCourse {
   record: GraphQLResult<GraphQLQuery<GetCoursesQuery>> | undefined;
@@ -61,8 +63,8 @@ export default function EditCourse({ record }: EditCourse) {
     },
   });
 
-  console.log(record)
-  const { data, isError, isLoading} = useListDepartmentQuery();
+  console.log(record);
+  const { data, isError, isLoading } = useListDepartmentQuery();
 
   const editor = useEditor({
     extensions: [
@@ -72,16 +74,18 @@ export default function EditCourse({ record }: EditCourse) {
       Superscript,
       SubScript,
       Highlight,
-      TextAlign.configure({ types: ['heading', 'paragraph'] }),
+      TextAlign.configure({ types: ["heading", "paragraph"] }),
     ],
     content: form.values.course_description,
     onUpdate(props) {
-        form.setFieldValue('course_description', JSON.stringify(props.editor.getHTML()))
+      form.setFieldValue(
+        "course_description",
+        JSON.stringify(props.editor.getHTML())
+      );
     },
     autofocus: false,
     editable: true,
     injectCSS: false,
-    
   });
 
   const editCourseMutation = useMutation({
@@ -94,17 +98,15 @@ export default function EditCourse({ record }: EditCourse) {
         color: "green",
       });
     },
-  })
+  });
 
-  function handleSubmit(){
-    console.log(form.values)
-    Storage.put(form.values.course_image!, files[0]).then((value) => {
-    })
+  function handleSubmit() {
+    console.log(form.values);
+    Storage.put(form.values.course_image!, files[0]).then((value) => {});
 
     form.onSubmit((values) => {
       editCourseMutation.mutate(values);
-    })
-    
+    });
   }
 
   const [files, setFiles] = useState<FileWithPath[]>([]);
@@ -113,16 +115,13 @@ export default function EditCourse({ record }: EditCourse) {
   const previews = files.map((file, index) => {
     const imageUrl = URL.createObjectURL(file);
     return (
-        <Image
+      <Image
         key={index}
         src={imageUrl}
-        imageProps={{ onLoad: () => URL.revokeObjectURL(imageUrl)
-        }}
+        imageProps={{ onLoad: () => URL.revokeObjectURL(imageUrl) }}
       />
     );
   });
-
-  
 
   return (
     <>
@@ -174,94 +173,76 @@ export default function EditCourse({ record }: EditCourse) {
         {...form.getInputProps("course_credit")}
       />
 
-<RichTextEditor editor={editor} styles={{ content: {height: rem(400)}}}>
-      <RichTextEditor.Toolbar sticky stickyOffset={60}>
-        <RichTextEditor.ControlsGroup>
-          <RichTextEditor.Bold />
-          <RichTextEditor.Italic />
-          <RichTextEditor.Underline />
-          <RichTextEditor.Strikethrough />
-          <RichTextEditor.ClearFormatting />
-          <RichTextEditor.Highlight />
-          <RichTextEditor.Code />
-        </RichTextEditor.ControlsGroup>
-
-        <RichTextEditor.ControlsGroup>
-          <RichTextEditor.H1 />
-          <RichTextEditor.H2 />
-          <RichTextEditor.H3 />
-          <RichTextEditor.H4 />
-        </RichTextEditor.ControlsGroup>
-
-        <RichTextEditor.ControlsGroup>
-          <RichTextEditor.Blockquote />
-          <RichTextEditor.Hr />
-          <RichTextEditor.BulletList />
-          <RichTextEditor.OrderedList />
-          <RichTextEditor.Subscript />
-          <RichTextEditor.Superscript />
-        </RichTextEditor.ControlsGroup>
-
-        <RichTextEditor.ControlsGroup>
-          <RichTextEditor.Link />
-          <RichTextEditor.Unlink />
-        </RichTextEditor.ControlsGroup>
-
-        <RichTextEditor.ControlsGroup>
-          <RichTextEditor.AlignLeft />
-          <RichTextEditor.AlignCenter />
-          <RichTextEditor.AlignJustify />
-          <RichTextEditor.AlignRight />
-        </RichTextEditor.ControlsGroup>
-      </RichTextEditor.Toolbar>
-
-      <RichTextEditor.Content />
-    </RichTextEditor>
-    <DatePickerInput
-      label="Pick start date"
-      placeholder="Pick start date"
-      value={form.values.course_start_date === null ? dayjs(new Date()).toDate() : new Date(form.values.course_start_date!)}
-      onChange={(value) => {
-        form.setFieldValue('course_start_date', value?.toISOString())
-      }}
-      required
-    />
-    <DatePickerInput
-      label="Pick end date"
-      placeholder="Pick end date"
-      value={form.values.course_end_date === null ? dayjs(new Date()).add(1, 'day').toDate() : new Date(form.values.course_end_date!)}
-      onChange={(value) => {
-        form.setFieldValue('course_end_date', value?.toISOString())
-      }}
-      required
-    />
-    <Select
+      <CKEditor
+        editor={ClassicEditor}
+        data="<p>Hello from CKEditor 5!</p>"
+        onReady={(editor) => {
+          // You can store the "editor" and use when it is needed.
+          console.log("Editor is ready to use!", editor);
+        }}
+        onChange={(event, editor) => {
+          const data = editor.getData();
+          console.log({ event, editor, data });
+        }}
+        onBlur={(event, editor) => {
+          console.log("Blur.", editor);
+        }}
+        onFocus={(event, editor) => {
+          console.log("Focus.", editor);
+        }}
+      />
+      <DatePickerInput
+        label="Pick start date"
+        placeholder="Pick start date"
+        value={
+          form.values.course_start_date === null
+            ? dayjs(new Date()).toDate()
+            : new Date(form.values.course_start_date!)
+        }
+        onChange={(value) => {
+          form.setFieldValue("course_start_date", value?.toISOString());
+        }}
+        required
+      />
+      <DatePickerInput
+        label="Pick end date"
+        placeholder="Pick end date"
+        value={
+          form.values.course_end_date === null
+            ? dayjs(new Date()).add(1, "day").toDate()
+            : new Date(form.values.course_end_date!)
+        }
+        onChange={(value) => {
+          form.setFieldValue("course_end_date", value?.toISOString());
+        }}
+        required
+      />
+      <Select
         {...form.getInputProps("course_format")}
         label="Course Format"
         rightSection={isLoading ? <Loader /> : null}
         error={isError ?? "Data is not fetch!"}
         placeholder="Pick a format"
-        data={[{value: 'WEEKY', label: 'Weekly'}]}
+        data={[{ value: "WEEKY", label: "Weekly" }]}
       />
-      <Dropzone onDrop={(files) => {
-        form.setFieldValue('course_image', files[0].path)
-        setFiles(files);
-        
-      }}
-      accept={IMAGE_MIME_TYPE}
-      >
-      </Dropzone>
+      <Dropzone
+        onDrop={(files) => {
+          form.setFieldValue("course_image", files[0].path);
+          setFiles(files);
+        } }
+        accept={IMAGE_MIME_TYPE} children={undefined}/>
       <SimpleGrid
         cols={4}
-        breakpoints={[{ maxWidth: 'sm', cols: 1 }]}
-        mt={previews.length > 0 ? 'xl' : 0}
+        breakpoints={[{ maxWidth: "sm", cols: 1 }]}
+        mt={previews.length > 0 ? "xl" : 0}
       >
         {previews}
       </SimpleGrid>
       <Group position="right" mt="md">
-        <Button type="button" onClick={handleSubmit}>Submit</Button>
+        <Button type="button" onClick={handleSubmit}>
+          Submit
+        </Button>
       </Group>
     </>
   );
 }
-

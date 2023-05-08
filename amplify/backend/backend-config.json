@@ -86,7 +86,9 @@
           "NAME",
           "PHONE_NUMBER"
         ],
-        "socialProviders": [],
+        "socialProviders": [
+          "GOOGLE"
+        ],
         "usernameAttributes": [
           "EMAIL"
         ],
@@ -136,6 +138,14 @@
     }
   },
   "parameters": {
+    "AMPLIFY_auth_ofsapp34d3690a34d3690a_googleClientId": {
+      "usedBy": [
+        {
+          "category": "auth",
+          "resourceName": "ofsapp34d3690a34d3690a"
+        }
+      ]
+    },
     "AMPLIFY_function_AdminQueriesc70cc6d6_deploymentBucketName": {
       "usedBy": [
         {

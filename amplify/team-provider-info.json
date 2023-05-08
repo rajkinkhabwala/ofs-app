@@ -24,7 +24,9 @@
         }
       },
       "auth": {
-        "ofsapp34d3690a34d3690a": {},
+        "ofsapp34d3690a34d3690a": {
+          "googleClientId": "396573244367-6q8gmta6nemeue9op25ptep7bpgk2bj5.apps.googleusercontent.com"
+        },
         "userPoolGroups": {}
       },
       "storage": {
